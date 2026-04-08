@@ -4,13 +4,17 @@ Official template registry for [texforge](https://github.com/JheisonMB/texforge)
 
 ## Available Templates
 
+All templates support **multi-language output** via the `{{language}}` placeholder. Supported languages: English, Spanish, French, German, Italian, Portuguese.
+
 | Template | Description |
 |----------|-------------|
 | `general` | Generic article — minimal setup for any document |
+| `article` | Simple article — clean, portable academic article |
+| `report` | University report — structured academic report template |
 | `apa-general` | APA 7th edition — academic reports and theses |
-| `apa-unisalle` | APA for Universidad de La Salle — thesis proposal format |
+| `apa-unisalle` | APA for Universidad de La Salle — thesis proposal |
 | `ieee` | IEEE journal format — technical papers |
-| `letter` | Formal letter — Spanish business correspondence |
+| `letter` | Formal letter — professional correspondence |
 
 ## Usage
 
@@ -19,10 +23,13 @@ Official template registry for [texforge](https://github.com/JheisonMB/texforge)
 texforge new my-project
 
 # Create a project with a specific template
-texforge new my-thesis -t apa-general
+texforge new my-article -t article
 
-# Add a template to local cache
-texforge template add apa-unisalle
+# Interactive wizard to set language and other placeholders
+texforge init
+
+# Build a project
+texforge build
 ```
 
 ## Template Structure

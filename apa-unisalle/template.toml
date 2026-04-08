@@ -1,14 +1,61 @@
-[metadata]
-nombre = "apa-unisalle"
-descripcion = "APA para Universidad de La Salle — propuesta de tesis"
-idioma = "es"
-tipo = "thesis"
+id = "apa-unisalle"
+version = "0.1.0"
+display_name = "APA Unisalle"
+description = "APA format for Universidad de La Salle — thesis proposal"
 
-[variables]
-requeridas = ["titulo", "autor", "director", "programa"]
-opcionales = ["codigo", "correo"]
+[files]
+include = ["**/*.tex", "**/*.bib"]
+exclude = []
 
-[compatibilidad]
-mermaid = false
-graphviz = false
-bibliografia = "bibtex"
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Project title"
+required = true
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Main author"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "director"
+type = "string"
+description = "Thesis advisor"
+required = true
+
+[[placeholders]]
+name = "program"
+type = "string"
+description = "Academic program"
+required = true
+
+[[placeholders]]
+name = "code"
+type = "string"
+description = "Student ID"
+required = false
+
+[[placeholders]]
+name = "email"
+type = "string"
+description = "Email address"
+required = false
+default = "email@domain.com"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language (for babel/polyglossia)"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "install-packages"
+description = "Install LaTeX packages if needed"
+command = "texforge build"
+optional = true
+

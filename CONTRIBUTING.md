@@ -48,10 +48,10 @@ default = "{{user.name}}"                # can reference config: {{user.name}}, 
 [[placeholders]]
 name = "language"
 type = "enum"
-description = "Document language"
-required = false
-choices = ["es", "en", "fr"]
-default = "es"
+description = "Document language (for babel/polyglossia)"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
 
 [[post_generate]]
 name = "build"
@@ -66,7 +66,7 @@ optional = true                          # user can skip this script
 |------|---------|-------|
 | `string` | `title = "My Document"` | Free-form text |
 | `boolean` | `draft = true` | true or false |
-| `enum` | `language = "es"` | Must have `choices` array |
+| `enum` | `language = "english"` | Must have `choices` array |
 
 ### Default Value Interpolation
 
@@ -98,17 +98,47 @@ When generating a project, placeholders are resolved in this order:
 4. **Template defaults** — values in this `template.toml`
 5. **Interactive prompt** — if required and no value found in chain above
 
+## Multi-Language Support
+
+All templates should include a `language` placeholder to support multi-language output via babel/polyglossia:
+
+```latex
+\usepackage[{{language}}]{babel}
+```
+
+Recommended language choices in `template.toml`:
+
+```toml
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language (for babel/polyglossia)"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+```
+
+### Template Content Language
+
+To ensure portability and broad usability:
+- Write all template example text in **English**
+- Use placeholder values that are language-agnostic
+- Avoid hardcoding language-specific strings in the template content (e.g., instead of hardcoding "Introduction", use placeholders or rely on babel's auto-translation)
+
 ## Placeholder Usage in Templates
 
 Use `{{placeholder_name}}` in `.tex` files for substitution:
 
 ```latex
+\documentclass[a4paper,12pt]{article}
+\usepackage[{{language}}]{babel}
+
 \title{{{title}}}
 \author{{{author}}}
 \date{{{date}}}
 ```
 
-The texforge generator will replace `{{title}}` with the resolved value.
+The texforge generator will replace `{{language}}` with the user's configured language, and other placeholders with their resolved values.
 
 ### Rules
 
@@ -174,7 +204,7 @@ optional = true
 ## Submitting a Template
 
 1. **Create your template** following the structure above
-2. **Update `registry.toml`**:
+2. **Update `registry.toml`** (alphabetically sorted):
 
 ```toml
 [[templates]]
@@ -183,11 +213,15 @@ descripcion = "Short description of the template"
 version = "1.0.0"
 ```
 
-3. **Validate**: Run `texforge template validate ./my-template` (coming in Phase 2)
-4. **Test generation**: Create a test project and verify placeholders are substituted correctly
+3. **Validate**: Run `texforge fmt` to format your template files
+4. **Test generation**: Create a test project and verify:
+   - All placeholders are correctly substituted
+   - Language switching works via the `{{language}}` placeholder
+   - PDF generation succeeds with `texforge build`
 5. **Open a PR** with a description of:
    - What use case the template addresses
    - Any special placeholders or features
+   - Languages supported
    - Whether it requires specific LaTeX packages beyond standard distributions
 
 ## Questions

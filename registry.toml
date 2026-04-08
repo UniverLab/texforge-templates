@@ -1,24 +1,34 @@
 [[templates]]
 nombre = "general"
-descripcion = "Documento genérico — artículo con estructura mínima"
+descripcion = "Generic article — minimal setup for any document"
 version = "0.1.0"
 
 [[templates]]
 nombre = "apa-general"
-descripcion = "APA 7ma edición — reportes académicos y tesis"
+descripcion = "APA 7th edition — academic reports and theses"
 version = "0.1.0"
 
 [[templates]]
 nombre = "apa-unisalle"
-descripcion = "APA para Universidad de La Salle — propuesta de tesis"
+descripcion = "APA for Universidad de La Salle — thesis proposal format"
 version = "0.1.0"
 
 [[templates]]
 nombre = "ieee"
-descripcion = "IEEE journal — artículos técnicos"
+descripcion = "IEEE journal format — technical papers"
 version = "0.1.0"
 
 [[templates]]
 nombre = "letter"
-descripcion = "Carta formal — correspondencia empresarial en español"
+descripcion = "Formal letter template — professional correspondence"
+version = "0.1.0"
+
+[[templates]]
+nombre = "article"
+descripcion = "Simple article — clean, portable academic article"
+version = "0.1.0"
+
+[[templates]]
+nombre = "report"
+descripcion = "University report — structured academic report template"
 version = "0.1.0"

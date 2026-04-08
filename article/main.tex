@@ -1,20 +1,13 @@
-% General Article Template
+% Simple Article Template
 \documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[{{language}}]{babel}
 \usepackage{amsmath,amssymb}
-\usepackage{float}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{geometry}
-\usepackage{fancyhdr}
-
 \geometry{margin=2.5cm}
-
-\pagestyle{fancy}
-\fancyhf{}
-\cfoot{\thepage}
 
 \title{{{title}}}
 \author{{{author}}}
@@ -31,13 +24,13 @@ Write your abstract here.
 \section{Introduction}
 Your introduction goes here.
 
-\subsection{Background}
-Provide background context.
-
 \section{Main Content}
 Expand your main content here.
 
 \section{Conclusion}
-Summarize your key findings.
+Summarize your findings here.
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}

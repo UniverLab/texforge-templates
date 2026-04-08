@@ -1,7 +1,7 @@
-id = "ieee"
+id = "article"
 version = "0.1.0"
-display_name = "IEEE Journal"
-description = "IEEE journal format — technical papers"
+display_name = "Article"
+description = "A clean, portable template for academic articles in English. Uses {{language}} for babel/polyglossia."
 
 [files]
 include = ["**/*.tex", "**/*.bib"]
@@ -19,13 +19,6 @@ type = "string"
 description = "Main author"
 required = true
 default = "{{user.name}}"
-
-[[placeholders]]
-name = "email"
-type = "string"
-description = "Author email"
-required = false
-default = "email@domain.com"
 
 [[placeholders]]
 name = "date"
@@ -47,4 +40,3 @@ name = "install-packages"
 description = "Install LaTeX packages if needed"
 command = "texforge build"
 optional = true
-

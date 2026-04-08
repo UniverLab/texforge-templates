@@ -1,9 +1,7 @@
-%% main.tex - Plantilla Carta Formal
-%% Basado en: carta/carta.tex
-
+% Formal Letter Template
 \documentclass[12pt,letterpaper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel}
+\usepackage[{{language}}]{babel}
 \usepackage{geometry}
 \usepackage{setspace}
 \usepackage{csquotes}
@@ -14,68 +12,51 @@
 \begin{document}
 
 \begin{flushright}
-Ciudad, \Today
+\today
 \end{flushright}
 
 \vspace{0.5cm}
 
 \noindent
-Señores\\
-\textbf{NOMBRE DEL DESTINATARIO}\\
-Cargo o Departamento\\
-Ciudad\\\
+To Whom It May Concern\\
+\textbf{Recipient Organization}\\
+Department Name\\
+City, Country\\\
 
 \vspace{0.5cm}
 
-\noindent \textbf{ASUNTO:} Asunto de la carta
+\noindent \textbf{Subject:} {{{title}}}
 
 \vspace{0.5cm}
 
-\noindent Respetados señores:
+\noindent Dear Sir/Madam:
 
 \vspace{0.3cm}
 
-\noindent Escriba su introducción aquí. Indique el propósito de la carta
-de manera clara y concisa.
+\noindent Write your introduction here. Clearly state the purpose of the letter.
 
-\vspace{0.3cm}
+\vspace{0.5cm}
 
-\noindent\textbf{HECHOS}
-
-\begin{enumerate}
-    \item Hecho 1
-    \item Hecho 2
-    \item Hecho 3
-\end{enumerate}
-
-\noindent\textbf{FUNDAMENTOS JURÍDICOS}
-\textit{(Si aplica)}
+\noindent\textbf{Main Points}
 
 \begin{enumerate}
-    \item Fundamento legal 1
-    \item Fundamento legal 2
+    \item First point
+    \item Second point
+    \item Third point
 \end{enumerate}
 
-\noindent\textbf{PETICIONES}
+\vspace{0.5cm}
 
-\begin{enumerate}
-    \item Primera petición
-    \item Segunda petición
-\end{enumerate}
-
-\vspace{1cm}
-
-Agradezco la atención prestada a la presente.
+\noindent Thank you for your attention to this matter. I look forward to your response.
 
 \vspace{1.5cm}
 
-\noindent Cordialmente,
+\noindent Sincerely,
 
 \vspace{1cm}
 
-\noindent\textbf{Nombre Completo}\\
-C.C. Número de cédula\\
-Correo: email@correo.com\\
-Teléfono: 3001234567
+\noindent\textbf{{{author}}}\\
+Email: email@domain.com\\
+Phone: +1-234-567-8900
 
 \end{document}

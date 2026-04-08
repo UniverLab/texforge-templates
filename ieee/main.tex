@@ -1,44 +1,44 @@
 \documentclass[10pt,journal]{IEEEtran}
-\usepackage[spanish]{babel}
+\usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
+\usepackage{amsmath,amssymb}
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage[pdfauthor={Author Name},pdftitle={Project Title},colorlinks,linkcolor=blue,citecolor=green,urlcolor=cyan]{hyperref}
+\usepackage[pdfauthor={{{author}}},pdftitle={{{title}}},colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 
 \begin{document}
 
-\title{Project Title}
+\title{{{title}}}
 \author{
-    Author Name\\
+    {{{author}}}\\
     \textit{Department, University}\\
-    \IEEEmembership{author@university.edu}
+    \IEEEmembership{{{email}}}
 }
 \maketitle
-\markboth{Document Type. Month Year}{}
+\markboth{Technical Paper. {{{date}}}}{}
 
 \begin{abstract}
-Abstract text goes here.
+Write your abstract here. Include the key findings and contributions of your research.
 \end{abstract}
 
 \section{Introduction}
-% TODO: Introduction
+Provide context and motivation for your research.
 
 \section{Background}
-% TODO: Background
+Discuss relevant prior work and related research.
 
-\section{Methodology}
-% TODO: Methodology
+\section{Proposed Method}
+Describe your novel approach or methodology.
 
-\section{Results}
-% TODO: Results
+\section{Results and Discussion}
+Present your experimental results and analysis.
 
 \section{Conclusion}
-% TODO: Conclusion
+Summarize your contributions and future work.
 
 \begin{thebibliography}{00}
-    \bibitem{b1} Author, ``Title,'' Journal, vol. x, no. y, pp. z--w, Year.
+\bibitem{b1} Author, ``Title of Paper,'' Journal Name, vol. x, no. y, pp. z--w, Year.
 \end{thebibliography}
 
 \end{document}

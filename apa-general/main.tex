@@ -1,9 +1,8 @@
-%% main.tex - Plantilla APA 7 General
-
+% APA 7th Edition General Template
 \documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[spanish]{babel}
+\usepackage[{{language}}]{babel}
 \usepackage{amsfonts,amsmath,amssymb}
 \usepackage{array,caption,enumitem}
 \usepackage{fancyhdr,float,geometry}
@@ -29,20 +28,33 @@
 
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
 
-\title{Título del Documento}
-\author{Autor Principal}
-\date{\today}
+\title{{{title}}}
+\author{{{author}}}
+\date{{{date}}}
 
 \begin{document}
 
 \maketitle
 \thispagestyle{empty}\newpage
 
-\input{sections/abstract}
-\input{sections/introduction}
-\input{sections/literature}
-\input{sections/methodology}
-\input{sections/results}
-\input{sections/references}
+\chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
+Write your abstract here.
+
+\tableofcontents
+
+\chapter{Introduction}
+Provide your introduction here.
+
+\chapter{Literature Review}
+Discuss relevant research and theory.
+
+\chapter{Methodology}
+Describe your research methods.
+
+\chapter{Results}
+Present your findings.
+
+\chapter{Conclusion}
+Summarize your conclusions.
 
 \end{document}

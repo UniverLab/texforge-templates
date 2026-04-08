@@ -1,10 +1,8 @@
-%% main.tex - Plantilla APA para Universidad La Salle
-%% Basado en: unisalle/Plantilla Propuesta Inv Maestría
-
+% APA Format for Universidad de La Salle
 \documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[spanish]{babel}
+\usepackage[{{language}}]{babel}
 \usepackage{acronym}
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -43,13 +41,13 @@
 \fancyhf{}
 \cfoot{\thepage}
 
-\newcommand{\titulo}{Título del Proyecto}
-\newcommand{\autor}{Nombre del Autor}
-\newcommand{\codigo}{Código estudiantil}
-\newcommand{\programa}{Maestría en Inteligencia Artificial}
-\newcommand{\universidad}{Universidad La Salle}
-\newcommand{\director}{Nombre del Director}
-\newcommand{\correo}{correo@institucional.edu.co}
+\newcommand{\titulo}{{{title}}}
+\newcommand{\autor}{{{author}}}
+\newcommand{\codigo}{{{code}}}
+\newcommand{\programa}{{{program}}}
+\newcommand{\universidad}{University Name}
+\newcommand{\director}{{{director}}}
+\newcommand{\correo}{{{email}}}
 
 \hypersetup{pdfauthor={\autor},pdftitle={\titulo},pdfsubject={\programa},
 pdfkeywords={investigación},colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
@@ -58,48 +56,55 @@ pdfkeywords={investigación},colorlinks=true,linkcolor=black,citecolor=black,url
 
 \begin{titlepage}
     \centering\vspace*{\fill}
-    \includegraphics[width=8cm]{assets/images/logosalle.png}\\[1cm]
+    % \includegraphics[width=8cm]{assets/images/university-logo.png}\\[1cm]
     \universidad\\[0.5cm]\programa\\[2cm]
     {\LARGE\bfseries \titulo}\\[2cm]
-    \textbf{Propuesta de Proyecto}\\[2cm]
+    \textbf{Research Proposal}\\[2cm]
     \Large\autor\\\codigo\\[1cm]
-    Director: \director\\\correo\\[2cm]
-    Fecha de entrega: \today\\\vspace*{\fill}
+    Advisor: \director\\\correo\\[2cm]
+    Submission Date: \today\\\vspace*{\fill}
 \end{titlepage}
 
 \thispagestyle{empty}\newpage
 
-\chapter*{Resumen}\addcontentsline{toc}{chapter}{Resumen}
-Este documento presenta una plantilla para proyectos académicos en formato APA.
-\textit{Palabras clave}: palabra1, palabra2, palabra3
+\chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
+Write your abstract here. This document provides a template for academic projects in APA format.
+\textit{Keywords}: keyword1, keyword2, keyword3
 
 \tableofcontents\thispagestyle{empty}
 \listoffigures\thispagestyle{empty}
 \listoftables\thispagestyle{empty}
 
-\chapter{Introducción}\label{chap:introduccion}
-\section{Contextualización}Agregue la contextualización.
-\section{Planteamiento del Problema}Describa el problema.
-\section{Justificación}Explique la importancia.
-\section{Objetivos}
-\subsection{Objetivo General}Defina el objetivo general.
-\subsection{Objetivos Específicos}\begin{enumerate}\item Objetivo 1\item Objetivo 2\item Objetivo 3\end{enumerate}
+\chapter{Introduction}\label{chap:introduction}
+\section{Background} Provide background context.
+\section{Problem Statement} Describe the research problem.
+\section{Justification} Explain the importance of the research.
+\section{Objectives}
+\subsection{General Objective} Define the main objective.
+\subsection{Specific Objectives}
+\begin{enumerate}
+\item Objective 1
+\item Objective 2
+\item Objective 3
+\end{enumerate}
 
-\chapter{Marco Teórico}\label{chap:marco_teorico}
-\section{Antecedentes}Revise investigaciones previas.
-\section{Marco Conceptual}Defina conceptos clave.
-\section{Marco Legal}Incluya marco normativo si aplica.
+\chapter{Literature Review}\label{chap:literature}
+\section{Related Work} Review prior research.
+\section{Conceptual Framework} Define key concepts.
+\section{Theoretical Foundations} Present relevant theory.
 
-\chapter{Metodología}\label{chap:metodologia}
-\section{Enfoque}Describa el enfoque de investigación.
-\section{Población y Muestra}Defina población y muestreo.
-\section{Técnicas e Instrumentos}Describa los instrumentos.
+\chapter{Methodology}\label{chap:methodology}
+\section{Research Approach} Describe the research approach.
+\section{Population and Sample} Define population and sampling methods.
+\section{Data Collection Methods} Describe data collection techniques.
 
-\chapter{Resultados Esperados}\label{chap:resultados}Describa los resultados.
+\chapter{Expected Results}\label{chap:results}
+Describe expected results and contributions.
 
-\chapter{Conclusiones}\label{chap:conclusiones}Sintetice las conclusiones.
+\chapter{Conclusions and Future Work}\label{chap:conclusions}
+Summarize conclusions and suggest future directions.
 
-\chapter*{Referencias}\addcontentsline{toc}{chapter}{Referencias}
-\bibliographystyle{apa}
+\chapter*{References}\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{apalike}
 \bibliography{bib/references}
 \end{document}

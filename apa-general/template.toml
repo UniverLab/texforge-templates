@@ -1,14 +1,43 @@
-[metadata]
-nombre = "apa-general"
-descripcion = "APA 7ma edición — reportes académicos y tesis"
-idioma = "es"
-tipo = "report"
+id = "apa-general"
+version = "0.1.0"
+display_name = "APA General"
+description = "APA 7th edition — academic reports and theses"
 
-[variables]
-requeridas = ["titulo", "autor"]
-opcionales = []
+[files]
+include = ["**/*.tex", "**/*.bib"]
+exclude = []
 
-[compatibilidad]
-mermaid = false
-graphviz = false
-bibliografia = "bibtex"
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Document title"
+required = true
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Main author"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Publication date"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language (for babel/polyglossia)"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "install-packages"
+description = "Install LaTeX packages if needed"
+command = "texforge build"
+optional = true
+

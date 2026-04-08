@@ -1,7 +1,7 @@
 id = "general"
 version = "0.1.0"
 display_name = "General Article"
-description = "Plantilla mínima de artículo — documento genérico con estructura base"
+description = "A minimal, generic template for any LaTeX document"
 
 [files]
 include = ["**/*.tex", "**/*.bib"]
@@ -10,29 +10,30 @@ exclude = []
 [[placeholders]]
 name = "title"
 type = "string"
-description = "Título del documento"
+description = "Document title"
 required = true
 
 [[placeholders]]
 name = "author"
 type = "string"
-description = "Autor principal"
+description = "Main author"
 required = true
 default = "{{user.name}}"
 
 [[placeholders]]
 name = "date"
 type = "string"
-description = "Fecha de publicación"
+description = "Publication date"
 required = false
 default = "\\today"
 
 [[placeholders]]
-name = "documentclass"
-type = "string"
-description = "Clase de documento LaTeX"
-required = false
-default = "article"
+name = "language"
+type = "enum"
+description = "Document language (for babel/polyglossia)"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
 
 [[post_generate]]
 name = "install-packages"

@@ -1,14 +1,43 @@
-[metadata]
-nombre = "letter"
-descripcion = "Carta formal — correspondencia empresarial en español"
-idioma = "es"
-tipo = "letter"
+id = "letter"
+version = "0.1.0"
+display_name = "Formal Letter"
+description = "Formal letter template for professional correspondence"
 
-[variables]
-requeridas = ["titulo", "autor"]
-opcionales = []
+[files]
+include = ["**/*.tex", "**/*.bib"]
+exclude = []
 
-[compatibilidad]
-mermaid = false
-graphviz = false
-bibliografia = "bibtex"
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Letter subject line"
+required = true
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Sender name"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Letter date"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language (for babel/polyglossia)"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "install-packages"
+description = "Install LaTeX packages if needed"
+command = "texforge build"
+optional = true
+

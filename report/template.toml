@@ -1,7 +1,7 @@
-id = "ieee"
+id = "report"
 version = "0.1.0"
-display_name = "IEEE Journal"
-description = "IEEE journal format — technical papers"
+display_name = "Report"
+description = "A structured, portable template for academic reports in English. Uses {{language}} for babel/polyglossia."
 
 [files]
 include = ["**/*.tex", "**/*.bib"]
@@ -10,7 +10,7 @@ exclude = []
 [[placeholders]]
 name = "title"
 type = "string"
-description = "Article title"
+description = "Report title"
 required = true
 
 [[placeholders]]
@@ -21,18 +21,18 @@ required = true
 default = "{{user.name}}"
 
 [[placeholders]]
-name = "email"
-type = "string"
-description = "Author email"
-required = false
-default = "email@domain.com"
-
-[[placeholders]]
 name = "date"
 type = "string"
-description = "Publication date"
+description = "Submission date"
 required = false
 default = "\\today"
+
+[[placeholders]]
+name = "university"
+type = "string"
+description = "University name"
+required = false
+default = "{{institution.name}}"
 
 [[placeholders]]
 name = "language"
@@ -47,4 +47,3 @@ name = "install-packages"
 description = "Install LaTeX packages if needed"
 command = "texforge build"
 optional = true
-
