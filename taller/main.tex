@@ -1,0 +1,147 @@
+% Taller / Informe — plantilla con portada en color, listings y diagrama embebido.
+\documentclass[12pt]{article}
+\usepackage[{{language}}]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black, breaklinks=true}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{{{course}}}
+\lhead{{{deliverable}}}
+\cfoot{\thepage}
+
+\titleformat{\section}{\large\bfseries\color{blue!50!black}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{blue!40!black}}{\thesubsection.}{0.5em}{}
+
+% Estilo para listados de código.
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{220,220,220}
+\lstdefinestyle{codestyle}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  showstringspaces=false,
+  commentstyle=\color{green!40!black},
+  keywordstyle=\color{blue!60!black}\bfseries,
+  stringstyle=\color{orange!60!black},
+  columns=fullflexible
+}
+
+\begin{document}
+
+% ----------------------------------------------------------------------
+% Portada
+% ----------------------------------------------------------------------
+\begin{titlepage}
+\centering
+{\scshape\LARGE {{deliverable}} \par}
+\vspace{1.2cm}
+{\huge\bfseries {{title}} \par}
+\vspace{0.5cm}
+{\Large {{subtitle}} \par}
+\vspace{1.6cm}
+\begin{tcolorbox}[colback=blue!3, colframe=blue!35!black, width=0.88\textwidth]
+\begin{tabular}{ll}
+\textbf{Estudiante:} & {{author}} \\
+\textbf{Asignatura:} & {{course}} \\
+\textbf{Producto:} & {{deliverable}} \\
+\textbf{Fecha:} & {{date}} \\
+\textbf{Repositorio:} & {\small\url{{{repo_url}}}} \\
+\end{tabular}
+\end{tcolorbox}
+\vfill
+\end{titlepage}
+
+% ----------------------------------------------------------------------
+% Contenido
+% ----------------------------------------------------------------------
+\section{Enunciado del ejercicio propuesto}
+Describe aquí el objetivo de la actividad y lo que se pide resolver. Resume el
+problema en pocas frases y enlaza, si aplica, el repositorio del proyecto en
+\url{{{repo_url}}}.
+
+\section{Situación problema}
+Explica el contexto y la necesidad concreta que motiva la solución. ¿Qué
+dificultad existe hoy y por qué vale la pena automatizarla o resolverla?
+
+\section{Solución algorítmica}
+Resume la estrategia de la solución: entradas, salidas, y los pasos generales
+del algoritmo.
+
+\begin{tcolorbox}[colback=gray!4, colframe=gray!45, title=Lógica general del algoritmo]
+\begin{enumerate}[leftmargin=1.2cm]
+\item Inicializar los datos y el estado.
+\item Leer la entrada del usuario.
+\item Procesar la información según las reglas del problema.
+\item Validar los casos límite.
+\item Mostrar los resultados de forma organizada.
+\end{enumerate}
+\end{tcolorbox}
+
+\section{Uso de estructuras de control}
+\subsection{Estructuras condicionales}
+\begin{itemize}
+\item Se usa \texttt{if} para validar la entrada antes de procesarla.
+\item Se usa \texttt{if/else} para decidir qué resultado mostrar.
+\end{itemize}
+
+\subsection{Estructuras repetitivas}
+\begin{itemize}
+\item Se usa \texttt{for} para recorrer la colección de datos.
+\item Se usa \texttt{while} cuando la cantidad de iteraciones no se conoce de antemano.
+\end{itemize}
+
+\section{Diagrama de flujo}
+El siguiente diagrama se renderiza automáticamente con \texttt{texforge build}
+(no requiere imágenes externas):
+
+\begin{graphviz}[caption=Diagrama de flujo del algoritmo, width=0.55\linewidth]
+digraph G {
+  rankdir=TB
+  node [shape=box, style=rounded, fontname="Helvetica"]
+  inicio  [label="Inicio", shape=ellipse]
+  leer    [label="Leer entrada"]
+  valida  [label="¿Entrada válida?", shape=diamond]
+  proc    [label="Procesar datos"]
+  error   [label="Mostrar error"]
+  salida  [label="Mostrar resultado"]
+  fin     [label="Fin", shape=ellipse]
+
+  inicio -> leer -> valida
+  valida -> error  [label="no"]
+  valida -> proc   [label="sí"]
+  proc -> salida -> fin
+  error -> fin
+}
+\end{graphviz}
+
+\section{Código fuente comentado}
+El siguiente listado inserta el archivo real de la aplicación. Los comentarios
+resaltan el uso de estructuras condicionales y repetitivas.
+
+\lstinputlisting[style=codestyle]{src/example.py}
+
+\section{Reflexión individual}
+Comenta qué aprendiste durante el desarrollo, los principales retos y cómo los
+resolviste.
+
+\section{Conclusión}
+Cierra con los resultados obtenidos y el valor de la solución construida.
+
+\end{document}

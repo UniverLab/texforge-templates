@@ -1,0 +1,71 @@
+id = "taller"
+version = "0.1.0"
+display_name = "Taller / Informe"
+description = "Informe de taller con portada en color, listings de código y diagrama embebido — formato informal pero atractivo"
+
+[files]
+include = ["**/*.tex", "**/*.py"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Título del taller o trabajo"
+required = true
+default = "Título del taller"
+
+[[placeholders]]
+name = "subtitle"
+type = "string"
+description = "Subtítulo o descripción breve"
+required = false
+default = "Diseño e implementación de la solución"
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Nombre del estudiante"
+required = true
+default = "Nombre del Estudiante"
+
+[[placeholders]]
+name = "course"
+type = "string"
+description = "Asignatura o curso"
+required = false
+default = "Asignatura"
+
+[[placeholders]]
+name = "deliverable"
+type = "string"
+description = "Producto o entregable"
+required = false
+default = "Entregable del taller"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Fecha de entrega"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "repo_url"
+type = "string"
+description = "URL del repositorio (opcional)"
+required = false
+default = "https://github.com/usuario/proyecto"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Idioma del documento (babel)"
+required = true
+choices = ["spanish", "english", "french", "german", "italian", "portuguese"]
+default = "spanish"
+
+[[post_generate]]
+name = "build"
+description = "Compilar el documento a PDF"
+command = "texforge build"
+optional = true
