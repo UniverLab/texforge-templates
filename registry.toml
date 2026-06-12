@@ -32,3 +32,8 @@ version = "0.1.0"
 nombre = "report"
 descripcion = "University report — structured academic report template"
 version = "0.1.0"
+
+[[templates]]
+nombre = "taller"
+descripcion = "Taller / informe con portada en color, listings y diagrama embebido — informal pero atractivo"
+version = "0.1.0"
