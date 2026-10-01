@@ -1,0 +1,15 @@
+# Words the spell checker accepts in this template. One word per line.
+# The diagram renderers' own keywords live in the diagram bodies, which the
+# spell checker reads as text.
+digraph
+flowchart
+graphviz
+lr
+mermaid
+normalisation
+normalised
+organise
+organised
+rankdir
+summarised
+workflow

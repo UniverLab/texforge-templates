@@ -1,10 +1,10 @@
 id = "report"
-version = "0.1.0"
-display_name = "Report"
-description = "A structured, portable template for academic reports in English. Uses {{language}} for babel/polyglossia."
+version = "0.2.0"
+display_name = "University Report"
+description = "University report — structured academic report"
 
 [files]
-include = ["**/*.tex", "**/*.bib"]
+include = ["**/*.tex", "**/*.bib", "**/*.txt"]
 exclude = []
 
 [[placeholders]]
@@ -14,11 +14,39 @@ description = "Report title"
 required = true
 
 [[placeholders]]
+name = "subtitle"
+type = "string"
+description = "Subtitle or short description"
+required = false
+default = "A Structured Academic Report"
+
+[[placeholders]]
 name = "author"
 type = "string"
 description = "Main author"
 required = true
 default = "{{user.name}}"
+
+[[placeholders]]
+name = "advisor"
+type = "string"
+description = "Advisor name"
+required = false
+default = "Advisor Name"
+
+[[placeholders]]
+name = "institution"
+type = "string"
+description = "Institution name"
+required = false
+default = "{{institution.name}}"
+
+[[placeholders]]
+name = "faculty"
+type = "string"
+description = "Faculty or department"
+required = false
+default = "Faculty of Engineering"
 
 [[placeholders]]
 name = "date"
@@ -28,22 +56,15 @@ required = false
 default = "\\today"
 
 [[placeholders]]
-name = "university"
-type = "string"
-description = "University name"
-required = false
-default = "{{institution.name}}"
-
-[[placeholders]]
 name = "language"
 type = "enum"
-description = "Document language (for babel/polyglossia)"
+description = "Document language (for babel)"
 required = true
 choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
 default = "english"
 
 [[post_generate]]
-name = "install-packages"
-description = "Install LaTeX packages if needed"
+name = "build"
+description = "Compile the report to PDF"
 command = "texforge build"
 optional = true

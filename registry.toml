@@ -31,7 +31,7 @@ version = "0.1.0"
 [[templates]]
 nombre = "report"
 descripcion = "University report — structured academic report template"
-version = "0.1.0"
+version = "0.2.0"
 
 [[templates]]
 nombre = "taller"

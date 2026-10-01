@@ -1,0 +1,28 @@
+% The \appendix command is issued in main.tex, so this file starts with the
+% chapter itself; it becomes Appendix A of the report.
+\chapter{Supplementary Material}
+\label{app:supplementary}
+
+% Replace this paragraph with a note on what the appendix contains.
+This appendix collects the symbols used in the report, so that the notation
+of Equation~\eqref{eq:mean} can be read without searching the chapters.
+
+% Booktabs notation table. Replace the rows with your own symbols; keep the
+% caption and the label so the list of tables stays complete.
+\begin{table}[H]
+  \centering
+  \caption{Notation used in the report}
+  \label{tab:notation}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Symbol & Meaning \\
+    \midrule
+    $x_i$ & Observation $i$ of the sample \\
+    $\bar{x}$ & Arithmetic mean of the observations \\
+    $n$ & Number of observations \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% Replace this with further supplementary material: a longer listing, an
+% extra table or the full data of a single case.

@@ -1,0 +1,45 @@
+\chapter{Methodology}
+\label{ch:methodology}
+
+% Replace this paragraph with an overview of your approach. Cite
+% \cite{jones2023} where appropriate.
+The approach follows a fixed sequence of steps so that the same run can be
+repeated and compared. Each step takes the output of the previous one and
+produces a well-defined result, following the structured workflow
+pattern~\cite{jones2023}.
+
+% Mermaid system architecture diagram. Replace the flowchart with your own
+% system. Keep style= and the caption (wrap a caption containing a comma in
+% braces).
+\begin{mermaid}[style=technical, width=0.85\linewidth, pos=H, caption={System architecture}]
+  flowchart LR
+  A[Input data] --> B[Processing]
+  B --> C[Model]
+  C --> D[Results]
+\end{mermaid}
+
+% Replace this paragraph with a sentence linking the diagram to the
+% requirements table. Diagrams carry no label, so refer to them by name
+% rather than with \ref.
+The stages above turn the input data into the reported results, and each
+stage is bound to one functional requirement in the table that follows.
+
+% Booktabs requirements table. Replace the rows with your functional
+% requirements; keep the caption and the label.
+\begin{table}[H]
+  \centering
+  \caption{Functional requirements}
+  \label{tab:requirements}
+  \begin{tabular}{@{}llc@{}}
+    \toprule
+    ID & Requirement & Priority \\
+    \midrule
+    R1 & Capture the input data & High \\
+    R2 & Validate the input & High \\
+    R3 & Produce the report & Medium \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Table~\ref{tab:requirements} lists the functional requirements that drive
+the design.
