@@ -224,6 +224,60 @@ version = "1.0.0"
    - Languages supported
    - Whether it requires specific LaTeX packages beyond standard distributions
 
+## Checking a template
+
+`scripts/check-templates.sh` validates templates offline: it never runs
+`texforge new` (which would refresh cached templates from the remote registry
+and test the published copy instead of your working tree), it renders into a
+throwaway temp directory, and it never writes to `~/.texforge`. Every template
+spec in the development queue is gated by this script.
+
+### Usage
+
+```bash
+# Check every template (any top-level directory with a template.toml)
+scripts/check-templates.sh
+
+# Check exactly those templates (unknown name exits 2)
+scripts/check-templates.sh taller general
+
+# Check only templates changed since a revision (tracked changes + untracked files)
+scripts/check-templates.sh --changed HEAD
+```
+
+### What each step checks
+
+For each template the steps run in order; the first failing step stops that
+template (the next template still runs).
+
+| Step | Name | Checks |
+|------|------|--------|
+| a | manifest | `template.toml` parses; `id` equals the directory name; `version` matches `^[0-9]+\.[0-9]+\.[0-9]+$`; `registry.toml` has a `[[templates]]` entry with `nombre = <name>` and the same `version` |
+| b | placeholders | every `{{token}}` in the template's files (except `template.toml` itself) is declared as a `[[placeholders]]` `name`, or is one of `user.name`, `user.email`, `institution.name` |
+| c | render | the template is copied to a temp dir (without `template.toml`), every `{{token}}` is replaced with its `default` (or a `Sample …` stand-in), and a `project.toml` is written (`[document]` + `[build] entry = "main.tex"`, plus `bibliography = "bib/references.bib"` when that file exists) |
+| d | texforge | in the rendered copy: `texforge check` exits 0 **and** prints no line matching `WARNING\|ERROR`; `texforge fmt --check` exits 0; `texforge build` exits 0; `texforge pdf check` exits 0 |
+| e | previews | `texforge preview --scale 1.5` writes PNG pages into `<git-dir>/template-previews/<name>/` (the directory is emptied first), and the page count is read from `texforge pdf info` |
+| f | content | *(requirements skipped for `letter` and `cv`)* `main.tex` or a file it `\input`s contains a `\begin{code}[lang=…]` block, and at least one `\begin{mermaid}` / `\begin{graphviz}` / `\begin{d2}` whose options contain `style=`. For **every** template: no `\usepackage[utf8]{inputenc}`, no `\lstdefinestyle`, no `\begin{lstlisting}`, no `\usepackage{minted}` |
+
+### Where previews land
+
+Previews are written to `<git-dir>/template-previews/<template-name>/`
+(normally `.git/template-previews/…`). Because they live inside the git dir
+they are never committed and never show up in `git status` — nothing needs to
+be added to `.gitignore`.
+
+### Output and exit codes
+
+The script prints one `Checking <name> ...` line per template, then a summary
+table (`template  pages  result`) with `ok` or `FAIL: <step> — <reason>`. On a
+failure it also prints the last 40 lines of the failing command's output.
+
+| Exit code | Meaning |
+|---|---|
+| 0 | every selected template passed all steps |
+| 1 | at least one template failed |
+| 2 | an unknown template name was requested |
+
 ## Questions
 
 Open an issue in the [texforge repository](https://github.com/UniverLab/texforge) or check the main CLI docs.
