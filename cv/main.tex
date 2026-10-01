@@ -41,8 +41,9 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
 
-% Section titles: bold, a touch larger than the body, thin grey rule under.
-\titleformat{\section}{\normalfont\large\bfseries}{}{0pt}{}[\vspace{2pt}\textcolor{cvrule}{\rule{\textwidth}{0.4pt}}]
+% Section titles: bold, a touch larger than the body, thin grey rule hugging
+% the title (negative vspace pulls the rule up right under the text).
+\titleformat{\section}{\normalfont\large\bfseries}{}{0pt}{}[\vspace{-8pt}\textcolor{cvrule}{\rule{\textwidth}{0.4pt}}]
 \titlespacing*{\section}{0pt}{6pt}{3pt}
 
 % Tight bullets, used under every entry.
@@ -123,8 +124,9 @@
   \section*{Skills}
   {\renewcommand{\arraystretch}{1.2}%
     \arrayrulecolor{cvrule}%
+    % No \toprule: the grey rule under the section title already caps the
+    % table, and a second line right below it would read as a double rule.
     \begin{tabularx}{\textwidth}{@{}>{\bfseries}p{3.2cm}>{\raggedright\arraybackslash}X@{}}
-      \toprule
       Languages & Python, JavaScript, SQL, Bash \\
       \midrule
       Frameworks & FastAPI, Node.js, Spring \\
