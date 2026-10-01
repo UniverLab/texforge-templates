@@ -24,9 +24,10 @@
 \hypersetup{colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black,
   breaklinks=true, pdftitle={{{title}}}, pdfauthor={{{author}}}}
 
-% --- Epígrafes alineados a la derecha, discretos y sin regla ---
+% --- Epígrafes: cita y fuente alineadas a la derecha, discretas y sin regla ---
 \setlength{\epigraphwidth}{0.60\textwidth}
 \renewcommand{\epigraphrule}{0pt}
+\renewcommand{\textflush}{flushright}
 
 % --- Títulos de capítulo compactos para cuidar el número de páginas ---
 \titleformat{\chapter}[display]
@@ -52,6 +53,12 @@
   \fancyhead[LE,RO]{\thepage}%
   \renewcommand{\headrulewidth}{0pt}%
 }
+
+% --- Las páginas en blanco (versos) salen completamente vacías: sin folio ni cabecera ---
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
 
 \begin{document}
 
@@ -89,7 +96,7 @@
   % --- Página de créditos: una página, sin número visible ---
   \thispagestyle{empty}
   % % Reemplace este bloque con los datos de su edición.
-  \noindent © {{year}} {{author}}. \par
+  \noindent \textcopyright\ {{year}} {{author}}. \par
   \noindent Primera edición: {{publisher}}, {{year}}. \par
   \vspace{0.4cm}
   \noindent Todos los derechos reservados. Ninguna parte de este libro puede
@@ -118,6 +125,7 @@
   Este libro reúne tres capítulos breves sobre la forma en que miramos los
   días comunes. Nace de notas tomadas con calma y quiere leerse sin prisa,
   una sección cada vez, con la atención puesta en lo concreto.
+
   % % Reemplace por la invitación al lector: cómo leer y qué esperar.
   Cada capítulo abre con un epígrafe y cierra con una pausa. Si alguna frase
   le resulta cercana, anótela al margen: este libro espera esa conversación.
