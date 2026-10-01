@@ -47,9 +47,11 @@ measured for each one.
 The direction of the calculation is often clearer in a drawing. The diagram
 below is drawn from its source when the document is built, so the project
 carries no image file.
-% Replace the graph with your own; keep style= and the caption.
+% Replace the graph with your own; keep style= and the caption. The
+% rankdir key is accepted by spell-whitelist.txt in the project root.
 \begin{graphviz}[style=editorial, pos=H, width=0.62\linewidth, caption={From a measured run to its reported value}]
   digraph G {
+    rankdir=LR
     run -> sample
     sample -> value
   }

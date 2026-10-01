@@ -4,7 +4,7 @@ display_name = "General Article"
 description = "A minimal, generic template for any LaTeX document"
 
 [files]
-include = ["**/*.tex", "**/*.bib"]
+include = ["**/*.tex", "**/*.bib", "**/*.txt"]
 exclude = []
 
 [[placeholders]]
