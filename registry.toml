@@ -47,3 +47,8 @@ version = "0.1.0"
 nombre = "informe"
 descripcion = "Informe relajado con portada, cajas destacadas, diagramas y código — para entregas y notas técnicas"
 version = "0.1.0"
+
+[[templates]]
+nombre = "slides"
+descripcion = "Presentation slides (beamer 16:9) with code and diagrams"
+version = "0.1.0"

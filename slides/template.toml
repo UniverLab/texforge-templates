@@ -1,0 +1,56 @@
+id = "slides"
+version = "0.1.0"
+display_name = "Slides"
+description = "Presentation slides (beamer 16:9) with code and diagrams"
+
+[files]
+include = ["**/*.tex", "**/*.txt"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Presentation title"
+required = true
+
+[[placeholders]]
+name = "subtitle"
+type = "string"
+description = "Subtitle shown under the title"
+required = false
+default = "Subtitle"
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Presenting author"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "institution"
+type = "string"
+description = "Institution or affiliation"
+required = false
+default = "{{institution.name}}"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Date shown on the title frame"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language (for babel/polyglossia)"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "build"
+description = "Compile the presentation to PDF"
+command = "texforge build"
+optional = true

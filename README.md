@@ -18,6 +18,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 | `taller` | Taller / informe con portada en color, bloques de código y diagrama de flujo — informal pero atractivo | 0.2.0 |
 | `informe` | Informe relajado con portada, cajas destacadas, diagramas y código — para entregas y notas técnicas | 0.1.0 |
 | `cv` | Curriculum vitae — clean, ATS-friendly résumé | 0.1.0 |
+| `slides` | Presentation slides (beamer 16:9) with code and diagrams | 0.1.0 |
 
 ## Usage
 
