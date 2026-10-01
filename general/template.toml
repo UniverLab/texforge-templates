@@ -1,5 +1,5 @@
 id = "general"
-version = "0.1.0"
+version = "0.2.0"
 display_name = "General Article"
 description = "A minimal, generic template for any LaTeX document"
 
