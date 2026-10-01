@@ -23,6 +23,9 @@
 
 % APA tables and figures: the number is bold and the title is italic on its
 % own line, both placed above the object; a table note sits below the table.
+% Texforge renders mermaid/graphviz captions after the image, so plaintop
+% moves the figure caption above the diagram for APA style.
+\floatstyle{plaintop}\restylefloat{figure}
 \captionsetup{position=top,labelsep=newline,labelfont=bf,textfont=it,
   justification=raggedright,singlelinecheck=false,skip=4pt}
 \AtBeginDocument{\iflanguage{spanish}{\captionsetup[table]{name=Tabla}}{}}
