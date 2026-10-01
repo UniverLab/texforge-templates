@@ -52,3 +52,8 @@ version = "0.1.0"
 nombre = "slides"
 descripcion = "Presentation slides (beamer 16:9) with code and diagrams"
 version = "0.1.0"
+
+[[templates]]
+nombre = "book"
+descripcion = "Libro o ensayo largo — capítulos con epígrafes, frontmatter completo"
+version = "0.1.0"
