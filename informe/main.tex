@@ -104,9 +104,8 @@
   principal y presentar el resultado.
   % % Reemplace por los pasos de su propio flujo; mantenga el estilo y el título.
   \begin{mermaid}[style=editorial, width=0.85\linewidth, caption={Flujo general de la solución}, pos=H]
-    flowchart TD
-    A[Preparar datos] --> B[Aplicar regla]
-    B --> C[Presentar resultado]
+    flowchart LR
+    A[Preparar datos] --> B[Aplicar regla] --> C[Presentar resultado]
   \end{mermaid}
   % % Reemplace por su ejemplo mínimo (máximo 15 líneas de menos de 90 columnas).
   \begin{code}[lang=python, numbers=true]
@@ -151,7 +150,7 @@ def resumir(items):
   \end{itemize}
 
   % % Referencias: dos entradas genéricas de ejemplo, sin archivo .bib.
-  \section*{Referencias}
+  % % `thebibliography` ya genera el título «Referencias»; no agregue \section* aquí.
   \begin{thebibliography}{9}
     \bibitem{guia} Autor de ejemplo, \textit{Guía breve de informes técnicos}, Editorial de ejemplo, 2024.
     \bibitem{manual} Autora de ejemplo, \textit{Manual de escritura clara}, Editorial de ejemplo, 2023.
