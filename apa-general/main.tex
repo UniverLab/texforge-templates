@@ -1,6 +1,7 @@
-% APA 7th Edition General Template
+% APA 7th Edition General Template. Text written in double braces is a
+% placeholder that is filled in when the project is created; the % comments
+% say what to replace.
 \documentclass[a4paper,12pt]{report}
-\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[{{language}}]{babel}
 \usepackage{amsfonts,amsmath,amssymb}
@@ -8,19 +9,28 @@
 \usepackage{fancyhdr,float,geometry}
 \usepackage{graphicx,hyperref,indentfirst}
 \usepackage{lmodern,longtable,microtype}
+\usepackage{booktabs}
 \usepackage[nottoc]{tocbibind}
 \usepackage{titlesec,url,csquotes}
 
 \geometry{top=3cm,bottom=3cm,left=3cm,right=3cm}
+\setlength{\emergencystretch}{2em}
 
 \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 \titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
+% APA tables and figures: the number is bold and the title is italic on its
+% own line, both placed above the object; a table note sits below the table.
+\captionsetup{position=top,labelsep=newline,labelfont=bf,textfont=it,
+  justification=raggedright,singlelinecheck=false,skip=4pt}
+\AtBeginDocument{\iflanguage{spanish}{\captionsetup[table]{name=Tabla}}{}}
+
 \numberwithin{equation}{chapter}
-\numberwithin{figure}{chapter}
-\numberwithin{table}{chapter}
+% APA numbers tables and figures through the document, not by chapter.
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -34,31 +44,80 @@
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}\newpage
+  \maketitle
+  \thispagestyle{empty}\newpage
 
-\chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
-Write your abstract here.
+  % Replace this abstract with a one-paragraph summary of your own study.
+  \chapter*{Abstract}
+  Write your abstract here.
 
-\tableofcontents
+  \noindent\textit{Keywords}: keyword1, keyword2, keyword3
 
-\chapter{Introduction}
-Provide your introduction here.
+  \chapter{Introduction}
+  % Replace this paragraph with your own background, problem statement and aim.
+  Set out the problem the document addresses and why it matters. Cite the
+  source that frames the problem~\cite{example}.
 
-\chapter{Literature Review}
-Discuss relevant research and theory. Cite sources like this~\cite{example}.
+  \chapter{Method}
+  % Replace this paragraph with the procedure you followed.
+  Describe the procedure used in the study. The standard treatment behind it
+  is presented in a textbook~\cite{example2}. The diagram below draws the
+  three steps of the sample procedure; replace it with a diagram of your own.
 
-\chapter{Methodology}
-Describe your research methods.
+  % Diagram drawn from its source when the document is built, so the project
+  % carries no image file. Keep style= and the caption; wrap a caption that
+  % contains a comma in braces.
+  \begin{mermaid}[style=monochrome, caption={General flow of the procedure}, pos=H]
+    flowchart LR
+    collect[Collect data] --> analyze[Analyze data] --> report[Report results]
+  \end{mermaid}
 
-\chapter{Results}
-Present your findings.
+  \chapter{Results}
+  % Replace this paragraph and the table with your own findings and data.
+  Present the findings of the study and read them through the table below; an
+  online note illustrates the same kind of summary~\cite{example3}.
 
-\chapter{Conclusion}
-Summarize your conclusions.
+  % APA table: the bold number and the italic title go above the table and the
+  % note goes below it. Replace the rows, the caption and the label.
+  \begin{table}[H]
+    \caption{Illustrative values of the example case}
+    \label{tab:values}
+    \begin{tabular}{@{}lcc@{}}
+      \toprule
+      Case & Initial & Final \\
+      \midrule
+      A & 12 & 8 \\
+      B & 20 & 11 \\
+      C & 15 & 9 \\
+      \bottomrule
+    \end{tabular}
+    \par\medskip
+    \begin{minipage}{\linewidth}
+      \footnotesize\textit{Note.} Example values; replace them with your own data.
+    \end{minipage}
+  \end{table}
 
-\chapter*{References}\addcontentsline{toc}{chapter}{References}
-\bibliographystyle{apalike}
-\bibliography{bib/references}
+  \chapter{Conclusion}
+  % Replace this paragraph with your own summary, limitations and next step.
+  Summarize what the results show, name the limitations of the study and
+  state what should be done next.
+
+  % APA reference list. Every entry in bib/references.bib is cited above.
+  \renewcommand{\bibname}{References}
+  \bibliographystyle{apalike}
+  \bibliography{bib/references}
+
+  \appendix
+  \chapter{Example code}
+  % Replace this listing with the code that produced the table above.
+  Keep it short: at most twelve lines, and set lang= to the language of the
+  block.
+
+  \begin{code}[lang=python, numbers=true]
+def mean(values):
+    total = sum(values)
+    count = len(values)
+    return total / count if count else 0
+  \end{code}
 
 \end{document}

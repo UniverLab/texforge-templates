@@ -6,12 +6,12 @@ version = "0.2.0"
 [[templates]]
 nombre = "apa-general"
 descripcion = "APA 7th edition — academic reports and theses"
-version = "0.1.0"
+version = "0.2.0"
 
 [[templates]]
 nombre = "apa-unisalle"
 descripcion = "APA for Universidad de La Salle — thesis proposal format"
-version = "0.1.0"
+version = "0.2.0"
 
 [[templates]]
 nombre = "ieee"

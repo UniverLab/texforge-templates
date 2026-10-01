@@ -1,6 +1,5 @@
 % APA Format for Universidad de La Salle
 \documentclass[a4paper,12pt]{report}
-\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[{{language}}]{babel}
 \usepackage{acronym}
@@ -8,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{array}
+\usepackage{booktabs}
 \usepackage{caption}
 \usepackage{enumitem}
 \usepackage{fancyhdr}
@@ -27,15 +27,23 @@
 \usepackage{csquotes}
 
 \geometry{top=3cm,bottom=3cm,left=3cm,right=3cm}
+\setlength{\emergencystretch}{2em}
 
 \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 \titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 \titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
+% APA tables and figures: the number is bold and the title is italic on its
+% own line, both placed above the object; a table note sits below the table.
+\captionsetup{position=top,labelsep=newline,labelfont=bf,textfont=it,
+  justification=raggedright,singlelinecheck=false,skip=4pt}
+\AtBeginDocument{\iflanguage{spanish}{\captionsetup[table]{name=Tabla}}{}}
+
 \numberwithin{equation}{chapter}
-\numberwithin{figure}{chapter}
-\numberwithin{table}{chapter}
+% APA numbers tables and figures through the document, not by chapter.
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -50,11 +58,11 @@
 \newcommand{\correo}{{{email}}}
 
 \hypersetup{pdfauthor={\autor},pdftitle={\titulo},pdfsubject={\programa},
-pdfkeywords={investigación},colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
+  pdfkeywords={investigación},colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
 
 \begin{document}
 
-\begin{titlepage}
+  \begin{titlepage}
     \centering\vspace*{\fill}
     \includegraphics[width=8cm]{assets/images/logosalle.png}\\[1cm]
     \universidad\\[0.5cm]\programa\\[2cm]
@@ -63,48 +71,89 @@ pdfkeywords={investigación},colorlinks=true,linkcolor=black,citecolor=black,url
     \Large\autor\\\codigo\\[1cm]
     Advisor: \director\\\correo\\[2cm]
     Submission Date: \today\\\vspace*{\fill}
-\end{titlepage}
+  \end{titlepage}
 
-\thispagestyle{empty}\newpage
+  \thispagestyle{empty}\newpage
 
-\chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
-Write your abstract here. This document provides a template for academic projects in APA format.
-\textit{Keywords}: keyword1, keyword2, keyword3
+  % Replace this abstract with a one-paragraph summary of your own proposal.
+  \chapter*{Abstract}
+  Write your abstract here. This document provides a template for academic projects in APA format.
+  \textit{Keywords}: keyword1, keyword2, keyword3
 
-\tableofcontents\thispagestyle{empty}
-\listoffigures\thispagestyle{empty}
-\listoftables\thispagestyle{empty}
+  \chapter{Introduction}\label{chap:introduction}
+  % Replace this paragraph with the background and the problem of your own study.
+  Provide background context and describe the research problem; the sample
+  proposal builds on the framing given in~\cite{example}.
 
-\chapter{Introduction}\label{chap:introduction}
-\section{Background} Provide background context.
-\section{Problem Statement} Describe the research problem.
-\section{Justification} Explain the importance of the research.
-\section{Objectives}
-\subsection{General Objective} Define the main objective.
-\subsection{Specific Objectives}
-\begin{enumerate}
-\item Objective 1
-\item Objective 2
-\item Objective 3
-\end{enumerate}
+  \section{Objectives}
+  % Replace these sample objectives with your own.
+  \begin{enumerate}
+    \item Objective 1
+    \item Objective 2
+    \item Objective 3
+  \end{enumerate}
 
-\chapter{Literature Review}\label{chap:literature}
-\section{Related Work} Review prior research. Cite sources like this~\cite{example}.
-\section{Conceptual Framework} Define key concepts.
-\section{Theoretical Foundations} Present relevant theory.
+  \chapter{Methodology}\label{chap:methodology}
+  % Replace this paragraph with your own design, population and instruments.
+  Describe the research approach, the population and sample, and the data
+  collection methods. The standard procedure behind the sample study is
+  presented in a textbook~\cite{example2}. The diagram below draws the
+  general flow of the methodology; replace it with a diagram of your own.
 
-\chapter{Methodology}\label{chap:methodology}
-\section{Research Approach} Describe the research approach.
-\section{Population and Sample} Define population and sampling methods.
-\section{Data Collection Methods} Describe data collection techniques.
+  % Diagram drawn from its source when the document is built, so the project
+  % carries no image file. Keep style= and the caption; wrap a caption that
+  % contains a comma in braces.
+  \begin{mermaid}[style=monochrome, caption={General flow of the methodology}, pos=H]
+    flowchart LR
+    plan[Plan the study] --> collect[Collect data] --> analyze[Analyze data]
+  \end{mermaid}
 
-\chapter{Expected Results}\label{chap:results}
-Describe expected results and contributions.
+  \chapter{Expected Results}\label{chap:results}
+  % Replace this paragraph and the table with your own expectations and data.
+  Describe the expected results and how they will be summarized; an online
+  note illustrates the same kind of report~\cite{example3}.
 
-\chapter{Conclusions and Future Work}\label{chap:conclusions}
-Summarize conclusions and suggest future directions.
+  % APA table: the bold number and the italic title go above the table and the
+  % note goes below it. Replace the rows, the caption and the label.
+  \begin{table}[H]
+    \caption{Illustrative expected values}
+    \label{tab:expected}
+    \begin{tabular}{@{}lcc@{}}
+      \toprule
+      Case & Initial & Final \\
+      \midrule
+      A & 12 & 8 \\
+      B & 20 & 11 \\
+      C & 15 & 9 \\
+      \bottomrule
+    \end{tabular}
+    \par\medskip
+    \begin{minipage}{\linewidth}
+      \footnotesize\textit{Note.} Example values; replace them with your own data.
+    \end{minipage}
+  \end{table}
 
-\chapter*{References}\addcontentsline{toc}{chapter}{References}
-\bibliographystyle{apalike}
-\bibliography{bib/references}
+  \chapter{Conclusions and Future Work}\label{chap:conclusions}
+  % Replace this paragraph with your own summary and next steps.
+  Summarize the contribution of the proposal, name its limitations and state
+  what should be done next.
+
+  % APA reference list. Every entry in bib/references.bib is cited above.
+  \renewcommand{\bibname}{References}
+  \bibliographystyle{apalike}
+  \bibliography{bib/references}
+
+  \appendix
+  \chapter{Example code}
+  % Replace this listing with the code that produced the table above.
+  Keep it short: at most twelve lines, and set lang= to the language of the
+  block.
+
+  \begin{code}[lang=python, numbers=true]
+def mean(values):
+    total = sum(values)
+    count = len(values)
+    return total / count if count else 0
+  \end{code}
+
 \end{document}
