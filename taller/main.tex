@@ -77,7 +77,7 @@
   La solución recibe una entrada del usuario, la valida, la procesa según
   una regla simple y muestra el resultado organizado.
 
-  \begin{tcolorbox}[colback=gray!4, colframe=gray!45, title={Pasos del algoritmo}]
+  \begin{tcolorbox}[colback=gray!4, colframe=gray!45, coltitle=black, title={Pasos del algoritmo}]
     \begin{enumerate}[leftmargin=1.2cm]
       \item Inicializar los datos y el estado.
       \item Leer la entrada del usuario.
@@ -88,7 +88,7 @@
   \end{tcolorbox}
 
   % % Reemplace los nodos por el flujo de su algoritmo; mantenga el estilo y el título.
-  \begin{mermaid}[style=editorial, caption={Flujo del algoritmo}]
+  \begin{mermaid}[style=editorial, width=0.55\linewidth, caption={Flujo del algoritmo}]
     flowchart TD
     A[Inicio] --> B[Leer entrada]
     B --> C{¿Entrada válida?}
@@ -102,8 +102,7 @@
   % --- 4. Implementación: un solo bloque de código ---
   \section{Implementación}
   % % Reemplace por el núcleo de su solución (máximo 20 líneas).
-  El siguiente bloque muestra la parte central de la implementación: valida
-  la entrada y clasifica cada elemento según la regla del problema.
+  El bloque muestra el núcleo de la implementación.
 
   \begin{code}[lang=python, numbers=true]
 def clasificar(numeros):
@@ -114,11 +113,8 @@ def clasificar(numeros):
         else:
             impares.append(n)
     return pares, impares
-
-
 def validar(entrada):
-    if not entrada:
-        raise ValueError("entrada vacía")
+    if not entrada: raise ValueError("entrada vacía")
     return [int(x) for x in entrada.split(",")]
   \end{code}
 
