@@ -1,10 +1,10 @@
 id = "letter"
-version = "0.1.0"
+version = "0.1.1"
 display_name = "Formal Letter"
 description = "Formal letter template for professional correspondence"
 
 [files]
-include = ["**/*.tex", "**/*.bib"]
+include = ["**/*.tex"]
 exclude = []
 
 [[placeholders]]
