@@ -1,5 +1,5 @@
 id = "ieee"
-version = "0.1.0"
+version = "0.2.0"
 display_name = "IEEE Journal"
 description = "IEEE journal format — technical papers"
 
@@ -23,16 +23,30 @@ default = "{{user.name}}"
 [[placeholders]]
 name = "email"
 type = "string"
-description = "Author email"
+description = "Author e-mail"
 required = false
-default = "email@domain.com"
+default = "{{user.email}}"
 
 [[placeholders]]
-name = "date"
+name = "affiliation"
 type = "string"
-description = "Publication date"
+description = "Author affiliation"
 required = false
-default = "\\today"
+default = "Department, University, City, Country"
+
+[[placeholders]]
+name = "venue"
+type = "string"
+description = "Publication venue shown in the running head"
+required = false
+default = "Technical Report"
+
+[[placeholders]]
+name = "keywords"
+type = "string"
+description = "Index terms for the abstract"
+required = false
+default = "keyword one, keyword two, keyword three"
 
 [[placeholders]]
 name = "language"

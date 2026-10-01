@@ -6,15 +6,16 @@ Official template registry for [texforge](https://github.com/JheisonMB/texforge)
 
 All templates support **multi-language output** via the `{{language}}` placeholder. Supported languages: English, Spanish, French, German, Italian, Portuguese.
 
-| Template | Description |
-|----------|-------------|
-| `general` | Generic article — minimal setup for any document |
-| `article` | Simple article — clean, portable academic article |
-| `report` | University report — structured academic report template |
-| `apa-general` | APA 7th edition — academic reports and theses |
-| `apa-unisalle` | APA for Universidad de La Salle — thesis proposal |
-| `ieee` | IEEE journal format — technical papers |
-| `letter` | Formal letter — professional correspondence |
+| Template | Description | Version |
+|----------|-------------|---------|
+| `general` | Generic article — minimal setup for any document | 0.1.0 |
+| `article` | Simple article — clean, portable academic article | 0.1.0 |
+| `report` | University report — structured academic report template | 0.1.0 |
+| `apa-general` | APA 7th edition — academic reports and theses | 0.1.0 |
+| `apa-unisalle` | APA for Universidad de La Salle — thesis proposal format | 0.1.0 |
+| `ieee` | IEEE journal format — technical papers | 0.2.0 |
+| `letter` | Formal letter template — professional correspondence | 0.1.0 |
+| `taller` | Taller / informe con portada en color, listings y diagrama embebido — informal pero atractivo | 0.1.0 |
 
 ## Usage
 

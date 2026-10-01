@@ -1,44 +1,178 @@
+% IEEE journal template for texforge. Text written in double braces is a
+% placeholder that is filled in when the project is created; the % comments
+% say what to replace.
 \documentclass[10pt,journal]{IEEEtran}
 \usepackage[{{language}}]{babel}
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb}
+\usepackage{booktabs}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{url}
 \usepackage[pdfauthor={{{author}}},pdftitle={{{title}}},colorlinks,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 
 \begin{document}
 
-\title{{{title}}}
-\author{
+  % Title of the article; keep it short enough to fit two lines.
+  \title{{{title}}}
+
+  % Name, italic affiliation and monospaced e-mail of the author.
+  \author{
     {{{author}}}\\
-    \textit{Department, University}\\
-    \IEEEmembership{{{email}}}
-}
-\maketitle
-\markboth{Technical Paper. {{{date}}}}{}
+    \textit{{{affiliation}}}\\
+    \texttt{{{email}}}
+  }
 
-\begin{abstract}
-Write your abstract here. Include the key findings and contributions of your research.
-\end{abstract}
+  \maketitle
+  % Running head of the inner pages, taken from the {{venue}} placeholder.
+  \markboth{{{venue}}}{}
 
-\section{Introduction}
-Provide context and motivation for your research.
+  \begin{abstract}
+    % Replace this text with a short summary of the problem, the method, the
+    % main result and why the result matters. Three or five sentences are enough.
+    This template shows the shape of an IEEE journal paper. Replace this text
+    with a short summary of the problem you address, the method you use, the
+    main result you obtain, and why the result matters. A reader should grasp
+    the contribution without having to read the whole document.
+  \end{abstract}
 
-\section{Background}
-Discuss relevant prior work and related research.
+  \begin{IEEEkeywords}
+    % Comma separated index terms; they come from the {{keywords}} placeholder.
+    {{keywords}}
+  \end{IEEEkeywords}
 
-\section{Proposed Method}
-Describe your novel approach or methodology.
+  \section{Introduction}
+  % State the problem, why it matters, what this document contributes, and
+  % how the rest of the paper is organised.
+  \IEEEPARstart{T}{his} document is a complete example of an IEEE journal
+  paper. Replace this text with the context of your work: the problem you
+  attack, the evidence that the problem matters, and the contribution of the
+  paper. Cite the foundational work of the field here~\cite{doe2019}. Two or
+  three short paragraphs are usually enough, and the last one should point the
+  reader to the sections that follow.
 
-\section{Results and Discussion}
-Present your experimental results and analysis.
+  The sample table, the sample equation and the two sample diagrams are part
+  of the template: keep them while you draft, then replace each one with your
+  own content. The two column layout, the running head and the reference list
+  take care of themselves once the template fields are filled in.
 
-\section{Conclusion}
-Summarize your contributions and future work.
+  \section{Related Work}
+  % Summarise the closest prior work, one paragraph per line of research, and
+  % name the gap that your document fills.
+  Summarise here the work closest to yours and how it differs from your own
+  approach~\cite{jones2023}. A textbook reference supports the standard method
+  that you build on~\cite{williams2019}. End the section by naming the gap
+  that the present document fills.
 
-\begin{thebibliography}{00}
-\bibitem{b1} Author, ``Title of Paper,'' Journal Name, vol. x, no. y, pp. z--w, Year.
-\end{thebibliography}
+  Keep the list short: two or three lines of research are usually enough to
+  position your own work. Every source discussed here should also be cited in
+  the sections that follow, so that the reference list stays complete.
+
+  \section{Data and Methods}
+  % Describe where the data comes from, how it was prepared, and how the
+  % models were fitted and evaluated. Cite the data set that you used.
+  The sample data used in this template is synthetic and only shows the layout
+  of this section; replace it with a description of your own data and cite the
+  data set~\cite{openlab2024}. The error of a model is defined as
+  \begin{equation}
+    E(\theta) = \frac{1}{n} \sum_{i=1}^{n} \bigl( y_i - f_\theta(x_i) \bigr)^2
+    \label{eq:error}
+  \end{equation}
+  where $y_i$ is the observed value and $f_\theta(x_i)$ is the prediction of
+  the model for sample $i$. Equation~\eqref{eq:error} is reported for every
+  variant in Table~\ref{tab:scores}.
+
+  Write also how the data was prepared, how it was split into a training part
+  and a test part, and which settings were used for each run. A reader who
+  wants to repeat the experiment needs that detail, and the software used to
+  run it deserves a citation of its own.
+
+  \section{Results and Discussion}
+  % Report the main numbers first, then explain what they mean. Replace the
+  % table with your own measurements and keep the best value in bold.
+  Table~\ref{tab:scores} compares three variants of the method on the same
+  sample data. The best error comes from the full method, at the cost of a
+  longer runtime; say here whether that trade off is acceptable for the
+  problem you study.
+
+  \begin{table}[H]
+    \centering
+    \caption{Error and runtime of each variant on the sample data}
+    \label{tab:scores}
+    \begin{tabular}{lcc}
+      \toprule
+      Variant & Error & Runtime (s) \\
+      \midrule
+      Baseline & 0.184 & 12.4 \\
+      Improved & 0.151 & 15.9 \\
+      Full method & \textbf{0.132} & 18.6 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  Read the table before the diagrams: which variant wins, by how much, and
+  whether the difference matters for the problem at hand. Keep the discussion
+  tied to the numbers instead of repeating them, and let each figure carry the
+  one point that the text cannot show. The steps of the pipeline run from left
+  to right in the first figure below.
+
+  % Replace the two diagrams below with your own pipeline and your own model
+  % diagram. The options are the style preset, the placement (pos=H keeps the
+  % drawing where it is written), the caption and the width. Keep each drawing
+  % close to square: a tall one is stretched to the width of the column and
+  % ends up much larger than the text around it.
+  \begin{mermaid}[style=technical, pos=H, caption={Pipeline used to obtain the results}, width=\linewidth]
+    flowchart LR
+    collect[Collect] --> prepare[Clean] --> train[Fit] --> report[Report]
+  \end{mermaid}
+
+  The second figure draws what the reported error depends on: the fitted model,
+  the observed value of the sample and the settings of the run. Both diagrams
+  are drawn from their source when the document is built, so the project never
+  carries image files.
+
+  \begin{graphviz}[style=editorial, pos=H, caption={Terms that the reported error depends on}, width=\linewidth]
+    digraph G {
+      node [shape=box]
+      sample -> model
+      settings -> model
+      model -> error
+      error [shape=ellipse]
+    }
+  \end{graphviz}
+
+  \section{Conclusions}
+  % Restate the main result in one sentence, name the open limitations and
+  % the next step.
+  Replace this text with a short closing: what the results show, which
+  limitations remain, and what should be done next. Name the data or the
+  people that made the work possible, and state clearly what the next study
+  should test. A final citation to the wider context of the problem is
+  welcome~\cite{openlab2024}.
+
+  \bibliographystyle{IEEEtran}
+  \bibliography{bib/references}
+
+  \appendices
+  \section{Key code}
+  % Keep only the few lines that a reader needs to reproduce the result, and
+  % keep them short enough to fit the width of one column.
+  The listing below is the whole of the code behind Table~\ref{tab:scores}.
+
+  \begin{code}[lang=python, numbers=true]
+def error(obs, pred):
+    """Mean squared error."""
+    total = 0.0
+    for o, p in zip(obs, pred):
+        total += (o - p) ** 2
+    return total / len(obs)
+
+
+def report(scores):
+    for name in sorted(scores):
+        value = scores[name]
+        print(name, round(value, 3))
+  \end{code}
 
 \end{document}
