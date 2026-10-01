@@ -1,0 +1,62 @@
+id = "informe"
+version = "0.1.0"
+display_name = "Informe"
+description = "Informe relajado con portada, cajas destacadas, diagramas y código — para entregas y notas técnicas"
+
+[files]
+include = ["**/*.tex", "**/*.txt"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Título del documento"
+required = true
+
+[[placeholders]]
+name = "subtitle"
+type = "string"
+description = "Subtítulo o descripción breve"
+required = false
+default = "Descripción breve del documento"
+
+[[placeholders]]
+name = "kicker"
+type = "string"
+description = "Antetítulo en versalitas sobre el título"
+required = false
+default = "Informe"
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Autor/a del documento"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "course"
+type = "string"
+description = "Asignatura o proyecto"
+required = false
+default = "Asignatura o proyecto"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Fecha del documento"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "repository"
+type = "string"
+description = "URL del repositorio"
+required = false
+default = "https://github.com/usuario/proyecto"
+
+[[post_generate]]
+name = "build"
+description = "Compilar el documento a PDF"
+command = "texforge build"
+optional = true

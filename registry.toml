@@ -42,3 +42,8 @@ version = "0.1.0"
 nombre = "cv"
 descripcion = "Curriculum vitae — clean, ATS-friendly résumé"
 version = "0.1.0"
+
+[[templates]]
+nombre = "informe"
+descripcion = "Informe relajado con portada, cajas destacadas, diagramas y código — para entregas y notas técnicas"
+version = "0.1.0"

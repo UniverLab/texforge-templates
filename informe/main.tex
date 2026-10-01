@@ -1,0 +1,160 @@
+% Informe — plantilla relajada con portada, cajas destacadas, diagrama y código.
+% Tectonic es XeTeX: las fuentes ya son UTF-8, sin paquete inputenc.
+% spell-whitelist.txt cubre los valores de ejemplo en inglés y las claves de los diagramas.
+% Reemplace cada bloque de ejemplo y cada comentario con % por su propio contenido.
+\documentclass[11pt,a4paper]{article}
+
+% --- Preámbulo (solo paquetes del bundle de Tectonic; sin inputenc/listings/minted) ---
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb}
+\usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt,footskip=14pt]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{float}
+
+% --- Acento único: un solo color para títulos, enlaces, cajas y regla de cabecera ---
+\definecolor{acento}{HTML}{1B5FAA}
+\definecolor{aviso}{HTML}{B45309}
+
+\hypersetup{colorlinks=true, linkcolor=acento, urlcolor=acento, citecolor=acento,
+  breaklinks=true, pdftitle={{{title}}}, pdfauthor={{{author}}}}
+
+% --- Cabecera: curso a la izquierda, título a la derecha, página centrada abajo ---
+% % Mantenga {{title}} y {{course}} cortos para que la cabecera no se desborde.
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{{{course}}}
+\rhead{{{title}}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.8pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{acento}\leaders\hrule height \headrulewidth\hfill}}
+
+% --- Títulos de sección en acento ---
+\titleformat{\section}{\large\bfseries\color{acento}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{acento!80!black}}{\thesubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\subsection}{0pt}{6pt}{3pt}
+
+\setlength{\parskip}{3pt}
+\setlist[itemize]{leftmargin=1.4em, itemsep=1pt, topsep=2pt}
+\setlist[enumerate]{leftmargin=1.4em, itemsep=1pt, topsep=2pt}
+
+% --- Cajas reutilizables (cada una se usa una vez en el ejemplo) ---
+\newtcolorbox{nota}{colback=gray!4, colframe=gray!45, fonttitle=\bfseries,
+  left=4pt, right=4pt, top=3pt, bottom=3pt}
+\newtcolorbox{clave}{colback=acento!6, colframe=acento!65!black, fonttitle=\bfseries,
+  title=Idea clave, left=4pt, right=4pt, top=3pt, bottom=3pt}
+\newtcolorbox{cuidado}{colback=aviso!6, colframe=aviso!70!black, fonttitle=\bfseries,
+  title=Atención, left=4pt, right=4pt, top=3pt, bottom=3pt}
+
+\begin{document}
+
+  % --- Portada (debe ocupar exactamente 1 página: no agregar texto aquí) ---
+  \begin{titlepage}
+    \centering
+    % % Reemplace el antetítulo (por ejemplo, el tipo de entrega).
+    {\scshape\large {{kicker}} \par}
+    \vspace{1.0cm}
+    % % Reemplace por el título del documento.
+    {\huge\bfseries {{title}} \par}
+    \vspace{0.4cm}
+    % % Reemplace por una frase que describa el documento.
+    {\Large {{subtitle}} \par}
+    \vspace{1.4cm}
+    \begin{tcolorbox}[colback=acento!4, colframe=acento!45!black, width=0.88\textwidth]
+      \begin{tabular}{@{}ll@{}}
+        \textbf{Autor/a:} & {{author}} \\
+        \textbf{Asignatura o proyecto:} & {{course}} \\
+        \textbf{Fecha:} & {{date}} \\
+        \textbf{Repositorio:} & {\small\url{{{repository}}}} \\
+      \end{tabular}
+    \end{tcolorbox}
+    \vfill
+  \end{titlepage}
+
+  % % Resumen: de tres a cuatro líneas con el objetivo y el resultado principal. Va dentro de `clave`.
+  \section{Resumen}
+  \begin{clave}
+    % % Reemplace por el mensaje principal del documento.
+    Este informe resume el avance del trabajo, la solución propuesta y los
+    resultados principales en una lectura rápida.
+  \end{clave}
+
+  % % Contexto: un párrafo corto (qué se pidió, qué restricción importa, qué se entrega) y la caja `nota`.
+  \section{Contexto}
+  % % Reemplace por el contexto de su entrega o nota técnica.
+  El proyecto necesita una actualización breve del estado actual: qué se pidió,
+  qué restricción importa y qué se entrega esta vez.
+  \begin{nota}
+    % % Reemplace por el alcance o la suposición que el lector debe conocer.
+    Alcance de esta entrega: solo lo completado hasta la fecha indicada en la portada.
+  \end{nota}
+
+  % % Solución: un párrafo, el diagrama y el bloque de código (máximo 15 líneas cortas).
+  \section{Solución}
+  % % Reemplace por los pasos de su solución.
+  El flujo general tiene tres pasos: preparar los datos, aplicar la regla
+  principal y presentar el resultado.
+  % % Reemplace por los pasos de su propio flujo; mantenga el estilo y el título.
+  \begin{mermaid}[style=editorial, width=0.85\linewidth, caption={Flujo general de la solución}, pos=H]
+    flowchart TD
+    A[Preparar datos] --> B[Aplicar regla]
+    B --> C[Presentar resultado]
+  \end{mermaid}
+  % % Reemplace por su ejemplo mínimo (máximo 15 líneas de menos de 90 columnas).
+  \begin{code}[lang=python, numbers=true]
+def resumir(items):
+    total = sum(items)
+    n = len(items)
+    promedio = total / n if n else 0
+    return total, promedio
+  \end{code}
+
+  % % Resultados: un párrafo, la tabla con título y la caja `cuidado`.
+  \section{Resultados}
+  % % Reemplace por los valores de su caso.
+  La tabla resume tres mediciones del ejemplo con valores ilustrativos.
+  \begin{table}[H]
+    \centering
+    \caption{Mediciones ilustrativas del ejemplo}
+    \begin{tabular}{@{}lcc@{}}
+      \toprule
+      Caso & Antes & Después \\
+      \midrule
+      A & 12 & 8 \\
+      B & 20 & 11 \\
+      C & 15 & 9 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{cuidado}
+    % % Reemplace por la limitación que el lector no debe pasar por alto.
+    Los valores son ilustrativos; verifique las cifras con los datos finales.
+  \end{cuidado}
+
+  % % Conclusiones: dos o tres frases de cierre y la lista de pendientes.
+  \section{Conclusiones y siguientes pasos}
+  % % Reemplace por su cierre y sus pendientes.
+  El trabajo cumple el objetivo planteado y deja dos pasos claros para continuar.
+  % % Reemplace por sus pendientes; la casilla marca cada tarea abierta.
+  \begin{itemize}[label=$\square$]
+    \item Revisar el borrador con el equipo.
+    \item Incorporar los datos finales.
+    \item Publicar la siguiente versión.
+  \end{itemize}
+
+  % % Referencias: dos entradas genéricas de ejemplo, sin archivo .bib.
+  \section*{Referencias}
+  \begin{thebibliography}{9}
+    \bibitem{guia} Autor de ejemplo, \textit{Guía breve de informes técnicos}, Editorial de ejemplo, 2024.
+    \bibitem{manual} Autora de ejemplo, \textit{Manual de escritura clara}, Editorial de ejemplo, 2023.
+  \end{thebibliography}
+
+\end{document}

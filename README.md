@@ -16,6 +16,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 | `ieee` | IEEE journal format — technical papers | 0.2.0 |
 | `letter` | Formal letter template — professional correspondence | 0.1.0 |
 | `taller` | Taller / informe con portada en color, listings y diagrama embebido — informal pero atractivo | 0.1.0 |
+| `informe` | Informe relajado con portada, cajas destacadas, diagramas y código — para entregas y notas técnicas | 0.1.0 |
 | `cv` | Curriculum vitae — clean, ATS-friendly résumé | 0.1.0 |
 
 ## Usage
