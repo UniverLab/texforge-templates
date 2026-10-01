@@ -1,0 +1,156 @@
+% CV / Résumé — clean, ATS-friendly, single page, placeholder-driven.
+% Tectonic is XeTeX: sources are always UTF-8, so no inputenc package.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage[a4paper,ignoreheadfoot,nomarginpar,top=15mm,bottom=15mm,left=15mm,right=15mm,headheight=12pt,headsep=4mm,footskip=8mm]{geometry}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% Black links; PDF metadata comes from the placeholders.
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black,
+  filecolor=black,
+  pdftitle={{{name}}},
+  pdfauthor={{{name}}},
+  pdfkeywords={{{headline}}}
+}
+
+% Greys from the reference CV: black!20 rules, grey secondary text.
+\definecolor{cvgray}{gray}{0.55}
+\definecolor{cvrule}{gray}{0.8}
+
+% Empty header and footer: a one-page CV needs neither.
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+
+% Section titles: bold, a touch larger than the body, thin grey rule under.
+\titleformat{\section}{\normalfont\large\bfseries}{}{0pt}{}[\vspace{2pt}\textcolor{cvrule}{\rule{\textwidth}{0.4pt}}]
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+
+% Tight bullets, used under every entry.
+\setlist[itemize]{noitemsep,topsep=1pt,leftmargin=1.2em,label=\textcolor{cvgray}{\textbullet}}
+
+% Reusable entry: \cventry{role}{organization}{dates}{location}
+% Role and organization share the left cell, dates and location the right one,
+% so the extracted text reads role, organization, dates, location.
+\newcommand{\cventry}[4]{%
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedleft\arraybackslash}p{4.2cm}@{}}
+    \textbf{#1}\newline #2 & \textit{#3}\newline #4 \\
+  \end{tabularx}\vspace{-2pt}%
+}
+
+\begin{document}
+
+  % ----------------------------------------------------------------------
+  % Header — replace every {{...}} placeholder.
+  % ----------------------------------------------------------------------
+  \begin{center}
+    {\huge\bfseries {{name}}}\\[4pt]
+    {\large {{headline}}}\\[2pt]
+    {\small
+      \href{mailto:{{email}}}{{{email}}} \textbar\
+      {{phone}} \textbar\
+      {{location}} \textbar\
+      \url{{{website}}}}
+  \end{center}
+  \vspace{-2pt}
+
+  % ----------------------------------------------------------------------
+  % Profile — one short paragraph, three to four lines.
+  % ----------------------------------------------------------------------
+  \section*{Profile}
+  Generic software engineer with several years building reliable web
+  applications and automation tools. Comfortable from data models and APIs to
+  release pipelines, with a focus on clarity, testing and measurable results.
+
+  % ----------------------------------------------------------------------
+  % Experience — repeat the block for each role, newest first. \cventry takes
+  % {role}{organization}{dates}{location}; add two to four bullets after it.
+  % ----------------------------------------------------------------------
+  \section*{Experience}
+
+  \cventry{Senior Software Engineer}{Example Corp}{2022 -- Present}{City, Country}
+  \begin{itemize}
+    \item Led delivery of an internal service used by several teams, cutting a
+    recurring manual task from hours to minutes.
+    \item Built and documented the continuous integration pipeline for the main
+    product.
+    \item Mentored new engineers and reviewed design proposals.
+  \end{itemize}
+
+  \cventry{Software Engineer}{Sample Industries}{2020 -- 2022}{City, Country}
+  \begin{itemize}
+    \item Implemented and maintained customer-facing APIs and their database
+    layer.
+    \item Automated release checks, reducing failed deployments.
+  \end{itemize}
+
+  \cventry{Junior Developer}{Another Company}{2018 -- 2020}{City, Country}
+  \begin{itemize}
+    \item Built internal tools and dashboards that replaced manual spreadsheets.
+  \end{itemize}
+
+  % ----------------------------------------------------------------------
+  % Education — two entries, same \cventry{degree}{institution}{dates}{city}.
+  % ----------------------------------------------------------------------
+  \section*{Education}
+
+  \cventry{M.Sc. in Software Engineering}{Sample University}{2020 -- 2022}{City, Country}
+  \cventry{B.Sc. in Computer Science}{Sample University}{2016 -- 2020}{City, Country}
+
+  % ----------------------------------------------------------------------
+  % Skills — two columns: category and a comma-separated list. Add rows as
+  % needed; keep each list on one line if you can.
+  % ----------------------------------------------------------------------
+  \section*{Skills}
+  {\renewcommand{\arraystretch}{1.2}%
+    \arrayrulecolor{cvrule}%
+    \begin{tabularx}{\textwidth}{@{}>{\bfseries}p{3.2cm}>{\raggedright\arraybackslash}X@{}}
+      \toprule
+      Languages & Python, JavaScript, SQL, Bash \\
+      \midrule
+      Frameworks & FastAPI, Node.js, Spring \\
+      \midrule
+      Tools & Git, Docker, Linux, CI/CD \\
+      \bottomrule
+    \end{tabularx}}
+
+  % ----------------------------------------------------------------------
+  % Projects — two entries, each with a one-line description and a link.
+  % ----------------------------------------------------------------------
+  \section*{Projects}
+
+  \textbf{Project One} --- a small tool that automates a common task and is
+  documented for reuse.\\
+  \url{https://example.org/project-one}
+
+  \vspace{2pt}
+  \textbf{Project Two} --- a library used by other projects, with tests and
+  examples.\\
+  \url{https://example.org/project-two}
+
+  % ----------------------------------------------------------------------
+  % Languages — replace with your own levels.
+  % ----------------------------------------------------------------------
+  \section*{Languages}
+  English (native) \textbar\ Spanish (professional)
+
+\end{document}

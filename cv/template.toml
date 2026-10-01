@@ -1,0 +1,64 @@
+id = "cv"
+version = "0.1.0"
+display_name = "Curriculum Vitae"
+description = "Curriculum vitae — clean, ATS-friendly résumé"
+
+[files]
+include = ["**/*.tex"]
+exclude = []
+
+[[placeholders]]
+name = "name"
+type = "string"
+description = "Full name shown in the header"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "headline"
+type = "string"
+description = "Professional headline (role) under the name"
+required = true
+default = "Software Engineer"
+
+[[placeholders]]
+name = "email"
+type = "string"
+description = "Contact email (rendered as a mailto link)"
+required = true
+default = "{{user.email}}"
+
+[[placeholders]]
+name = "phone"
+type = "string"
+description = "Contact phone number"
+required = false
+default = "+00 000 000 0000"
+
+[[placeholders]]
+name = "location"
+type = "string"
+description = "City and country"
+required = false
+default = "City, Country"
+
+[[placeholders]]
+name = "website"
+type = "string"
+description = "Personal website or portfolio URL"
+required = false
+default = "https://example.org"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language (babel)"
+required = true
+choices = ["english", "spanish"]
+default = "english"
+
+[[post_generate]]
+name = "build"
+description = "Compile the CV to PDF"
+command = "texforge build"
+optional = true
