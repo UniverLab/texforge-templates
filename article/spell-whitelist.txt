@@ -1,0 +1,5 @@
+# Words the spell checker accepts in this template. One word per line.
+# The Mermaid keyword and direction live in the diagram body, which the
+# spell checker reads as text.
+flowchart
+lr

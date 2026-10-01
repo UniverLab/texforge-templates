@@ -9,7 +9,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 | Template | Description | Version |
 |----------|-------------|---------|
 | `general` | Generic article — minimal setup for any document | 0.2.0 |
-| `article` | Simple article — clean, portable academic article | 0.1.0 |
+| `article` | Simple article — clean, portable academic article | 0.2.0 |
 | `report` | University report — structured academic report template | 0.2.0 |
 | `apa-general` | APA 7th edition — academic reports and theses | 0.2.0 |
 | `apa-unisalle` | APA for Universidad de La Salle — thesis proposal format | 0.2.0 |
