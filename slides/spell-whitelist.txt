@@ -1,0 +1,7 @@
+# Words the spell checker accepts in this template. One word per line.
+# The Mermaid and Graphviz keywords and the graph direction live in the
+# diagram body, which the spell checker reads as text.
+flowchart
+digraph
+rankdir
+lr

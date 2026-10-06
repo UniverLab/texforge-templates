@@ -1,0 +1,10 @@
+# Words the spell checker accepts in this template. One word per line.
+# Sample values (Sample Document, Sample Author) render in English while the
+# document itself is Spanish; diagram keywords and TeX units are also read
+# as text by the spell checker.
+author
+document
+flowchart
+lr
+pt
+sample

@@ -1,0 +1,153 @@
+% Book — plantilla de prosa larga para texforge (formato de 6x9 pulgadas).
+% Tectonic es XeTeX: la fuente ya es UTF-8, sin paquete inputenc.
+% Reemplace cada texto de ejemplo y cada comentario con % por su propio contenido.
+\documentclass[11pt,openany]{book}
+
+% --- Preámbulo (solo paquetes del bundle de Tectonic; sin inputenc/listings/minted) ---
+% % El idioma sale de {{language}} (por defecto spanish).
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{csquotes}
+\usepackage[paperwidth=6in,paperheight=9in,inner=2.2cm,outer=1.7cm,top=2cm,bottom=2cm,headheight=14pt,headsep=12pt,footskip=14pt]{geometry}
+\usepackage{fancyhdr}
+\usepackage{epigraph}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% --- Enlaces en negro: el libro se imprime en blanco y negro ---
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black,
+  breaklinks=true, pdftitle={{{title}}}, pdfauthor={{{author}}}}
+
+% --- Epígrafes: cita y fuente alineadas a la derecha, discretas y sin regla ---
+\setlength{\epigraphwidth}{0.60\textwidth}
+\renewcommand{\epigraphrule}{0pt}
+\renewcommand{\textflush}{flushright}
+
+% --- Títulos de capítulo compactos para cuidar el número de páginas ---
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{16pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-12pt}{16pt}
+
+% --- Tipografía cómoda: párrafos con sangría, aire desde el interlineado ---
+\linespread{1.06}
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+
+% --- Cabeceras: capítulo en pares, sección en impares, folio exterior ---
+% % Mantenga {{title}} corto para que la cabecera no se desborde.
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+% % Las páginas de apertura de capítulo conservan el folio exterior, sin regla.
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[LE,RO]{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% --- Las páginas en blanco (versos) salen completamente vacías: sin folio ni cabecera ---
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+\begin{document}
+
+  \frontmatter
+
+  % --- Anteportada: solo el título, una página ---
+  \begin{titlepage}
+    \thispagestyle{empty}
+    \vspace*{\fill}
+    \centering
+    % % La anteportada queda sobria: no agregue nada más aquí.
+    {\Large {{title}} \par}
+    \vspace*{\fill}
+  \end{titlepage}
+
+  % --- Portada: título, subtítulo, autor, editorial y año ---
+  \begin{titlepage}
+    \centering
+    % % Reemplace por el título del libro.
+    {\Huge\bfseries {{title}} \par}
+    \vspace{0.5cm}
+    % % Reemplace por el subtítulo del libro.
+    {\Large {{subtitle}} \par}
+    \vspace{0.8cm}
+    \rule{0.3\textwidth}{0.4pt}
+    \vspace{0.8cm}
+    % % Reemplace por el nombre del autor o la autora.
+    {\Large {{author}} \par}
+    \vfill
+    % % Reemplace por su editorial y el año de edición.
+    {{publisher}} \par
+    {{year}} \par
+  \end{titlepage}
+
+  % --- Página de créditos: una página, sin número visible ---
+  \thispagestyle{empty}
+  % % Reemplace este bloque con los datos de su edición.
+  \noindent \textcopyright\ {{year}} {{author}}. \par
+  \noindent Primera edición: {{publisher}}, {{year}}. \par
+  \vspace{0.4cm}
+  \noindent Todos los derechos reservados. Ninguna parte de este libro puede
+  reproducirse sin el permiso escrito del titular de los derechos. \par
+  \clearpage
+
+  % --- Dedicatoria: una línea genérica alineada a la derecha ---
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \begin{flushright}
+    % % Reemplace por su dedicatoria en una o dos líneas.
+    \textit{Para quien lea de noche y subraye en silencio.}
+  \end{flushright}
+  \vspace*{\fill}
+  \clearpage
+
+  % --- Índice general en su propia página ---
+  \tableofcontents
+  \clearpage
+
+  % --- Prefacio: presente el libro en dos párrafos breves ---
+  \chapter*{Prefacio}
+  \addcontentsline{toc}{chapter}{Prefacio}
+  \markboth{Prefacio}{Prefacio}
+  % % Reemplace por el origen de su libro: por qué existe y para quién es.
+  Este libro reúne tres capítulos breves sobre la forma en que miramos los
+  días comunes. Nace de notas tomadas con calma y quiere leerse sin prisa,
+  una sección cada vez, con la atención puesta en lo concreto.
+
+  % % Reemplace por la invitación al lector: cómo leer y qué esperar.
+  Cada capítulo abre con un epígrafe y cierra con una pausa. Si alguna frase
+  le resulta cercana, anótela al margen: este libro espera esa conversación.
+
+  \mainmatter
+
+  % --- Capítulos: cada uno abre en página nueva ---
+  \input{chapters/chapter1}
+  \input{chapters/chapter2}
+  \input{chapters/chapter3}
+
+  \backmatter
+
+  % --- Agradecimientos: cierre breve del libro ---
+  \chapter{Agradecimientos}
+  % % Reemplace por sus agradecimientos en dos párrafos breves.
+  Este libro debe mucho a las personas que leyeron los borradores y dijeron
+  la verdad con cariño. Gracias a quienes prestaron tiempo, silencio y
+  preguntas buenas cuando el texto aún no sabía lo que quería decir.
+  % % Reemplace por el cierre: qué queda abierto y qué sigue.
+  Gracias también a quienes cuidan las casas, las mesas y las mañanas donde
+  se escribió. Lo que sigue ahora pertenece al lector: que estas páginas
+  acompañen y dejen una marca amable.
+
+\end{document}

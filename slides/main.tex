@@ -1,0 +1,162 @@
+% Presentation slides template for texforge (beamer, 16:9).
+% Placeholders are filled in when the project is created; every % comment
+% says what to replace. Text below is generic sample content.
+% Tectonic reads UTF-8 directly, so no input encoding package is loaded.
+\documentclass[aspectratio=169,11pt]{beamer}
+
+% Document language from the {{language}} placeholder (default english).
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+
+% Built-in default theme; no external theme package (no metropolis).
+\usetheme{default}
+
+% One accent colour for frame titles, structure and itemize bullets.
+\definecolor{acento}{HTML}{1F4E79}
+\setbeamercolor{frametitle}{fg=acento}
+\setbeamercolor{structure}{fg=acento}
+\setbeamercolor{itemize item}{fg=acento}
+\setbeamercolor{itemize subitem}{fg=acento}
+\setbeamercolor{itemize subsubitem}{fg=acento}
+
+% Navigation symbols off; footline keeps author, short title and frame/total.
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{author in head/foot}{fg=black,bg=black!8}
+\setbeamercolor{title in head/foot}{fg=black,bg=black!8}
+\setbeamercolor{date in head/foot}{fg=black,bg=black!8}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.5ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.5ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.5ex,dp=1ex,center]{date in head/foot}%
+      \usebeamerfont{date in head/foot}\insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% Replace the short forms with a short title and short author for the footline.
+\title[Short title]{{{title}}}
+\subtitle{{{subtitle}}}
+\author[{{author}}]{{{author}}}
+\institute[{{institution}}]{{{institution}}}
+\date{{{date}}}
+
+\begin{document}
+
+  % Replace the title frame fields with your own; keep the placeholders.
+  \begin{frame}
+    \titlepage
+  \end{frame}
+
+  % Keep the outline right after the title frame; it lists the sections below.
+  \begin{frame}{Outline}
+    \tableofcontents
+  \end{frame}
+
+  \section{Motivation}
+
+  % One point per line; \pause reveals them one at a time.
+  \begin{frame}{Motivation}
+    Why this work matters:
+    \begin{itemize}
+      \item The first point motivates the problem.
+      \pause
+      \item The second point names the gap.
+      \pause
+      \item The third point states the goal of the talk.
+    \end{itemize}
+  \end{frame}
+
+  \section{Method}
+
+  % Replace the diagram with your own; keep style= and the caption.
+  \begin{frame}{Method}
+    \begin{mermaid}[style=editorial, caption={Sample pipeline from data to result}, width=0.8\linewidth]
+      flowchart LR
+      data[Collect] --> clean[Clean] --> model[Train] --> report[Report]
+    \end{mermaid}
+  \end{frame}
+
+  % Replace the listing with your own code (at most ten short lines).
+  \begin{frame}[fragile]{Code}
+    \begin{code}[lang=python]
+def average(values):
+    """Return the mean of a non-empty sequence."""
+    return sum(values) / len(values)
+
+scores = [0.7, 0.8, 0.9]
+print(average(scores))
+    \end{code}
+  \end{frame}
+
+  \section{Results}
+
+  % Replace the rows with your own measurements.
+  \begin{frame}{Results}
+    \begin{center}
+      \begin{tabular}{lcc}
+        \toprule
+        Run & Value & Error \\
+        \midrule
+        Baseline & 1.00 & 0.05 \\
+        Variant A & 1.15 & 0.07 \\
+        Variant B & \textbf{1.24} & 0.06 \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+    \begin{block}{Main result}
+      The best value improves on the baseline by about a quarter.
+    \end{block}
+    \begin{alertblock}{Caveat}
+      The sample numbers are illustrative; replace them with real data.
+    \end{alertblock}
+  \end{frame}
+
+  % Two columns: text on the left, a diagram on the right.
+  \begin{frame}{Two columns}
+    \begin{columns}[T]
+      \begin{column}{0.48\textwidth}
+        Replace this paragraph with the explanation that belongs next to the
+        diagram. Keep it short so both columns stay inside the frame.
+      \end{column}
+      \begin{column}{0.48\textwidth}
+        \begin{graphviz}[style=monochrome, caption={Sample flow}]
+          digraph G {
+            rankdir=LR
+            input -> process -> output
+          }
+        \end{graphviz}
+      \end{column}
+    \end{columns}
+  \end{frame}
+
+  \section{Conclusions}
+
+  % One line per conclusion; keep the frame short.
+  \begin{frame}{Conclusions}
+    \begin{itemize}
+      \item The method solves the stated problem.
+      \item The result matches the sample measurements.
+      \item The next step is to validate on real data.
+    \end{itemize}
+  \end{frame}
+
+  % Replace the closing line with your own contact or question prompt.
+  \begin{frame}{Thank you}
+    \centering
+    \Large Questions?
+    \vspace{1em}
+
+    \normalsize\texttt{author@example.org}
+  \end{frame}
+
+\end{document}

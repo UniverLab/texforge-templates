@@ -1,46 +1,43 @@
-% General Article Template
-\documentclass[a4paper,12pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+% General Article Template for texforge.
+% Text in double braces is a placeholder filled in when the project is
+% created; the % comments say what to replace.
+\documentclass[a4paper,11pt]{article}
+
+% The document language is set by the {{language}} placeholder.
 \usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage{amsmath,amssymb}
+\usepackage{booktabs}
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{geometry}
-\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage[pdfauthor={{{author}}},pdftitle={{{title}}}]{hyperref}
 
-\geometry{margin=2.5cm}
-
-\pagestyle{fancy}
-\fancyhf{}
-\cfoot{\thepage}
-
+% Replace the three fields below with your own.
 \title{{{title}}}
 \author{{{author}}}
 \date{{{date}}}
 
 \begin{document}
 
-\maketitle
+  \maketitle
 
-\begin{abstract}
-Write your abstract here.
-\end{abstract}
+  \begin{abstract}
+    % Replace this paragraph with a short summary: the problem, the method and
+    % the main result.
+    This document is a working example of the \textit{general} template. Each
+    section below shows one feature once, so you can keep what you need and
+    replace the rest with your own content.
+  \end{abstract}
 
-\section{Introduction}
-Your introduction goes here.
+  % The body lives in sections/body.tex so the entry point stays short.
+  \input{sections/body}
 
-\subsection{Background}
-Provide background context.
-
-\section{Main Content}
-Expand your main content here. Cite sources like this~\cite{example}.
-
-\section{Conclusion}
-Summarize your key findings.
-
-\bibliographystyle{plain}
-\bibliography{bib/references}
+  % The three sample entries in bib/references.bib are all cited in the body.
+  \bibliographystyle{plain}
+  \bibliography{bib/references}
 
 \end{document}

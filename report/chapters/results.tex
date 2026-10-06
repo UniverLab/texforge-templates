@@ -1,0 +1,45 @@
+\chapter{Results}
+\label{ch:results}
+
+% Replace this paragraph with a summary of your findings. Cite
+% \cite{openlab2024} where appropriate.
+The evaluation was run on a small public sample data set~\cite{openlab2024}
+and produced the values summarised in this chapter. Every number reported
+here comes from the same run, so the procedure can be repeated
+independently.
+
+% Graphviz measurement workflow diagram. Replace the graph with your own
+% workflow. Keep style= and the caption (wrap a caption containing a comma
+% in braces).
+\begin{graphviz}[style=editorial, width=0.8\linewidth, pos=H, caption={Measurement workflow}]
+  digraph G {
+    rankdir=LR
+    measure -> validate
+    validate -> report
+  }
+\end{graphviz}
+
+% Replace this paragraph with a sentence linking the diagram to the code
+% example. Diagrams carry no label, so refer to them by name rather than
+% with \ref.
+The workflow above measures each case, validates the measurement and
+reports it; the listing below performs the normalisation step of that
+workflow.
+
+% Python code block (at most fifteen lines, numbers=true). Replace it with
+% your own snippet. A listing is not a figure or a table, so it takes no
+% label and appears in neither list.
+\begin{code}[lang=python, numbers=true]
+def normalize(values):
+    """Return the values scaled to the unit interval."""
+    if not values:
+        return []
+    low, high = min(values), max(values)
+    if high == low:
+        return [0.0 for _ in values]
+    return [(v - low) / (high - low) for v in values]
+\end{code}
+
+% Replace with a short sentence describing what the code does.
+The function rescales the measured values so that the smallest becomes zero
+and the largest becomes one, which makes the cases comparable.

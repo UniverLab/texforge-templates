@@ -1,10 +1,10 @@
 id = "taller"
-version = "0.1.0"
+version = "0.2.0"
 display_name = "Taller / Informe"
-description = "Informe de taller con portada en color, listings de código y diagrama embebido — formato informal pero atractivo"
+description = "Informe de taller con portada en color, bloques de código y diagrama de flujo — formato informal pero atractivo"
 
 [files]
-include = ["**/*.tex", "**/*.py"]
+include = ["**/*.tex", "**/*.txt"]
 exclude = []
 
 [[placeholders]]
@@ -53,6 +53,13 @@ default = "\\today"
 name = "repo_url"
 type = "string"
 description = "URL del repositorio (opcional)"
+required = false
+default = "https://github.com/usuario/proyecto"
+
+[[placeholders]]
+name = "repository"
+type = "string"
+description = "URL del repositorio mostrada en la portada"
 required = false
 default = "https://github.com/usuario/proyecto"
 

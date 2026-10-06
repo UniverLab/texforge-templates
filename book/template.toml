@@ -1,0 +1,56 @@
+id = "book"
+version = "0.1.0"
+display_name = "Book"
+description = "Libro o ensayo largo — capítulos con epígrafes, frontmatter completo"
+
+[files]
+include = ["**/*.tex", "**/*.txt"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Título del libro"
+required = true
+
+[[placeholders]]
+name = "subtitle"
+type = "string"
+description = "Subtítulo del libro"
+required = false
+default = "Subtítulo"
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Autor/a del libro"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "publisher"
+type = "string"
+description = "Editorial o pie de edición"
+required = false
+default = "Edición independiente"
+
+[[placeholders]]
+name = "year"
+type = "string"
+description = "Año de publicación"
+required = false
+default = "2026"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Idioma del documento (babel)"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "spanish"
+
+[[post_generate]]
+name = "build"
+description = "Compilar el libro a PDF"
+command = "texforge build"
+optional = true

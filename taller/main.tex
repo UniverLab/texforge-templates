@@ -1,7 +1,8 @@
-% Taller / Informe — plantilla con portada en color, listings y diagrama embebido.
+% Taller — entregable con portada en color, código resaltado y diagrama de flujo.
+% Tectonic es XeTeX: las fuentes ya son UTF-8, sin paquete inputenc.
+% Reemplace cada texto de ejemplo y cada comentario % por el contenido de su taller.
 \documentclass[12pt]{article}
 \usepackage[{{language}}]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{geometry}
 \usepackage{xcolor}
@@ -10,138 +11,137 @@
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{tcolorbox}
-\usepackage{listings}
+\usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{float}
 
 \geometry{margin=2.5cm}
 \hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black, breaklinks=true}
 
+% Cabecera: entrega a la izquierda, asignatura a la derecha, página abajo.
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{{{course}}}
 \lhead{{{deliverable}}}
+\rhead{{{course}}}
 \cfoot{\thepage}
 
 \titleformat{\section}{\large\bfseries\color{blue!50!black}}{\thesection.}{0.5em}{}
 \titleformat{\subsection}{\normalsize\bfseries\color{blue!40!black}}{\thesubsection.}{0.5em}{}
 
-% Estilo para listados de código.
-\definecolor{codebg}{RGB}{248,248,248}
-\definecolor{codeframe}{RGB}{220,220,220}
-\lstdefinestyle{codestyle}{
-  language=Python,
-  basicstyle=\ttfamily\small,
-  backgroundcolor=\color{codebg},
-  frame=single,
-  rulecolor=\color{codeframe},
-  breaklines=true,
-  showstringspaces=false,
-  commentstyle=\color{green!40!black},
-  keywordstyle=\color{blue!60!black}\bfseries,
-  stringstyle=\color{orange!60!black},
-  columns=fullflexible
-}
-
 \begin{document}
 
-% ----------------------------------------------------------------------
-% Portada
-% ----------------------------------------------------------------------
-\begin{titlepage}
-\centering
-{\scshape\LARGE {{deliverable}} \par}
-\vspace{1.2cm}
-{\huge\bfseries {{title}} \par}
-\vspace{0.5cm}
-{\Large {{subtitle}} \par}
-\vspace{1.6cm}
-\begin{tcolorbox}[colback=blue!3, colframe=blue!35!black, width=0.88\textwidth]
-\begin{tabular}{ll}
-\textbf{Estudiante:} & {{author}} \\
-\textbf{Asignatura:} & {{course}} \\
-\textbf{Producto:} & {{deliverable}} \\
-\textbf{Fecha:} & {{date}} \\
-\textbf{Repositorio:} & {\small\url{{{repo_url}}}} \\
-\end{tabular}
-\end{tcolorbox}
-\vfill
-\end{titlepage}
+  % --- Portada (una sola página: no agregue texto aquí) ---
+  \begin{titlepage}
+    \centering
+    % % Reemplace por el tipo de entrega.
+    {\scshape\LARGE {{deliverable}} \par}
+    \vspace{1.2cm}
+    % % Reemplace por el título del taller.
+    {\huge\bfseries {{title}} \par}
+    \vspace{0.5cm}
+    % % Reemplace por una frase que describa el trabajo.
+    {\Large {{subtitle}} \par}
+    \vspace{1.6cm}
+    \begin{tcolorbox}[colback=blue!3, colframe=blue!35!black, width=0.88\textwidth]
+      \begin{tabular}{@{}ll@{}}
+        \textbf{Estudiante:} & {{author}} \\
+        \textbf{Asignatura:} & {{course}} \\
+        \textbf{Producto:} & {{deliverable}} \\
+        \textbf{Fecha:} & {{date}} \\
+        \textbf{Repositorio:} & {\small\url{{{repository}}}} \\
+      \end{tabular}
+    \end{tcolorbox}
+    \vfill
+  \end{titlepage}
 
-% ----------------------------------------------------------------------
-% Contenido
-% ----------------------------------------------------------------------
-\section{Enunciado del ejercicio propuesto}
-Describe aquí el objetivo de la actividad y lo que se pide resolver. Resume el
-problema en pocas frases y enlaza, si aplica, el repositorio del proyecto en
-\url{{{repo_url}}}.
+  % --- 1. Enunciado: objetivo de la actividad y qué se pide resolver ---
+  \section{Enunciado}
+  % % Reemplace por el enunciado oficial de la actividad.
+  El objetivo de la actividad es diseñar e implementar un algoritmo que
+  resuelva un problema concreto utilizando estructuras condicionales y
+  repetitivas. Se pide describir la solución, implementarla en código y
+  comprobarla con casos de prueba. Consulte los avances del proyecto en
+  \url{{{repo_url}}}.
 
-\section{Situación problema}
-Explica el contexto y la necesidad concreta que motiva la solución. ¿Qué
-dificultad existe hoy y por qué vale la pena automatizarla o resolverla?
+  % --- 2. Situación problema: contexto y necesidad que motiva la solución ---
+  \section{Situación problema}
+  % % Reemplace por el contexto real de su problema.
+  Hoy el proceso se resuelve a mano y consume tiempo: hay que revisar cada
+  caso por separado y los resultados no siempre salen iguales. Conviene
+  automatizarlo para obtener resultados consistentes y poder repetirlo
+  cuantas veces sea necesario.
 
-\section{Solución algorítmica}
-Resume la estrategia de la solución: entradas, salidas, y los pasos generales
-del algoritmo.
+  % --- 3. Solución algorítmica: pasos numerados y diagrama de flujo ---
+  \section{Solución algorítmica}
+  % % Reemplace por la estrategia de su solución: entradas, salidas y pasos.
+  La solución recibe una entrada del usuario, la valida, la procesa según
+  una regla simple y muestra el resultado organizado.
 
-\begin{tcolorbox}[colback=gray!4, colframe=gray!45, title=Lógica general del algoritmo]
-\begin{enumerate}[leftmargin=1.2cm]
-\item Inicializar los datos y el estado.
-\item Leer la entrada del usuario.
-\item Procesar la información según las reglas del problema.
-\item Validar los casos límite.
-\item Mostrar los resultados de forma organizada.
-\end{enumerate}
-\end{tcolorbox}
+  \begin{tcolorbox}[colback=gray!4, colframe=gray!45, coltitle=black, title={Pasos del algoritmo}]
+    \begin{enumerate}[leftmargin=1.2cm]
+      \item Inicializar los datos y el estado.
+      \item Leer la entrada del usuario.
+      \item Validar la entrada y detectar errores.
+      \item Procesar la información según las reglas del problema.
+      \item Mostrar los resultados de forma organizada.
+    \end{enumerate}
+  \end{tcolorbox}
 
-\section{Uso de estructuras de control}
-\subsection{Estructuras condicionales}
-\begin{itemize}
-\item Se usa \texttt{if} para validar la entrada antes de procesarla.
-\item Se usa \texttt{if/else} para decidir qué resultado mostrar.
-\end{itemize}
+  % % Reemplace los nodos por el flujo de su algoritmo; mantenga el estilo y el título.
+  \begin{mermaid}[style=editorial, width=0.55\linewidth, caption={Flujo del algoritmo}]
+    flowchart TD
+    A[Inicio] --> B[Leer entrada]
+    B --> C{¿Entrada válida?}
+    C -- No --> D[Mostrar error]
+    C -- Sí --> E[Procesar datos]
+    E --> F[Mostrar resultado]
+    D --> G[Fin]
+    F --> G
+  \end{mermaid}
 
-\subsection{Estructuras repetitivas}
-\begin{itemize}
-\item Se usa \texttt{for} para recorrer la colección de datos.
-\item Se usa \texttt{while} cuando la cantidad de iteraciones no se conoce de antemano.
-\end{itemize}
+  % --- 4. Implementación: un solo bloque de código ---
+  \section{Implementación}
+  % % Reemplace por el núcleo de su solución (máximo 20 líneas).
+  El bloque muestra el núcleo de la implementación.
 
-\section{Diagrama de flujo}
-El siguiente diagrama se renderiza automáticamente con \texttt{texforge build}
-(no requiere imágenes externas):
+  \begin{code}[lang=python, numbers=true]
+def clasificar(numeros):
+    pares, impares = [], []
+    for n in numeros:
+        if n % 2 == 0:
+            pares.append(n)
+        else:
+            impares.append(n)
+    return pares, impares
+def validar(entrada):
+    if not entrada: raise ValueError("entrada vacía")
+    return [int(x) for x in entrada.split(",")]
+  \end{code}
 
-\begin{graphviz}[caption=Diagrama de flujo del algoritmo, width=0.55\linewidth]
-digraph G {
-  rankdir=TB
-  node [shape=box, style=rounded, fontname="Helvetica"]
-  inicio  [label="Inicio", shape=ellipse]
-  leer    [label="Leer entrada"]
-  valida  [label="¿Entrada válida?", shape=diamond]
-  proc    [label="Procesar datos"]
-  error   [label="Mostrar error"]
-  salida  [label="Mostrar resultado"]
-  fin     [label="Fin", shape=ellipse]
+  % --- 5. Pruebas: tabla de casos con booktabs ---
+  \section{Pruebas}
+  % % Reemplace por sus casos reales; mantenga las cuatro columnas.
+  La tabla resume los casos de prueba ejecutados y su resultado esperado.
 
-  inicio -> leer -> valida
-  valida -> error  [label="no"]
-  valida -> proc   [label="sí"]
-  proc -> salida -> fin
-  error -> fin
-}
-\end{graphviz}
+  \begin{table}[H]
+    \centering
+    \caption{Casos de prueba del algoritmo}
+    \begin{tabular}{@{}llll@{}}
+      \toprule
+      Caso & Entrada & Salida esperada & Resultado \\
+      \midrule
+      Normal & 8 & Pares: 4 & Cumple \\
+      Límite & Lista vacía & Sin datos & Cumple \\
+      Error & Texto no numérico & Mensaje de error & Cumple \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
 
-\section{Código fuente comentado}
-El siguiente listado inserta el archivo real de la aplicación. Los comentarios
-resaltan el uso de estructuras condicionales y repetitivas.
-
-\lstinputlisting[style=codestyle]{src/example.py}
-
-\section{Reflexión individual}
-Comenta qué aprendiste durante el desarrollo, los principales retos y cómo los
-resolviste.
-
-\section{Conclusión}
-Cierra con los resultados obtenidos y el valor de la solución construida.
+  % --- 6. Conclusiones: cierre breve ---
+  \section{Conclusiones}
+  % % Reemplace por sus conclusiones: qué se logró y qué falta.
+  El algoritmo resuelve el problema planteado y pasa todos los casos de
+  prueba definidos. Como la solución está separada en pasos claros,
+  ampliarla con nuevas reglas no obliga a reescribir el código entero.
 
 \end{document}
