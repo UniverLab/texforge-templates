@@ -226,7 +226,8 @@ version = "1.0.0"
 
 ## Checking a template
 
-`scripts/check-templates.sh` validates templates offline: it never runs
+`check-templates.sh` (at the repo root, not in a folder: texforge lists every
+top-level directory of this repo as a template) validates templates offline: it never runs
 `texforge new` (which would refresh cached templates from the remote registry
 and test the published copy instead of your working tree), it renders into a
 throwaway temp directory, and it never writes to `~/.texforge`. Every template
@@ -236,13 +237,13 @@ spec in the development queue is gated by this script.
 
 ```bash
 # Check every template (any top-level directory with a template.toml)
-scripts/check-templates.sh
+./check-templates.sh
 
 # Check exactly those templates (unknown name exits 2)
-scripts/check-templates.sh taller general
+./check-templates.sh taller general
 
 # Check only templates changed since a revision (tracked changes + untracked files)
-scripts/check-templates.sh --changed HEAD
+./check-templates.sh --changed HEAD
 ```
 
 ### What each step checks

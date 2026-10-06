@@ -8,7 +8,7 @@
 # temp directory; previews land under the git dir (never committed).
 #
 # Usage:
-#   scripts/check-templates.sh [--changed <git-rev>] [NAME...]
+#   check-templates.sh [--changed <git-rev>] [NAME...]
 #
 # Exit codes: 0 = every selected template passed, 1 = at least one failed,
 #             2 = unknown template name.
