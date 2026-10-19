@@ -1,0 +1,149 @@
+% Technical brief with a cover page, callouts, a diagram and a code sample.
+% Tectonic reads UTF-8 directly. Replace each sample passage and comment.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{newpxtext}
+\usepackage{microtype}
+\usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt,footskip=14pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{hyperref}
+
+% A restrained palette keeps callouts distinct without overpowering the page.
+\definecolor{briefink}{HTML}{292927}
+\definecolor{briefaccent}{HTML}{8A493D}
+\definecolor{briefwarning}{HTML}{A66B2B}
+\hypersetup{colorlinks=true,linkcolor=briefaccent,urlcolor=briefaccent,
+  citecolor=briefaccent,breaklinks=true,pdftitle={{{title}}},pdfauthor={{{author}}}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{{{course}}}
+\rhead{{{title}}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{briefaccent}\leaders\hrule height \headrulewidth\hfill}}
+
+\titleformat{\section}{\normalfont\Large\bfseries\color{briefink}}
+{\textcolor{briefaccent}{\thesection}}{0.75em}{}
+\titlespacing*{\section}{0pt}{1.35\baselineskip}{0.45\baselineskip}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{briefink}}
+{\thesubsection}{0.7em}{}
+\titlespacing*{\subsection}{0pt}{1.1\baselineskip}{0.35\baselineskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\emergencystretch}{2em}
+\setlist{leftmargin=1.4em,itemsep=2pt,topsep=3pt}
+
+\newtcolorbox{noteBox}{colback=gray!4,colframe=gray!40,
+  fonttitle=\bfseries,coltitle=briefink,boxrule=0.5pt,arc=1mm,
+  left=6pt,right=6pt,top=5pt,bottom=5pt}
+\newtcolorbox{keyBox}{colback=briefaccent!5,colframe=briefaccent!60,
+  fonttitle=\bfseries,title=Key Point,boxrule=0.6pt,arc=1mm,
+  left=6pt,right=6pt,top=5pt,bottom=5pt}
+\newtcolorbox{cautionBox}{colback=briefwarning!6,colframe=briefwarning!70,
+  fonttitle=\bfseries,title=Please Note,boxrule=0.6pt,arc=1mm,
+  left=6pt,right=6pt,top=5pt,bottom=5pt}
+
+\begin{document}
+
+  % Cover page: keep this block to one page.
+  \begin{titlepage}
+    \centering
+    {\scshape\large {{kicker}} \par}
+    \vspace{0.9cm}
+    {\huge\bfseries\color{briefink} {{title}} \par}
+    \vspace{0.4cm}
+    {\Large {{subtitle}} \par}
+    \vspace{1.3cm}
+    \begin{tcolorbox}[colback=briefaccent!4,colframe=briefaccent!50,
+        width=0.88\textwidth,boxrule=0.6pt,arc=1mm]
+      \begin{tabular}{@{}ll@{}}
+        \textbf{Author:} & {{author}} \\
+        \textbf{Course or project:} & {{course}} \\
+        \textbf{Date:} & {{date}} \\
+        \textbf{Repository:} & {\small\url{{{repository}}}} \\
+      \end{tabular}
+    \end{tcolorbox}
+    \vfill
+  \end{titlepage}
+
+  % Replace with the document's purpose and key result.
+  \section{Summary}
+  \begin{keyBox}
+    This brief summarises the current status, the proposed solution and the
+    main result for a quick first read.
+  \end{keyBox}
+
+  % Replace with the request, the important constraint and what is delivered.
+  \section{Context}
+  The project needs a concise status update: what was requested, which
+  constraint matters and what this version delivers.
+  \begin{noteBox}
+    Scope of this brief: work completed up to the date shown on the cover.
+  \end{noteBox}
+
+  % Replace with the solution steps, diagram and a short code sample.
+  \section{Solution}
+  The workflow has three steps: prepare the data, apply the main rule and
+  present the result.
+
+  \begin{mermaid}[style=editorial,width=0.82\linewidth,
+      caption={Overview of the solution workflow},pos=H]
+    flowchart LR
+    A[Prepare data] --> B[Apply rule] --> C[Present result]
+  \end{mermaid}
+
+  \begin{code}[lang=python,numbers=true]
+def summarize(items):
+    total = sum(items)
+    count = len(items)
+    mean = total / count if count else 0
+    return total, mean
+  \end{code}
+
+  % Replace the sample values and the caution with your own results.
+  \section{Results}
+  The table summarises three illustrative measurements.
+  \begin{table}[H]
+    \centering
+    \caption{Illustrative measurements}
+    \begin{tabular}{@{}lcc@{}}
+      \toprule
+      Case & Before & After \\
+      \midrule
+      A & 12 & 8 \\
+      B & 20 & 11 \\
+      C & 15 & 9 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \begin{cautionBox}
+    These values are illustrative; verify all figures against the final data.
+  \end{cautionBox}
+
+  % Replace with a brief conclusion and the open tasks.
+  \section{Conclusion and Next Steps}
+  The work meets the stated objective and leaves a clear path for the next
+  iteration.
+  \begin{itemize}[label=$\square$]
+    \item Review the draft with the team.
+    \item Add the final data.
+    \item Prepare the next release.
+  \end{itemize}
+
+  % Replace these generic references with the sources you used.
+  \begin{thebibliography}{9}
+    \bibitem{guide} Sample Author, \textit{A Short Guide to Technical Briefs}, Sample Press, 2024.
+    \bibitem{writing} Sample Author, \textit{Writing with Clarity}, Sample Press, 2023.
+  \end{thebibliography}
+
+\end{document}

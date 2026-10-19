@@ -1,7 +1,7 @@
 id = "book"
-version = "0.1.0"
+version = "0.2.0"
 display_name = "Book"
-description = "Libro o ensayo largo — capítulos con epígrafes, frontmatter completo"
+description = "A long-form book layout with epigraphs, front matter, chapter openings and a literary paragraph style"
 
 [files]
 include = ["**/*.tex", "**/*.txt"]
@@ -10,47 +10,47 @@ exclude = []
 [[placeholders]]
 name = "title"
 type = "string"
-description = "Título del libro"
+description = "Book title"
 required = true
 
 [[placeholders]]
 name = "subtitle"
 type = "string"
-description = "Subtítulo del libro"
+description = "Book subtitle"
 required = false
-default = "Subtítulo"
+default = "A Quiet Journey"
 
 [[placeholders]]
 name = "author"
 type = "string"
-description = "Autor/a del libro"
+description = "Book author"
 required = true
 default = "{{user.name}}"
 
 [[placeholders]]
 name = "publisher"
 type = "string"
-description = "Editorial o pie de edición"
+description = "Publisher or imprint"
 required = false
-default = "Edición independiente"
+default = "Independent Edition"
 
 [[placeholders]]
 name = "year"
 type = "string"
-description = "Año de publicación"
+description = "Publication year"
 required = false
 default = "2026"
 
 [[placeholders]]
 name = "language"
 type = "enum"
-description = "Idioma del documento (babel)"
+description = "Document language for babel"
 required = true
 choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
-default = "spanish"
+default = "english"
 
 [[post_generate]]
 name = "build"
-description = "Compilar el libro a PDF"
+description = "Compile the book to PDF"
 command = "texforge build"
 optional = true

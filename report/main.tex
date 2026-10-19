@@ -8,24 +8,36 @@
 % Document language, taken from the {{language}} placeholder (default english).
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage{newpxtext,newpxmath}
 \usepackage{microtype}
+\usepackage[skip=0.55\baselineskip]{parskip}
 \usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt]{geometry}
 \usepackage{xcolor}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
+\usepackage{titlesec}
 \usepackage{hyperref}
 
-% One restrained accent for links and the title-page rule.
-\definecolor{reportblue}{HTML}{1F4E79}
+% One warm accent for navigation, with near-black text for comfortable reading.
+\definecolor{reportink}{HTML}{292927}
+\definecolor{reportaccent}{HTML}{8A493D}
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\color{reportink}}
+{\color{reportaccent}\chaptertitlename\ \thechapter}{14pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-12pt}{18pt}
+\titleformat{\section}{\normalfont\Large\bfseries\color{reportink}}
+{\textcolor{reportaccent}{\thesection}}{0.75em}{}
+\titlespacing*{\section}{0pt}{1.3\baselineskip}{0.45\baselineskip}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
 \hypersetup{
   colorlinks=true,
-  linkcolor=reportblue,
-  urlcolor=reportblue,
-  citecolor=reportblue,
+  linkcolor=reportaccent,
+  urlcolor=reportaccent,
+  citecolor=reportaccent,
   breaklinks=true,
   pdftitle={{{title}}},
   pdfauthor={{{author}}}
@@ -57,7 +69,7 @@
     \vspace{0.35cm}
     {\large {{faculty}} \par}
     \vspace{0.8cm}
-    {\color{reportblue}\rule{\textwidth}{1pt}\par}
+    {\color{reportaccent}\rule{\textwidth}{1pt}\par}
     \vspace{1.8cm}
     {\huge\bfseries {{title}} \par}
     \vspace{0.5cm}

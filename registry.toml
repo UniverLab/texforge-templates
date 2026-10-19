@@ -1,59 +1,59 @@
 [[templates]]
-nombre = "general"
-descripcion = "Generic article — minimal setup for any document"
-version = "0.2.0"
-
-[[templates]]
 nombre = "apa-general"
-descripcion = "APA 7th edition — academic reports and theses"
+descripcion = "APA 7th edition template for academic reports and theses"
 version = "0.2.0"
 
 [[templates]]
 nombre = "apa-unisalle"
-descripcion = "APA for Universidad de La Salle — thesis proposal format"
+descripcion = "APA thesis proposal for Universidad de La Salle"
 version = "0.2.0"
-
-[[templates]]
-nombre = "ieee"
-descripcion = "IEEE journal format — technical papers"
-version = "0.2.0"
-
-[[templates]]
-nombre = "letter"
-descripcion = "Formal letter template — professional correspondence"
-version = "0.1.1"
 
 [[templates]]
 nombre = "article"
-descripcion = "Simple article — clean, portable academic article"
-version = "0.2.0"
+descripcion = "Single-column academic article with running heads and author affiliations"
+version = "0.3.0"
 
 [[templates]]
-nombre = "report"
-descripcion = "University report — structured academic report template"
-version = "0.2.0"
-
-[[templates]]
-nombre = "taller"
-descripcion = "Taller / informe con portada en color, bloques de código y diagrama de flujo — informal pero atractivo"
+nombre = "book"
+descripcion = "Long-form book layout with epigraphs and front matter"
 version = "0.2.0"
 
 [[templates]]
 nombre = "cv"
-descripcion = "Curriculum vitae — clean, ATS-friendly résumé"
+descripcion = "Clean, ATS-friendly curriculum vitae"
 version = "0.1.0"
 
 [[templates]]
-nombre = "informe"
-descripcion = "Informe relajado con portada, cajas destacadas, diagramas y código — para entregas y notas técnicas"
-version = "0.1.0"
+nombre = "general"
+descripcion = "Editorial foundation for essays and other documents, with serif type and spaced paragraphs"
+version = "0.3.0"
+
+[[templates]]
+nombre = "ieee"
+descripcion = "IEEE journal format for technical papers"
+version = "0.2.0"
+
+[[templates]]
+nombre = "letter"
+descripcion = "Formal letter template for professional correspondence"
+version = "0.2.0"
+
+[[templates]]
+nombre = "report"
+descripcion = "Structured university report with front matter, contents and appendices"
+version = "0.3.0"
 
 [[templates]]
 nombre = "slides"
-descripcion = "Presentation slides (beamer 16:9) with code and diagrams"
+descripcion = "16:9 presentation slides with code and diagrams"
 version = "0.1.0"
 
 [[templates]]
-nombre = "book"
-descripcion = "Libro o ensayo largo — capítulos con epígrafes, frontmatter completo"
-version = "0.1.0"
+nombre = "technical-brief"
+descripcion = "Concise technical update with callouts, diagrams, code and results"
+version = "0.2.0"
+
+[[templates]]
+nombre = "workshop"
+descripcion = "Workshop handout with a cover page, workflow, code and test table"
+version = "0.3.0"

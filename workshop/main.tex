@@ -1,0 +1,152 @@
+% Workshop handout with a restrained cover, code sample and workflow diagram.
+% Tectonic reads UTF-8 directly. Replace each sample passage and comment.
+\documentclass[12pt]{article}
+
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{newpxtext}
+\usepackage{microtype}
+\usepackage[skip=0.55\baselineskip]{parskip}
+\usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+
+\definecolor{workshopink}{HTML}{292927}
+\definecolor{workshopaccent}{HTML}{8A493D}
+\hypersetup{colorlinks=true,linkcolor=workshopaccent,urlcolor=workshopaccent,
+  citecolor=workshopaccent,breaklinks=true,pdftitle={{{title}}},pdfauthor={{{author}}}}
+
+% Section numbers and rules use a single warm accent; body copy stays dark.
+\titleformat{\section}{\normalfont\Large\bfseries\color{workshopink}}
+{\textcolor{workshopaccent}{\thesection}}{0.75em}{}
+\titlespacing*{\section}{0pt}{1.4\baselineskip}{0.45\baselineskip}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{workshopink}}
+{\thesubsection}{0.7em}{}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\setlist{leftmargin=1.4em,itemsep=2pt,topsep=4pt}
+
+% Running head: deliverable at left, course at right, page number below.
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{{{deliverable}}}
+\rhead{{{course}}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{workshopaccent}\leaders\hrule height \headrulewidth\hfill}}
+
+\begin{document}
+
+  % Cover page: keep this block to one page.
+  \begin{titlepage}
+    \centering
+    {\scshape\large {{deliverable}} \par}
+    \vspace{1.1cm}
+    {\huge\bfseries\color{workshopink} {{title}} \par}
+    \vspace{0.45cm}
+    {\Large {{subtitle}} \par}
+    \vspace{1.5cm}
+    \begin{tcolorbox}[colback=workshopaccent!4,colframe=workshopaccent!55,
+        width=0.88\textwidth,boxrule=0.6pt,arc=1mm]
+      \begin{tabular}{@{}ll@{}}
+        \textbf{Student:} & {{author}} \\
+        \textbf{Course:} & {{course}} \\
+        \textbf{Deliverable:} & {{deliverable}} \\
+        \textbf{Date:} & {{date}} \\
+        \textbf{Repository:} & {\small\url{{{repository}}}} \\
+      \end{tabular}
+    \end{tcolorbox}
+    \vfill
+  \end{titlepage}
+
+  \section{Problem Statement}
+  % Replace with the official prompt and expected outcome.
+  The task is to design and implement an algorithm that solves a concrete
+  problem with conditional and iterative steps. Describe the approach, write
+  the code and check it against representative cases. Project updates are
+  available at \url{{{repo_url}}}.
+
+  \section{Problem Context}
+  % Replace with the context and constraints that motivate your solution.
+  The current process is manual and takes time: each case must be checked
+  separately, and the results are not always consistent. Automating the
+  process should make the outcome repeatable and easier to review.
+
+  \section{Algorithmic Solution}
+  % Replace with your inputs, outputs and key steps.
+  The solution reads an input, validates it, applies a simple rule and
+  presents the result in an organised form.
+
+  \begin{tcolorbox}[colback=gray!4,colframe=gray!45,coltitle=workshopink,
+      title={Algorithm Steps},boxrule=0.5pt,arc=1mm]
+    \begin{enumerate}
+      \item Initialise the data and state.
+      \item Read the user's input.
+      \item Validate the input and detect errors.
+      \item Process the data according to the problem rules.
+      \item Present the results clearly.
+    \end{enumerate}
+  \end{tcolorbox}
+
+  % Replace the nodes with your own flow; keep the style and caption.
+  \begin{mermaid}[style=editorial,width=0.68\linewidth,
+      caption={Algorithm workflow}]
+    flowchart TD
+    A[Start] --> B[Read input]
+    B --> C{Input valid?}
+    C -- No --> D[Show error]
+    C -- Yes --> E[Process data]
+    E --> F[Show result]
+    D --> G[Finish]
+    F --> G
+  \end{mermaid}
+
+  \section{Implementation}
+  % Replace with the core of your solution (up to 20 lines).
+  The listing shows the core transformation from input values to results.
+
+  \begin{code}[lang=python,numbers=true]
+def classify(values):
+    even, odd = [], []
+    for value in values:
+        (even if value % 2 == 0 else odd).append(value)
+    return even, odd
+
+def parse_values(text):
+    if not text.strip():
+        raise ValueError("input is empty")
+    return [int(value) for value in text.split(",")]
+  \end{code}
+
+  \section{Tests}
+  % Replace the examples with the cases you actually ran.
+  The table records representative inputs, expected outcomes and status.
+
+  \begin{table}[H]
+    \centering
+    \caption{Representative algorithm test cases}
+    \begin{tabular}{@{}llll@{}}
+      \toprule
+      Case & Input & Expected output & Status \\
+      \midrule
+      Typical & 8 & Even: 8 & Pass \\
+      Boundary & Empty list & No values & Pass \\
+      Invalid & Non-numeric text & Error message & Pass \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  \section{Conclusion}
+  % Replace with what worked and what remains to be done.
+  The algorithm solves the stated task and passes the selected test cases.
+  Its steps remain separate, so adding a new rule does not require rewriting
+  the entire implementation.
+
+\end{document}

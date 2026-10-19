@@ -1,7 +1,7 @@
 id = "general"
-version = "0.2.0"
-display_name = "General Article"
-description = "A minimal, generic template for any LaTeX document"
+version = "0.3.0"
+display_name = "General Document"
+description = "A clean general-purpose document with refined serif typography, warm section accents and open paragraph spacing"
 
 [files]
 include = ["**/*.tex", "**/*.bib", "**/*.txt"]

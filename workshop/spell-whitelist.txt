@@ -1,0 +1,5 @@
+# Technical terms and diagram tokens used by the English sample.
+author
+document
+flowchart
+td

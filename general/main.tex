@@ -6,15 +6,32 @@
 % The document language is set by the {{language}} placeholder.
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage{newpxtext,newpxmath}
 \usepackage{microtype}
+\usepackage[skip=0.6\baselineskip]{parskip}
 \usepackage[a4paper,margin=2.5cm]{geometry}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{url}
-\usepackage[pdfauthor={{{author}}},pdftitle={{{title}}}]{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\definecolor{editorialink}{HTML}{292927}
+\definecolor{editorialaccent}{HTML}{984C3D}
+\usepackage[colorlinks=true,linkcolor=editorialaccent,citecolor=editorialaccent,
+  urlcolor=editorialaccent,breaklinks=true,pdfauthor={{{author}}},
+  pdftitle={{{title}}}]{hyperref}
+
+% A quiet hierarchy: dark ink for headings, a warm accent for section numbers.
+\titleformat{\section}{\normalfont\Large\bfseries\color{editorialink}}
+{\textcolor{editorialaccent}{\thesection}}{0.75em}{}
+\titlespacing*{\section}{0pt}{1.45\baselineskip}{0.55\baselineskip}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{editorialink}}
+{\thesubsection}{0.7em}{}
+\titlespacing*{\subsection}{0pt}{1.15\baselineskip}{0.4\baselineskip}
+\setlength{\emergencystretch}{2em}
 
 % Replace the three fields below with your own.
 \title{{{title}}}

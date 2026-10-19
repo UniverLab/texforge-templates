@@ -1,0 +1,71 @@
+id = "technical-brief"
+version = "0.2.0"
+display_name = "Technical Brief"
+description = "A concise technical update with a cover page, callouts, workflow diagram, code sample and results"
+
+[files]
+include = ["**/*.tex", "**/*.txt"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Document title"
+required = true
+default = "Project Status Brief"
+
+[[placeholders]]
+name = "subtitle"
+type = "string"
+description = "Subtitle or short description"
+required = false
+default = "Progress, findings and next steps"
+
+[[placeholders]]
+name = "kicker"
+type = "string"
+description = "Small heading above the title"
+required = false
+default = "Technical Brief"
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Document author"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "course"
+type = "string"
+description = "Course, team or project"
+required = false
+default = "Project Team"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Document date"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "repository"
+type = "string"
+description = "Project repository URL"
+required = false
+default = "https://github.com/example/project"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language for babel"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "build"
+description = "Compile the document to PDF"
+command = "texforge build"
+optional = true

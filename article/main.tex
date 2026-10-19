@@ -7,10 +7,11 @@
 % Document language from the {{language}} placeholder (default english).
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usepackage{newpxtext,newpxmath}
 \usepackage{microtype}
+\usepackage[skip=0.5\baselineskip]{parskip}
 \usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt]{geometry}
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{float}
 \usepackage{graphicx}
@@ -18,9 +19,18 @@
 \usepackage{authblk}
 \usepackage[authoryear,round]{natbib}
 \usepackage{xcolor}
+\usepackage{titlesec}
 
-% One restrained accent for links; everything else is monochrome.
-\definecolor{articlelink}{HTML}{1F4E79}
+% Warm, restrained accent; body text remains near-black for print contrast.
+\definecolor{articleink}{HTML}{292927}
+\definecolor{articlelink}{HTML}{8A493D}
+\titleformat{\section}{\normalfont\Large\bfseries\color{articleink}}
+{\textcolor{articlelink}{\thesection}}{0.75em}{}
+\titlespacing*{\section}{0pt}{1.5\baselineskip}{0.5\baselineskip}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{articleink}}
+{\thesubsection}{0.7em}{}
+\titlespacing*{\subsection}{0pt}{1.2\baselineskip}{0.4\baselineskip}
+\setlength{\emergencystretch}{2em}
 
 \usepackage[
   colorlinks=true,
@@ -40,6 +50,7 @@
 \fancyhead[LE,RO]{\thepage}
 \fancyhead[LO,RE]{\small\itshape\nouppercase{\shorttitle}}
 \renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{articlelink}\leaders\hrule height \headrulewidth\hfill}}
 \fancypagestyle{plain}{%
   \fancyhf{}%
   \fancyhead[LE,RO]{\thepage}%

@@ -1,0 +1,78 @@
+id = "workshop"
+version = "0.3.0"
+display_name = "Workshop Handout"
+description = "A polished workshop deliverable with a cover page, code sample, workflow diagram and test table"
+
+[files]
+include = ["**/*.tex", "**/*.txt"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Workshop or assignment title"
+required = true
+default = "A Practical Exercise"
+
+[[placeholders]]
+name = "subtitle"
+type = "string"
+description = "Subtitle or short description"
+required = false
+default = "Designing and implementing a solution"
+
+[[placeholders]]
+name = "author"
+type = "string"
+description = "Student name"
+required = true
+default = "Sample Student"
+
+[[placeholders]]
+name = "course"
+type = "string"
+description = "Course or subject"
+required = false
+default = "Applied Computing"
+
+[[placeholders]]
+name = "deliverable"
+type = "string"
+description = "Type of deliverable"
+required = false
+default = "Workshop Report"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Submission date"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "repo_url"
+type = "string"
+description = "Project repository URL"
+required = false
+default = "https://github.com/example/project"
+
+[[placeholders]]
+name = "repository"
+type = "string"
+description = "Repository URL shown on the cover page"
+required = false
+default = "https://github.com/example/project"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language for babel"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "build"
+description = "Compile the document to PDF"
+command = "texforge build"
+optional = true

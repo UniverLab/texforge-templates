@@ -8,18 +8,18 @@ All templates support **multi-language output** via the `{{language}}` placehold
 
 | Template | Description | Version |
 |----------|-------------|---------|
-| `general` | Generic article — minimal setup for any document | 0.2.0 |
-| `article` | Simple article — clean, portable academic article | 0.2.0 |
-| `report` | University report — structured academic report template | 0.2.0 |
-| `apa-general` | APA 7th edition — academic reports and theses | 0.2.0 |
-| `apa-unisalle` | APA for Universidad de La Salle — thesis proposal format | 0.2.0 |
-| `ieee` | IEEE journal format — technical papers | 0.2.0 |
-| `letter` | Formal letter template — professional correspondence | 0.1.1 |
-| `taller` | Taller / informe con portada en color, bloques de código y diagrama de flujo — informal pero atractivo | 0.2.0 |
-| `informe` | Informe relajado con portada, cajas destacadas, diagramas y código — para entregas y notas técnicas | 0.1.0 |
+| `apa-general` | APA 7th edition template for academic reports and theses | 0.2.0 |
+| `apa-unisalle` | APA thesis proposal for Universidad de La Salle | 0.2.0 |
+| `article` | Single-column academic article with running heads and author affiliations | 0.3.0 |
+| `book` | Long-form book layout with epigraphs and front matter | 0.2.0 |
 | `cv` | Curriculum vitae — clean, ATS-friendly résumé | 0.1.0 |
-| `slides` | Presentation slides (beamer 16:9) with code and diagrams | 0.1.0 |
-| `book` | Libro o ensayo largo — capítulos con epígrafes, frontmatter completo | 0.1.0 |
+| `general` | Editorial foundation for essays and other documents; serif type and spaced paragraphs | 0.3.0 |
+| `ieee` | IEEE journal format for technical papers | 0.2.0 |
+| `letter` | Formal letter template for professional correspondence | 0.2.0 |
+| `report` | Structured university report with front matter, contents and appendices | 0.3.0 |
+| `slides` | 16:9 presentation slides with code and diagrams | 0.1.0 |
+| `technical-brief` | Concise technical update with callouts, diagrams, code and results | 0.2.0 |
+| `workshop` | Workshop handout with a cover page, workflow, code and test table | 0.3.0 |
 
 ## Usage
 

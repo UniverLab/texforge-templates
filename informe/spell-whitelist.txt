@@ -1,7 +1,0 @@
-author
-document
-flowchart
-lr
-pt
-sample
-td
