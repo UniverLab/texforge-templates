@@ -240,7 +240,7 @@ spec in the development queue is gated by this script.
 ./check-templates.sh
 
 # Check exactly those templates (unknown name exits 2)
-./check-templates.sh taller general
+./check-templates.sh workshop general
 
 # Check only templates changed since a revision (tracked changes + untracked files)
 ./check-templates.sh --changed HEAD

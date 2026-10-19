@@ -1,5 +1,5 @@
 id = "report"
-version = "0.2.0"
+version = "0.3.0"
 display_name = "University Report"
 description = "University report — structured academic report"
 

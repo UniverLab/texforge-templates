@@ -1,12 +1,21 @@
 % Formal Letter Template
 \documentclass[12pt,letterpaper]{article}
 \usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{newpxtext}
+\usepackage{microtype}
+\usepackage[skip=0.55\baselineskip]{parskip}
 \usepackage{geometry}
-\usepackage{setspace}
 \usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage{hyperref}
 
 \geometry{left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
 \pagestyle{empty}
+\setlength{\emergencystretch}{2em}
+\definecolor{letteraccent}{HTML}{8A493D}
+\hypersetup{colorlinks=true,linkcolor=letteraccent,urlcolor=letteraccent,
+  pdftitle={{{title}}},pdfauthor={{{author}}}}
 
 \begin{document}
 
@@ -24,7 +33,7 @@
 
   \vspace{0.5cm}
 
-  \noindent \textbf{Subject:} {{{title}}}
+  \noindent\textcolor{letteraccent}{\textbf{Subject:}} {{{title}}}
 
   \vspace{0.5cm}
 

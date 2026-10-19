@@ -1,5 +1,5 @@
 id = "article"
-version = "0.2.0"
+version = "0.3.0"
 display_name = "Article"
 description = "Simple article — clean, portable academic article"
 
