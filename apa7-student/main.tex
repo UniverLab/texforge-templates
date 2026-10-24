@@ -1,0 +1,199 @@
+% APA 7 student paper. Text in double braces is a placeholder that is filled
+% in when the project is created; the % comments say what to replace.
+%
+% What is APA 7 here: the article class at 12 pt, 2.54 cm margins, double
+% spacing, a 1.27 cm first-line indent on every paragraph, the page number
+% at the top right, an APA 7 student title page, unnumbered heading levels
+% 1-3, and APA tables (bold number, italic title above, note below).
+% References follow APA 7 through apa7cite.bst, shipped beside this file:
+% a renamed copy of apacite.bst (LPPL) with the APA 7 author rules. One
+% or two authors are cited by name, three or more as "First et al." from
+% the first citation on; the reference list names up to 20 authors;
+% titles are in sentence case; "&" (or "y" in Spanish) goes before the
+% last author; URLs are bare, with no "Retrieved from"; DOIs print as
+% "https://doi.org/...".
+%
+% Why not biblatex-apa: it needs the external biber binary, which
+% tectonic cannot run, and tectonic's bundle ships no APA 7 .bst.
+% Known gap: Tectonic's BibTeX refuses to set per-entry values ("You can't
+% mess with entries here" in the BibTeX log, harmless otherwise), so two
+% works by the same authors in the same year are not told apart with
+% "2023a" and "2023b". Add the letter to the year field by hand when that
+% happens: year = {2023a}.
+\documentclass[a4paper,12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[{{language}}]{babel}
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage[a4paper,top=2.54cm,bottom=2.54cm,left=2.54cm,right=2.54cm,
+  headheight=14pt]{geometry}
+\usepackage{indentfirst}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+\usepackage{apacite}
+
+% APA page layout: double spacing and a 1.27 cm indent on every paragraph.
+\doublespacing
+\setlength{\parindent}{1.27cm}
+\setlength{\emergencystretch}{2em}
+
+% APA heading levels 1-3: level 1 centred and bold; level 2 flush left and
+% bold; level 3 flush left, bold and italic. APA headings carry no numbers.
+\titleformat{\section}{\normalfont\bfseries\centering}{}{0pt}{}
+\titleformat{\subsection}{\normalfont\bfseries}{}{0pt}{}
+\titleformat{\subsubsection}{\normalfont\bfseries\itshape}{}{0pt}{}
+
+% APA tables and figures: the number is bold and the title is italic on its
+% own line, both placed above the object; a table note sits below the table.
+% Texforge renders mermaid/graphviz captions after the image, so plaintop
+% moves the figure caption above the diagram for APA style.
+\floatstyle{plaintop}\restylefloat{figure}
+\captionsetup{position=top,labelsep=newline,labelfont=bf,textfont=it,
+  justification=raggedright,singlelinecheck=false,skip=4pt}
+\AtBeginDocument{\iflanguage{spanish}{\captionsetup[table]{name=Tabla}}{}}
+
+% APA page header: the page number sits at the top right of every page.
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% A DOI prints as an APA 7 link. This renewal lives in the preamble because
+% apacite never overwrites it. The \ignorespaces eats the space BibTeX
+% writes between the prefix and the DOI.
+\renewcommand{\doiprefix}{https://doi.org/\ignorespaces}
+
+% Apacite reloads its language strings when the document starts,
+% overwriting any preamble change, so these APA 7 tweaks run in a hook
+% registered after apacite's own: "et al." also in Spanish (apacite would print "y cols."),
+% and bare URLs with no "Retrieved from" (apacite would print "Retrieved
+% from" / "Descargado de" plus a retrieval date).
+\AtBeginDocument{%
+  \renewcommand{\BOthers}{et al}%
+  \renewcommand{\BOthersPeriod}{et al.}%
+  \renewcommand{\BRetrievedFrom}{}%
+  \renewcommand{\BRetrieved}[1]{}%
+}
+
+\begin{document}
+
+  % APA 7 student title page: bold title, student name, department and
+  % institution, course, instructor and due date. Replace every line. A
+  % plain block is used instead of the titlepage environment because the
+  % environment resets the page counter, which would number the title
+  % page and the next page both as page 1.
+  \begin{center}
+    \vspace*{2cm}
+    \textbf{{{title}}}
+    \vspace{\baselineskip}
+
+    {{author}}
+
+    \vspace{\baselineskip}
+    {{department}}, {{institution}}
+
+    {{course}}
+
+    {{instructor}}
+
+    {{date}}
+  \end{center}
+  \newpage
+
+  % An abstract is optional in an APA student paper. Uncomment the block
+  % below to add one: a single paragraph of about 150 to 250 words.
+  % \begin{abstract}
+    %   Write your abstract here.
+    % \end{abstract}
+
+  \section{Introduction}
+  % Replace this paragraph with your own background and aim. It shows a
+  % parenthetical citation: three or more authors abbreviate to
+  % "First et al." from the first citation on.
+  Worked examples help students learn quantitative methods, but the benefit
+  depends on how learners engage with each step. Reviews of the literature
+  report moderate gains when examples require active
+  self-explanation~\cite{example}.
+
+  % Replace this paragraph with your own framing. It shows a narrative
+  % citation, where the author name is part of the sentence.
+  \citeA{example2} argues that differences between studies largely reflect
+  differences in procedure rather than differences in content.
+
+  \subsection{What the studies report}
+  % Replace this paragraph and the table with your own findings and data.
+  Table~\ref{tab:gains} summarizes three illustrative conditions and the
+  mean score before and after the lesson. The pattern matches the review
+  cited above: examples alone help a little, and self-explanation adds a
+  clear gain~\cite{example}. Textbook treatments of the same procedures
+  reach a similar verdict in condensed form~\cite{example2}.
+
+  % APA table: the bold number and the italic title go above the table and
+  % the note goes below it. Replace the rows, the caption and the label.
+  \begin{table}[H]
+    \caption{Mean scores before and after the lesson, by condition}
+    \label{tab:gains}
+    \begin{tabular}{@{}lcc@{}}
+      \toprule
+      Condition & Pre-test & Post-test \\
+      \midrule
+      Reading only & 12 & 13 \\
+      Worked examples & 12 & 15 \\
+      Examples and self-explanation & 11 & 18 \\
+      \bottomrule
+    \end{tabular}
+    \par\medskip
+    \begin{minipage}{\linewidth}
+      \footnotesize\textit{Note.} Illustrative values; replace them with
+      your own data.
+    \end{minipage}
+  \end{table}
+
+  \subsubsection{How the summary was produced}
+  % Replace this paragraph with your own procedure. The diagram below draws
+  % the three steps of the sample analysis; replace it with a diagram of
+  % your own. Keep style= and the caption; wrap a caption that contains a
+  % comma in braces.
+  The summary behind the table follows three steps, from data collection
+  to the reported means.
+
+  \begin{mermaid}[style=monochrome, caption={General flow of the analysis}, pos=H]
+    flowchart LR
+    collect[Collect scores] --> analyze[Analyze gains] --> report[Report means]
+  \end{mermaid}
+
+  % Replace the listing with the code that produced the table above.
+  % Keep it short: at most twelve lines, and set lang= to the language of
+  % the block.
+  The script below reproduces the post-test means in
+  Table~\ref{tab:gains}.
+
+  \begin{code}[lang=python, numbers=true]
+def mean(values):
+    total = sum(values)
+    count = len(values)
+    return total / count if count else 0
+
+post = [13, 15, 18]
+print(mean(post))
+  \end{code}
+
+  \section{Conclusion}
+  % Replace this paragraph with your own summary and next step. It cites
+  % the practitioner summary with a parenthetical citation.
+  The pattern is consistent: examples help when learners explain each step
+  to themselves, a claim that also circulates in practitioner
+  summaries~\cite{example3}. Future work should test the effect in larger
+  samples and with delayed post-tests.
+
+  % APA reference list. Every entry in bib/references.bib is cited above.
+  % Apacite plus babel prints "References" or "Referencias" on its own.
+  \bibliographystyle{apa7cite}
+  \bibliography{bib/references}
+
+\end{document}

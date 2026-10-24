@@ -1,6 +1,16 @@
-% APA 7th Edition General Template. Text written in double braces is a
-% placeholder that is filled in when the project is created; the % comments
-% say what to replace.
+% APA academic report or thesis (report class, with chapters). Text written
+% in double braces is a placeholder that is filled in when the project is
+% created; the % comments say what to replace.
+%
+% APA 7 here: tables and figures (bold number, italic title above, note
+% below, numbered through the document) and references. References use
+% apa7cite.bst, shipped beside this file: a renamed copy of apacite.bst
+% (LPPL) with the APA 7 author rules ("First et al." for three or more
+% authors, "&" before the last one, DOIs as https://doi.org/...). The page
+% layout (3 cm margins, numbered chapters) is the usual one for a thesis,
+% not the APA 7 paper layout; for a student paper use apa7-student.
+% Known gap: two works by the same authors in the same year are not told
+% apart automatically; write year = {2023a} and year = {2023b} by hand.
 \documentclass[a4paper,12pt]{report}
 \usepackage[T1]{fontenc}
 \usepackage[{{language}}]{babel}
@@ -12,6 +22,7 @@
 \usepackage{booktabs}
 \usepackage[nottoc]{tocbibind}
 \usepackage{titlesec,url,csquotes}
+\usepackage{apacite}
 
 \geometry{top=3cm,bottom=3cm,left=3cm,right=3cm}
 \setlength{\emergencystretch}{2em}
@@ -40,6 +51,23 @@
 \cfoot{\thepage}
 
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+% A DOI prints as an APA 7 link. This renewal lives in the preamble because
+% apacite never overwrites it. The \ignorespaces eats the space BibTeX
+% writes between the prefix and the DOI.
+\renewcommand{\doiprefix}{https://doi.org/\ignorespaces}
+
+% Apacite reloads its language strings when the document starts,
+% overwriting any preamble change, so these APA 7 tweaks run in a hook
+% registered after apacite's own: "et al." also in Spanish (apacite would print "y cols."),
+% and bare URLs with no "Retrieved from" (apacite would print "Retrieved
+% from" / "Descargado de" plus a retrieval date).
+\AtBeginDocument{%
+  \renewcommand{\BOthers}{et al}%
+  \renewcommand{\BOthersPeriod}{et al.}%
+  \renewcommand{\BRetrievedFrom}{}%
+  \renewcommand{\BRetrieved}[1]{}%
+}
 
 \title{{{title}}}
 \author{{{author}}}
@@ -106,8 +134,8 @@
   state what should be done next.
 
   % APA reference list. Every entry in bib/references.bib is cited above.
-  \renewcommand{\bibname}{References}
-  \bibliographystyle{apalike}
+  % Apacite plus babel prints "References" or "Referencias" on its own.
+  \bibliographystyle{apa7cite}
   \bibliography{bib/references}
 
   \appendix
