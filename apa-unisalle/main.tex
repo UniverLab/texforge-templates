@@ -1,4 +1,11 @@
 % APA Format for Universidad de La Salle
+%
+% References follow APA 7 through apa7cite.bst, shipped beside this file: a
+% renamed copy of apacite.bst (LPPL) with the APA 7 author rules ("First et
+% al." for three or more authors, "&" before the last one, DOIs as
+% https://doi.org/...). Known gap: two works by the same authors in the same
+% year are not told apart automatically; write year = {2023a} and year =
+% {2023b} by hand.
 \documentclass[a4paper,12pt]{report}
 \usepackage[T1]{fontenc}
 \usepackage[{{language}}]{babel}
@@ -25,6 +32,7 @@
 \usepackage{titlesec}
 \usepackage{url}
 \usepackage{csquotes}
+\usepackage{apacite}
 
 \geometry{top=3cm,bottom=3cm,left=3cm,right=3cm}
 \setlength{\emergencystretch}{2em}
@@ -62,6 +70,23 @@
 
 \hypersetup{pdfauthor={\autor},pdftitle={\titulo},pdfsubject={\programa},
   pdfkeywords={investigación},colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
+
+% A DOI prints as an APA 7 link. This renewal lives in the preamble because
+% apacite never overwrites it. The \ignorespaces eats the space BibTeX
+% writes between the prefix and the DOI.
+\renewcommand{\doiprefix}{https://doi.org/\ignorespaces}
+
+% Apacite reloads its language strings when the document starts,
+% overwriting any preamble change, so these APA 7 tweaks run in a hook
+% registered after apacite's own: "et al." also in Spanish (apacite would print "y cols."),
+% and bare URLs with no "Retrieved from" (apacite would print "Retrieved
+% from" / "Descargado de" plus a retrieval date).
+\AtBeginDocument{%
+  \renewcommand{\BOthers}{et al}%
+  \renewcommand{\BOthersPeriod}{et al.}%
+  \renewcommand{\BRetrievedFrom}{}%
+  \renewcommand{\BRetrieved}[1]{}%
+}
 
 \begin{document}
 
@@ -142,8 +167,8 @@
   what should be done next.
 
   % APA reference list. Every entry in bib/references.bib is cited above.
-  \renewcommand{\bibname}{References}
-  \bibliographystyle{apalike}
+  % Apacite plus babel prints "References" or "Referencias" on its own.
+  \bibliographystyle{apa7cite}
   \bibliography{bib/references}
 
   \appendix

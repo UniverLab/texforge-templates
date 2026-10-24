@@ -1,7 +1,7 @@
 id = "apa-unisalle"
-version = "0.2.0"
+version = "0.3.0"
 display_name = "APA Unisalle"
-description = "APA format for Universidad de La Salle — thesis proposal"
+description = "APA 7 thesis proposal for Universidad de La Salle"
 
 [files]
 include = ["**/*.tex", "**/*.bib"]

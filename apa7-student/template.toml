@@ -1,7 +1,7 @@
 id = "apa7-student"
 version = "0.1.0"
 display_name = "APA 7 Student Paper"
-description = "APA 7 student paper (article class): student title page, APA heading levels, APA tables and references close to APA 7th edition. References use apacite, the closest BibTeX style that builds under tectonic: biblatex-apa needs the external biber binary, which is unavailable, and tectonic ships no APA 7 .bst. Known gaps vs APA 7 (et al. lists two names, BibTeX warnings) are documented in main.tex"
+description = "APA 7 student paper: student title page, double spacing, APA heading levels, tables and references (apa7cite, an APA 7 copy of apacite that builds under tectonic)"
 
 [files]
 include = ["**/*.tex", "**/*.bib"]

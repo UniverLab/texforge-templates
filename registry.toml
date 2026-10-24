@@ -1,16 +1,16 @@
 [[templates]]
 nombre = "apa-general"
-descripcion = "APA 7th edition template for academic reports and theses"
-version = "0.2.0"
+descripcion = "Academic report or thesis with chapters, and APA 7 tables, figures and references"
+version = "0.3.0"
 
 [[templates]]
 nombre = "apa-unisalle"
-descripcion = "APA thesis proposal for Universidad de La Salle"
-version = "0.2.0"
+descripcion = "APA 7 thesis proposal for Universidad de La Salle"
+version = "0.3.0"
 
 [[templates]]
 nombre = "apa7-student"
-descripcion = "APA 7 student paper with student title page, headings, tables and references"
+descripcion = "APA 7 student paper with student title page, double spacing, headings, tables and references"
 version = "0.1.0"
 
 [[templates]]
