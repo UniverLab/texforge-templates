@@ -10,6 +10,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 |----------|-------------|---------|
 | `apa-general` | APA 7th edition template for academic reports and theses | 0.2.0 |
 | `apa-unisalle` | APA thesis proposal for Universidad de La Salle | 0.2.0 |
+| `apa7-student` | APA 7 student paper with student title page, headings, tables and references | 0.1.0 |
 | `article` | Single-column academic article with running heads and author affiliations | 0.3.0 |
 | `book` | Long-form book layout with epigraphs and front matter | 0.2.0 |
 | `cv` | Curriculum vitae — clean, ATS-friendly résumé | 0.1.0 |
