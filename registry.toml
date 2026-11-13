@@ -26,7 +26,7 @@ version = "0.1.0"
 [[templates]]
 nombre = "book"
 descripcion = "Long-form book layout with epigraphs and front matter"
-version = "0.2.0"
+version = "0.3.0"
 
 [[templates]]
 nombre = "contract"

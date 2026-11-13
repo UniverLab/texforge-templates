@@ -13,7 +13,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 | `apa7-student` | APA 7 student paper with student title page, double spacing, headings, tables and references | 0.1.0 |
 | `article` | Single-column academic article with running heads and author affiliations | 0.4.0 |
 | `audit-report` | Security and usage audit report with a band cover, severity-coded findings, risk matrix, fix roadmap and evidence catalogue | 0.1.0 |
-| `book` | Long-form book layout with epigraphs and front matter | 0.2.0 |
+| `book` | Long-form book layout with epigraphs and front matter | 0.3.0 |
 | `contract` | Services agreement layout with parties block, numbered clauses, annexes and signature block; clause text is for you to write | 0.1.0 |
 | `cv` | Curriculum vitae — clean, ATS-friendly résumé | 0.1.0 |
 | `general` | Editorial foundation for essays and other documents; serif type and spaced paragraphs | 0.4.0 |
