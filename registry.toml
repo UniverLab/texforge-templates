@@ -59,6 +59,11 @@ descripcion = "Formal letter template for professional correspondence"
 version = "0.3.0"
 
 [[templates]]
+nombre = "quotation"
+descripcion = "Service quotation with itemised prices, scope, 50/50 payment terms and acceptance through the signed service order"
+version = "0.1.0"
+
+[[templates]]
 nombre = "report"
 descripcion = "Structured university report with front matter, contents and appendices"
 version = "0.4.0"
