@@ -1,0 +1,127 @@
+% Replace the sample content below with the record of your own session.
+\section{\lblGlance}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}l@{\hspace{1.2cm}}X@{}}
+    \toprule
+    \metalabel{\lblDate} & \RepDate \\
+    \metalabel{\lblDuration} & \RepDuration \\
+    \metalabel{\lblAttendees} & Two members of the support team and the operations lead \\
+    \metalabel{\lblFormat} & Video call with a shared screen \\
+    \metalabel{\lblTopics} & AI agents in customer support, review of replies, handling of customer data \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{itemize}
+  \item Agents can draft replies for the support team now, but should not send them alone.
+  \item Customer data needs a clear boundary before any agent reads a ticket.
+  \item A small pilot with measured results is a better start than a full rollout.
+\end{itemize}
+
+\section{\lblQuestions}
+\begin{enumerate}
+  \item Which support tasks can an AI agent do safely today?
+  \item How do we stop an agent from sharing customer data it should not see?
+  \item Who checks the agent's work, and how much time does that take?
+  \item How will we know the agent is helping and not just fast?
+\end{enumerate}
+
+\section{\lblFound}
+\subsection{Tickets mix routine and sensitive requests}
+\findingpart{\lblContext}
+The team handles about 300 tickets a week. Most are order status and password
+questions; a few involve refunds, complaints or personal data.
+
+\findingpart{\lblObservation}
+Routine tickets are a good fit for an agent. Sensitive ones are mixed into the
+same queue with no label, so an agent cannot tell them apart.
+
+\subsection{Replies are not reviewed in a consistent way}
+\findingpart{\lblContext}
+Today each team member checks replies in their own way, and there is no written
+standard for tone or accuracy.
+
+\findingpart{\lblObservation}
+Without a shared standard, a reviewer cannot say whether a draft is good, and
+the team cannot measure the agent against anything.
+
+\begin{insight}
+  The safe limit for an agent is set by what it can see and what it can send,
+  not by how clever it is. Fix those two limits first.
+\end{insight}
+
+\begin{mermaid}[style=editorial,width=0.9\linewidth,
+    caption={Proposed handling of a ticket},pos=H]
+  flowchart LR
+  A[Ticket] --> B[Agent drafts] --> C[Person reviews] --> D[Send]
+\end{mermaid}
+
+\section{\lblRecommendations}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}lXll@{}}
+    \toprule
+    & \sffamily\small\bfseries\lblRecommendation & \sffamily\small\bfseries\lblPriority &
+    \sffamily\small\bfseries\lblEffort \\
+    \midrule
+    \recrow{1}{Keep a person between the agent and the customer}{Drafts only; a person sends every reply.}{high}{small}
+    \recrow{2}{Hide personal data from the agent}{Mask names, emails and payment details before the ticket is read.}{high}{medium}
+    \recrow{3}{Write a one-page reply standard}{Gives reviewers and the pilot a shared measure of quality.}{medium}{small}
+    \recrow{4}{Run a four-week pilot on routine tickets}{Measure time saved and errors found before widening the scope.}{medium}{medium}
+    \recrow{5}{Add a monthly review of agent mistakes}{Keeps the rules current as the tickets change.}{low}{small}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblResources}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}Xl@{}}
+    \toprule
+    \sffamily\small\bfseries\lblResource & \sffamily\small\bfseries\lblLink \\
+    \midrule
+    \resrow{Checklist for reviewing an agent's replies}{https://example.org/checklist}
+    \resrow{Template for a one-page reply standard}{https://example.org/reply-standard}
+    \resrow{Guide to masking personal data in tickets}{https://example.org/masking}
+    \resrow{Pilot plan worksheet}{https://example.org/pilot-plan}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblNextSteps}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}Xlr@{}}
+    \toprule
+    \sffamily\small\bfseries\lblAction & \sffamily\small\bfseries\lblOwner &
+    \sffamily\small\bfseries\lblTarget \\
+    \midrule
+    \actrow{Label sensitive tickets in the queue}{client}{20 November 2026}
+    \actrow{Send the masking guide and an example setup}{consultant}{23 November 2026}
+    \actrow{Draft the one-page reply standard}{client}{27 November 2026}
+    \actrow{Review the draft standard and the pilot plan}{consultant}{2 December 2026}
+    \actrow{Start the four-week pilot}{client}{7 December 2026}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblNotes}
+\begin{rawnotes}
+  \begin{itemize}
+    \item Team worried about wrong refund promises; agent must never state a refund.
+    \item Current tool keeps full ticket history, including card digits in free text.
+    \item Operations lead wants a weekly number: tickets answered, edits per draft.
+    \item Idea: start with order status only, add password help later.
+  \end{itemize}
+  Rule sketch agreed in the call:
+  \begin{code}[lang=yaml]
+agent:
+  can_read: [order_status, shipping]
+  can_send: false
+  blocked: [refund, complaint, payment]
+  \end{code}
+\end{rawnotes}
+
+\section{\lblFollowUp}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000 \RepBooking\par}

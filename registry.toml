@@ -29,6 +29,11 @@ descripcion = "Long-form book layout with epigraphs and front matter"
 version = "0.3.0"
 
 [[templates]]
+nombre = "consultation-report"
+descripcion = "Written record of a paid consultation session: questions, findings, prioritised recommendations, resources, next steps and raw notes"
+version = "0.1.0"
+
+[[templates]]
 nombre = "contract"
 descripcion = "Services agreement layout with parties block, numbered clauses, annexes and signature block; clause text is for you to write"
 version = "0.1.0"

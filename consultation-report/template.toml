@@ -1,0 +1,113 @@
+id = "consultation-report"
+version = "0.1.0"
+display_name = "Consultation Report"
+description = "Written record of a paid consultation session: questions, findings, prioritised recommendations, resources, next steps and raw notes"
+
+[files]
+include = ["**/*.tex", "**/*.txt", "assets/**"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Report title"
+required = true
+default = "Consultation report"
+
+[[placeholders]]
+name = "organisation"
+type = "string"
+description = "Consulting practice or organisation shown at the top of the cover"
+required = false
+default = "Example Consulting"
+
+[[placeholders]]
+name = "consultant"
+type = "string"
+description = "Name of the consultant who ran the session"
+required = false
+default = "Example Consultant"
+
+[[placeholders]]
+name = "client"
+type = "string"
+description = "Client who booked the session"
+required = false
+default = "Example Client"
+
+[[placeholders]]
+name = "session_date"
+type = "string"
+description = "Date of the session"
+required = false
+default = "12 November 2026"
+
+[[placeholders]]
+name = "duration"
+type = "string"
+description = "Length of the session"
+required = false
+default = "90 minutes"
+
+[[placeholders]]
+name = "session_type"
+type = "string"
+description = "Kind of session, for example a first consultation or a review"
+required = false
+default = "Advisory session"
+
+[[placeholders]]
+name = "reference"
+type = "string"
+description = "Reference number of the report"
+required = false
+default = "CR-2026-014"
+
+[[placeholders]]
+name = "classification"
+type = "string"
+description = "Classification label shown on the cover and in every footer"
+required = false
+default = "Confidential"
+
+[[placeholders]]
+name = "booking"
+type = "string"
+description = "Closing line that tells the client how to book a follow-up session"
+required = false
+default = "To book a follow-up session, write to hello@example.org or use the booking link at example.org/book."
+
+[[placeholders]]
+name = "accent"
+type = "string"
+description = "Accent colour as a six-digit HTML hex value, without the hash"
+required = false
+default = "87222C"
+
+[[placeholders]]
+name = "logo"
+type = "string"
+description = "Path to an optional logo image, shown on the cover when the file exists"
+required = false
+default = "assets/logo.png"
+
+[[placeholders]]
+name = "paper_texture"
+type = "boolean"
+description = "Put a parchment texture behind every page, for documents read on screen (the cover always has it)"
+required = false
+default = false
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language for babel; fixed labels and sample text are translated for English and Spanish"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "build"
+description = "Compile the document to PDF"
+command = "texforge build"
+optional = true
