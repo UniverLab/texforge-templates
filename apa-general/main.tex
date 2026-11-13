@@ -39,6 +39,9 @@
 \floatstyle{plaintop}\restylefloat{figure}
 \captionsetup{position=top,labelsep=newline,labelfont=bf,textfont=it,
   justification=raggedright,singlelinecheck=false,skip=4pt}
+% Fixed label of the keywords line, in English and Spanish.
+\newcommand{\lblKeywords}{Keywords}
+\addto\captionsspanish{\renewcommand{\lblKeywords}{Palabras clave}}
 \AtBeginDocument{\iflanguage{spanish}{\captionsetup[table]{name=Tabla}}{}}
 
 \numberwithin{equation}{chapter}
@@ -79,10 +82,10 @@
   \thispagestyle{empty}\newpage
 
   % Replace this abstract with a one-paragraph summary of your own study.
-  \chapter*{Abstract}
+  \chapter*{\abstractname}
   Write your abstract here.
 
-  \noindent\textit{Keywords}: keyword1, keyword2, keyword3
+  \noindent\textit{\lblKeywords}: keyword1, keyword2, keyword3
 
   \chapter{Introduction}
   % Replace this paragraph with your own background, problem statement and aim.

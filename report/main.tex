@@ -8,7 +8,8 @@
 % Document language, taken from the {{language}} placeholder (default english).
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{newpxtext,newpxmath}
+\usepackage[lining]{ebgaramond}
+\usepackage{ebgaramond-maths}
 \usepackage{microtype}
 \usepackage[skip=0.55\baselineskip]{parskip}
 \usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt]{geometry}
@@ -22,8 +23,13 @@
 \usepackage{hyperref}
 
 % One warm accent for navigation, with near-black text for comfortable reading.
-\definecolor{reportink}{HTML}{292927}
-\definecolor{reportaccent}{HTML}{8A493D}
+\definecolor{reportink}{HTML}{1D1510}
+\definecolor{reportaccent}{HTML}{87222C}
+\definecolor{reportmark}{HTML}{87222C}
+% Fixed labels of the cover, in English and Spanish.
+\newcommand{\lblAuthor}{Author}
+\newcommand{\lblAdvisor}{Advisor}
+\addto\captionsspanish{\renewcommand{\lblAuthor}{Autor}\renewcommand{\lblAdvisor}{Director}}
 \titleformat{\chapter}[display]
 {\normalfont\huge\bfseries\color{reportink}}
 {\color{reportaccent}\chaptertitlename\ \thechapter}{14pt}{\Huge}
@@ -69,15 +75,15 @@
     \vspace{0.35cm}
     {\large {{faculty}} \par}
     \vspace{0.8cm}
-    {\color{reportaccent}\rule{\textwidth}{1pt}\par}
+    {\color{reportmark}\rule{4cm}{2.4pt}\par}
     \vspace{1.8cm}
     {\huge\bfseries {{title}} \par}
     \vspace{0.5cm}
     {\Large {{subtitle}} \par}
     \vspace{2.4cm}
     {\large
-      \textbf{Author:} {{author}}\\[0.35cm]
-      \textbf{Advisor:} {{advisor}}\par}
+      \textbf{\lblAuthor:} {{author}}\\[0.35cm]
+      \textbf{\lblAdvisor:} {{advisor}}\par}
     \vfill
     % Replace "City, Country" with the city of your institution.
     {\large City, Country \par}
@@ -87,8 +93,8 @@
   \end{titlepage}
 
   % -------------------------------------------------------------- front matter
-  \chapter*{Abstract}
-  \addcontentsline{toc}{chapter}{Abstract}
+  \chapter*{\abstractname}
+  \addcontentsline{toc}{chapter}{\abstractname}
   % Replace this paragraph with a summary of the problem, the method and the
   % main result (four to six lines are enough).
   This report documents the problem addressed, the method followed and the
@@ -116,7 +122,7 @@
   \bibliographystyle{plain}
   \clearpage
   \phantomsection
-  \addcontentsline{toc}{chapter}{Bibliography}
+  \addcontentsline{toc}{chapter}{\bibname}
   \bibliography{bib/references}
 
   % ------------------------------------------------------------------ appendix

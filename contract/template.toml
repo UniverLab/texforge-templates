@@ -1,0 +1,148 @@
+id = "contract"
+version = "0.1.0"
+display_name = "Services Agreement"
+description = "Services agreement layout with parties block, numbered clauses, annexes and signature block; clause text is for you to write"
+
+[files]
+include = ["**/*.tex", "**/*.txt"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Agreement title"
+required = true
+default = "Services Agreement"
+
+[[placeholders]]
+name = "agreement_number"
+type = "string"
+description = "Agreement number"
+required = false
+default = "SA-2026-001"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Agreement date"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "city"
+type = "string"
+description = "City where the agreement is made"
+required = false
+default = "Example City"
+
+[[placeholders]]
+name = "currency"
+type = "string"
+description = "Currency code used in the price annex"
+required = false
+default = "USD"
+
+[[placeholders]]
+name = "provider_name"
+type = "string"
+description = "Provider legal name"
+required = false
+default = "Example Provider Ltd."
+
+[[placeholders]]
+name = "provider_id"
+type = "string"
+description = "Provider ID or tax number"
+required = false
+default = "000000000-0"
+
+[[placeholders]]
+name = "provider_address"
+type = "string"
+description = "Provider address"
+required = false
+default = "100 Example Street, Example City"
+
+[[placeholders]]
+name = "provider_rep"
+type = "string"
+description = "Provider representative"
+required = false
+default = "Provider Representative"
+
+[[placeholders]]
+name = "provider_role"
+type = "string"
+description = "Role of the provider representative"
+required = false
+default = "Managing Director"
+
+[[placeholders]]
+name = "provider_email"
+type = "string"
+description = "Provider email"
+required = false
+default = "provider@example.org"
+
+[[placeholders]]
+name = "client_name"
+type = "string"
+description = "Client legal name"
+required = false
+default = "Example Client Inc."
+
+[[placeholders]]
+name = "client_id"
+type = "string"
+description = "Client ID or tax number"
+required = false
+default = "111111111-1"
+
+[[placeholders]]
+name = "client_address"
+type = "string"
+description = "Client address"
+required = false
+default = "200 Sample Avenue, Example City"
+
+[[placeholders]]
+name = "client_rep"
+type = "string"
+description = "Client representative"
+required = false
+default = "Client Representative"
+
+[[placeholders]]
+name = "client_role"
+type = "string"
+description = "Role of the client representative"
+required = false
+default = "General Manager"
+
+[[placeholders]]
+name = "client_email"
+type = "string"
+description = "Client email"
+required = false
+default = "client@example.org"
+
+[[placeholders]]
+name = "accent"
+type = "string"
+description = "Accent colour as a six-digit HTML hex value, without the hash"
+required = false
+default = "87222C"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language for babel; fixed labels and clause headings are translated for English and Spanish"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "build"
+description = "Compile the document to PDF"
+command = "texforge build"
+optional = true

@@ -1,5 +1,5 @@
 id = "apa-general"
-version = "0.3.0"
+version = "0.3.1"
 display_name = "APA General"
 description = "Academic report or thesis with chapters, and APA 7 tables, figures and references"
 

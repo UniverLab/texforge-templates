@@ -1,0 +1,212 @@
+% Replace the sample content below with your own audit results.
+\section{\lblExecutive}
+We audited the security and day-to-day use of \RepSystem{} between the dates
+on the cover. The system is generally well built, but one critical finding
+exposes customer data and must be fixed before anything else.
+
+\sevstrip
+
+Four findings are open or fixed in this report. The critical finding
+(F-01) and the high finding (F-02) can be fixed in under two weeks and remove
+most of the risk. The remaining findings are hardening work that can follow
+the normal release cycle.
+
+\section{\lblScope}
+The audit covered the public web application, its programme interface and
+the storage that holds customer exports. Systems that belong to third
+parties, and the office network, were out of scope.
+
+We worked in four steps: map the system, review its configuration, test it
+from the point of view of an outside user, and confirm each result with a
+reproducible step and a saved piece of evidence.
+
+\begin{mermaid}[style=editorial,width=0.9\linewidth,
+    caption={Audit method},pos=H]
+  flowchart LR
+  A[Map] --> B[Review] --> C[Test] --> D[Confirm] --> E[Report]
+\end{mermaid}
+
+\section{\lblCoverage}
+The table shows what each area received and how far the work went.
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}p{3.2cm}p{2.5cm}X@{}}
+    \toprule
+    \sffamily\small\bfseries\lblArea & \sffamily\small\bfseries\lblVerdict &
+    \sffamily\small\bfseries\lblWhatWasDone \\
+    \midrule
+    \covrow{Authentication}{covered}{Reviewed sign-in, reset and session handling; tested for guessing and replay.}
+    \covrow{Data storage}{covered}{Reviewed bucket policies and access logs; checked public access.}
+    \covrow{Interface}{partial}{Tested the read endpoints; write endpoints only reviewed in code.}
+    \covrow{Mobile client}{none}{Not part of the agreed scope.}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblFindings}
+Each finding has a severity, a likelihood and an impact on a scale of one to
+five, an effort estimate and a status. Evidence is listed by asset identifier
+and can be checked against the catalogue in the appendix.
+
+\begin{finding}[id=F-01,title={Customer exports are publicly readable},
+    severity=critical,likelihood=5,impact=5,effort=small,status=open]
+  \findingpart{\lblDescription}
+  The storage bucket that holds customer exports allows anyone on the
+  internet to list and download its files. The exports contain names, email
+  addresses and order history.
+
+  \findingpart{\lblReproduction}
+  \begin{code}[lang=bash]
+curl -s https://storage.example.org/orbit-exports/ | head -n 5
+  \end{code}
+
+  \findingpart{\lblRootCause}
+  A broad read rule was added during a migration and was never removed.
+
+  \findingpart{\lblImpact}
+  Any person can read personal data for every customer, which breaks the
+  contract and the privacy law.
+
+  \findingpart{\lblRecommendation}
+  Remove the public rule today, rotate any exposed links, and review the
+  access logs for earlier downloads.
+
+  \findingpart{\lblEvidence}
+  \begin{evidence}
+    \evrow{A-0101}{18\,432}{ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb}
+    \evrow{A-0102}{2\,210}{3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d}
+  \end{evidence}
+\end{finding}
+
+\begin{finding}[id=F-02,title={Password reset has no rate limit},
+    severity=high,likelihood=4,impact=4,effort=medium,status=open]
+  \findingpart{\lblDescription}
+  The password reset request accepts an unlimited number of attempts from
+  one address, so an attacker can flood users with reset emails or probe
+  which accounts exist.
+
+  \findingpart{\lblRootCause}
+  The reset route was excluded from the shared throttling rules.
+
+  \findingpart{\lblImpact}
+  Account enumeration and a risk of harassment of real users.
+
+  \findingpart{\lblRecommendation}
+  Apply the shared limit to the route and return the same answer whether or
+  not the account exists.
+
+  \findingpart{\lblEvidence}
+  \begin{evidence}
+    \evrow{A-0103}{5\,876}{2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6}
+  \end{evidence}
+\end{finding}
+
+\begin{finding}[id=F-03,title={Error pages reveal internal details},
+    severity=medium,likelihood=3,impact=3,effort=small,status=fixed]
+  \findingpart{\lblDescription}
+  A malformed request returned a full stack trace with file paths and a
+  library version.
+
+  \findingpart{\lblRecommendation}
+  Return a short generic message and log the detail on the server. The team
+  fixed this during the audit and we confirmed the change.
+
+  \findingpart{\lblEvidence}
+  \begin{evidence}
+    \evrow{A-0104}{3\,904}{18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4}
+  \end{evidence}
+\end{finding}
+
+\begin{finding}[id=F-04,title={Session cookie lacks a same-site setting},
+    severity=low,likelihood=2,impact=2,effort=small,status=open]
+  \findingpart{\lblDescription}
+  The session cookie does not declare a same-site policy, so browsers apply
+  their own default.
+
+  \findingpart{\lblRecommendation}
+  Set the attribute explicitly to the strict or lax value.
+
+  \findingpart{\lblEvidence}
+  \begin{evidence}
+    \evrow{A-0105}{1\,288}{3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea}
+  \end{evidence}
+\end{finding}
+
+\section{\lblMatrix}
+Findings are placed by likelihood and impact. Cells are coloured by the
+product of the two scores.
+
+\riskmatrix
+
+\section{\lblRoadmap}
+The actions are ordered by risk removed per unit of effort.
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}cXlll@{}}
+    \toprule
+    \sffamily\small\bfseries\lblOrder & \sffamily\small\bfseries\lblAction &
+    \sffamily\small\bfseries\lblFinding & \sffamily\small\bfseries\lblEffort &
+    \sffamily\small\bfseries\lblTarget \\
+    \midrule
+    \roadrow{1}{Close public access to the export bucket}{F-01}{\lblefsmall}{1 day}
+    \roadrow{2}{Rate limit the password reset route}{F-02}{\lblefmedium}{2 weeks}
+    \roadrow{3}{Set the same-site cookie attribute}{F-04}{\lblefsmall}{Next release}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblDoneWell}
+\begin{itemize}
+  \item Sign-in uses hardware keys for every administrator.
+  \item Deployments are automated and every change is reviewed by a second person.
+  \item The team responded to the critical finding within one hour.
+\end{itemize}
+
+\section{\lblLimitations}
+The audit is a point-in-time review. It does not prove the absence of
+other faults. Write endpoints were reviewed in code only, and the mobile
+client was not examined.
+
+\section{\lblGlossary}
+\begin{description}[style=nextline,leftmargin=1.2em,itemsep=4pt,topsep=2pt,
+    font={\sffamily\bfseries\color{auditaccent}\small}]
+  \item[Likelihood] How easily an attacker could trigger the problem, from one to five.
+  \item[Impact] How much harm the problem would cause if triggered, from one to five.
+  \item[Evidence] A saved file that supports a finding, identified by an asset id and a checksum.
+  \item[SHA-256] A fingerprint of a file; if one byte changes, the fingerprint changes.
+\end{description}
+
+\appendix
+\section{\lblSources}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}p{3.6cm}X@{}}
+    \toprule
+    \sffamily\small\bfseries\lblSource & \sffamily\small\bfseries\lblLink \\
+    \midrule
+    Access policy & \url{https://docs.example.org/policies/access} \\
+    Storage settings & \url{https://console.example.org/storage/orbit-exports} \\
+    Change log & \url{https://git.example.org/orbit/portal/commits/main} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblCatalogue}
+\begin{table}[H]
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{1.5cm}p{3.2cm}r@{\hspace{8pt}}l@{}}
+    \toprule
+    \sffamily\small\bfseries\lblAsset & \sffamily\small\bfseries\lblDescription &
+    \sffamily\small\bfseries\lblBytes & \sffamily\small\bfseries SHA-256 \\
+    \midrule
+    \catrow{A-0101}{Bucket listing response}{18\,432}{ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb}
+    \catrow{A-0102}{Sample export header}{2\,210}{3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d}
+    \catrow{A-0103}{Reset request log}{5\,876}{2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6}
+    \catrow{A-0104}{Stack trace response}{3\,904}{18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4}
+    \catrow{A-0105}{Cookie header capture}{1\,288}{3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea}
+    \bottomrule
+  \end{tabular}
+\end{table}

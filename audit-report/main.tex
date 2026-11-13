@@ -1,0 +1,419 @@
+% Security and usage audit report.
+% Text in double braces is filled in when the project is created; the %
+% comments say what to replace. Tectonic reads UTF-8 directly.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[lining]{ebgaramond}
+\usepackage[scale=0.92]{sourcesanspro}
+\usepackage[scale=0.82]{sourcecodepro}
+\usepackage{microtype}
+\usepackage[a4paper,left=27mm,right=24mm,top=30mm,bottom=32mm,
+  headheight=14pt,headsep=14mm,footskip=14mm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{needspace}
+\usepackage{etoolbox}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{url}
+\usepackage{hyperref}
+
+% One accent colour carries the design. Severity colours are defined once here
+% and used by badges, finding headers, the summary strip and the risk matrix.
+% Parchment texture for the cover; it also sits behind every page when the
+% paper_texture placeholder is true (for documents read on screen). The image
+% is stretched to the page height and cropped by the page edge, so it covers
+% the page with no seam.
+\usepackage{eso-pic}
+\newcommand{\papertexture}{{{paper_texture}}}
+\newcommand{\texturebg}{\AtPageLowerLeft{\makebox[\paperwidth][l]{%
+      \includegraphics[width=\paperheight,height=\paperheight]{assets/pergamino.jpg}}}}
+\ifdefstring{\papertexture}{true}{\AddToShipoutPictureBG{\texturebg}}{}
+\newcommand{\covertexture}{\ifdefstring{\papertexture}{true}{}{\AddToShipoutPictureBG*{\texturebg}}}
+
+% Palette: the lab's bench tokens, defined once. The accent placeholder
+% (garnet by default) drives rules and numbers; the band and the severity
+% colours come straight from the palette.
+\definecolor{benchparchment}{HTML}{F4F0EA}
+\definecolor{benchdeep}{HTML}{EEE7DC}
+\definecolor{benchlamp}{HTML}{F6ECD2}
+\definecolor{benchink}{HTML}{1D1510}
+\definecolor{benchsepia}{HTML}{6B5A43}
+\definecolor{benchgraphite}{HTML}{5D5852}
+\definecolor{benchbrass}{HTML}{8A6A2C}
+\definecolor{benchcopper}{HTML}{9A5530}
+\definecolor{benchgarnet}{HTML}{87222C}
+\definecolor{benchslate}{HTML}{222928}
+\colorlet{auditink}{benchink}
+\definecolor{auditaccent}{HTML}{{{accent}}}
+\colorlet{auditmuted}{benchsepia}
+\colorlet{auditrule}{benchsepia!35!white}
+\colorlet{auditgood}{benchink}
+\colorlet{sevcritical}{benchgarnet}
+\colorlet{sevhigh}{benchcopper}
+\colorlet{sevmedium}{benchbrass}
+\colorlet{sevlow}{benchslate}
+\colorlet{sevinfo}{benchgraphite}
+\hypersetup{colorlinks=true,linkcolor=auditink,urlcolor=auditaccent,
+  citecolor=auditaccent,breaklinks=true,pdftitle={{{title}}},pdfauthor={{{auditor}}}}
+\urlstyle{sf}
+
+% Fixed labels. English defaults first, then one override block per language.
+\newcommand{\lblKicker}{Security and usage audit}
+\newcommand{\lblClient}{Client}
+\newcommand{\lblSystem}{System}
+\newcommand{\lblPeriod}{Audit period}
+\newcommand{\lblVersion}{Version}
+\newcommand{\lblStatus}{Status}
+\newcommand{\lblClassification}{Classification}
+\newcommand{\lblPreparedBy}{Prepared by}
+\newcommand{\lblDate}{Date}
+\newcommand{\lblPreparedFor}{Prepared for}
+\newcommand{\lblstdraft}{Draft}
+\newcommand{\lblstfinal}{Final}
+\newcommand{\lblsevcritical}{Critical}
+\newcommand{\lblsevhigh}{High}
+\newcommand{\lblsevmedium}{Medium}
+\newcommand{\lblsevlow}{Low}
+\newcommand{\lblsevinfo}{Info}
+\newcommand{\lblTotal}{Total}
+\newcommand{\lblLikelihood}{Likelihood}
+\newcommand{\lblImpact}{Impact}
+\newcommand{\lblEffort}{Effort}
+\newcommand{\lblFindingStatus}{Status}
+\newcommand{\lblefsmall}{Small}
+\newcommand{\lblefmedium}{Medium}
+\newcommand{\lbleflarge}{Large}
+\newcommand{\lblfsopen}{Open}
+\newcommand{\lblfsfixed}{Fixed}
+\newcommand{\lblDescription}{Description}
+\newcommand{\lblReproduction}{Reproduction}
+\newcommand{\lblRootCause}{Root cause}
+\newcommand{\lblRecommendation}{Recommendation}
+\newcommand{\lblEvidence}{Evidence}
+\newcommand{\lblAsset}{Asset}
+\newcommand{\lblBytes}{Bytes}
+\newcommand{\lblArea}{Area}
+\newcommand{\lblVerdict}{Verdict}
+\newcommand{\lblWhatWasDone}{What was done}
+\newcommand{\lblvdcovered}{Covered}
+\newcommand{\lblvdpartial}{Partial}
+\newcommand{\lblvdnone}{Not covered}
+\newcommand{\lblOrder}{Order}
+\newcommand{\lblAction}{Action}
+\newcommand{\lblFinding}{Finding}
+\newcommand{\lblTarget}{Target}
+\newcommand{\lblSource}{Source}
+\newcommand{\lblLink}{Permalink}
+\newcommand{\lblPage}{Page}
+\newcommand{\lblOf}{of}
+\newcommand{\lblExecutive}{Executive summary}
+\newcommand{\lblScope}{Scope and method}
+\newcommand{\lblCoverage}{Coverage}
+\newcommand{\lblFindings}{Findings}
+\newcommand{\lblMatrix}{Risk matrix}
+\newcommand{\lblRoadmap}{Fix roadmap}
+\newcommand{\lblDoneWell}{What is done well}
+\newcommand{\lblLimitations}{Limitations}
+\newcommand{\lblGlossary}{Glossary}
+\newcommand{\lblSources}{Sources}
+\newcommand{\lblCatalogue}{Asset catalogue}
+\newcommand{\lblDefTitle}{Security and Usage Audit}
+\newcommand{\lblDefClient}{Example Client}
+\newcommand{\lblDefAuditor}{Example Audit Team}
+\newcommand{\lblDefPeriod}{1 to 30 September 2026}
+\newcommand{\lblDefClass}{Confidential}
+\addto\captionsspanish{%
+  \renewcommand{\lblKicker}{Auditoría de seguridad y uso}
+  \renewcommand{\lblClient}{Cliente}
+  \renewcommand{\lblSystem}{Sistema}
+  \renewcommand{\lblPeriod}{Período de la auditoría}
+  \renewcommand{\lblVersion}{Versión}
+  \renewcommand{\lblStatus}{Estado}
+  \renewcommand{\lblClassification}{Clasificación}
+  \renewcommand{\lblPreparedBy}{Preparado por}
+  \renewcommand{\lblDate}{Fecha}
+  \renewcommand{\lblPreparedFor}{Preparado para}
+  \renewcommand{\lblstdraft}{Borrador}
+  \renewcommand{\lblstfinal}{Final}
+  \renewcommand{\lblsevcritical}{Crítica}
+  \renewcommand{\lblsevhigh}{Alta}
+  \renewcommand{\lblsevmedium}{Media}
+  \renewcommand{\lblsevlow}{Baja}
+  \renewcommand{\lblsevinfo}{Info}
+  \renewcommand{\lblLikelihood}{Probabilidad}
+  \renewcommand{\lblImpact}{Impacto}
+  \renewcommand{\lblEffort}{Esfuerzo}
+  \renewcommand{\lblFindingStatus}{Estado}
+  \renewcommand{\lblefsmall}{Pequeño}
+  \renewcommand{\lblefmedium}{Medio}
+  \renewcommand{\lbleflarge}{Grande}
+  \renewcommand{\lblfsopen}{Abierto}
+  \renewcommand{\lblfsfixed}{Corregido}
+  \renewcommand{\lblDescription}{Descripción}
+  \renewcommand{\lblReproduction}{Reproducción}
+  \renewcommand{\lblRootCause}{Causa raíz}
+  \renewcommand{\lblRecommendation}{Recomendación}
+  \renewcommand{\lblEvidence}{Evidencia}
+  \renewcommand{\lblAsset}{Recurso}
+  \renewcommand{\lblArea}{Área}
+  \renewcommand{\lblVerdict}{Veredicto}
+  \renewcommand{\lblWhatWasDone}{Qué se hizo}
+  \renewcommand{\lblvdcovered}{Cubierto}
+  \renewcommand{\lblvdpartial}{Parcial}
+  \renewcommand{\lblvdnone}{No cubierto}
+  \renewcommand{\lblOrder}{Orden}
+  \renewcommand{\lblAction}{Acción}
+  \renewcommand{\lblFinding}{Hallazgo}
+  \renewcommand{\lblTarget}{Plazo}
+  \renewcommand{\lblSource}{Fuente}
+  \renewcommand{\lblLink}{Enlace permanente}
+  \renewcommand{\lblPage}{Página}
+  \renewcommand{\lblOf}{de}
+  \renewcommand{\lblExecutive}{Resumen ejecutivo}
+  \renewcommand{\lblScope}{Alcance y método}
+  \renewcommand{\lblCoverage}{Cobertura}
+  \renewcommand{\lblFindings}{Hallazgos}
+  \renewcommand{\lblMatrix}{Matriz de riesgo}
+  \renewcommand{\lblRoadmap}{Hoja de ruta de correcciones}
+  \renewcommand{\lblDoneWell}{Lo que se hace bien}
+  \renewcommand{\lblLimitations}{Limitaciones}
+  \renewcommand{\lblGlossary}{Glosario}
+  \renewcommand{\lblSources}{Fuentes}
+  \renewcommand{\lblCatalogue}{Catálogo de recursos}
+  \renewcommand{\lblDefTitle}{Auditoría de seguridad y uso}
+  \renewcommand{\lblDefClient}{Cliente de ejemplo}
+  \renewcommand{\lblDefAuditor}{Equipo de auditoría de ejemplo}
+  \renewcommand{\lblDefPeriod}{Del 1 al 30 de septiembre de 2026}
+  \renewcommand{\lblDefClass}{Confidencial}}
+
+% A value left at its English default follows the document language.
+\newcommand{\localize}[3]{\ifstrequal{#1}{#2}{#3}{#1}}
+% Report metadata, set once and reused by the cover, header and footer.
+\newcommand{\RepTitle}{\localize{{{title}}}{Security and Usage Audit}{\lblDefTitle}}
+\newcommand{\RepSystem}{{{system}}}
+\newcommand{\RepClient}{\localize{{{client}}}{Example Client}{\lblDefClient}}
+\newcommand{\RepAuditor}{\localize{{{auditor}}}{Example Audit Team}{\lblDefAuditor}}
+\newcommand{\RepPeriod}{\localize{{{period}}}{1 to 30 September 2026}{\lblDefPeriod}}
+\newcommand{\RepVersion}{{{version}}}
+\newcommand{\RepStatus}{{{status}}}
+\newcommand{\RepClass}{\localize{{{classification}}}{Confidential}{\lblDefClass}}
+\newcommand{\RepDate}{{{date}}}
+\newcommand{\RepLogo}{{{logo}}}
+\let\placelogo\includegraphics
+
+% Letterspacing does not work with xetex, so small caps carry the emphasis.
+\renewcommand{\textls}[2][]{#2}
+\newcommand{\caps}[1]{{\sffamily\scshape #1}}
+\newcommand{\metalabel}[1]{{\sffamily\scriptsize\scshape\color{auditmuted}#1}}
+
+% Page style: running head on top, classification and page count below.
+\fancypagestyle{audit}{%
+  \fancyhf{}
+  \fancyhead[L]{\small\caps{\RepClient}}
+  \fancyhead[R]{\small\itshape\RepTitle}
+  \fancyfoot[L]{\small\caps{\RepClass}}
+  \fancyfoot[R]{\small\sffamily\lblPage\ \thepage\ \lblOf\ \pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \renewcommand{\headrule}{\hbox to\headwidth{\color{auditrule}\leaders\hrule height \headrulewidth\hfill}}
+  \renewcommand{\footrule}{\hbox to\headwidth{\color{auditrule}\leaders\hrule height \footrulewidth\hfill}}}
+\pagestyle{audit}
+\fancypagestyle{plain}{\pagestyle{audit}}
+
+% Headings and table of contents.
+\titleformat{\section}{\normalfont\fontsize{20}{24}\selectfont\color{auditink}}
+{\textcolor{auditaccent}{\thesection}}{0.7em}{}[{\vspace{3pt}\color{auditrule}\titlerule}]
+\titlespacing*{\section}{0pt}{2.2\baselineskip}{1\baselineskip}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize\color{auditink}}
+{\textcolor{auditaccent}{\thesubsection}}{0.7em}{}
+\titlespacing*{\subsection}{0pt}{1.4\baselineskip}{0.4\baselineskip}
+\renewcommand{\cftsecfont}{\normalfont\bfseries}
+\renewcommand{\cftsecpagefont}{\normalfont\bfseries}
+\renewcommand{\cftsecdotsep}{\cftnodots}
+\renewcommand{\cftsubsecdotsep}{\cftdotsep}
+\setlength{\cftbeforesecskip}{0.6em}
+\setlength{\cftbeforesubsecskip}{0.1em}
+\setlength{\cftsubsecindent}{1.5em}
+\setlength{\cftsubsecnumwidth}{3em}
+\renewcommand{\cftdotsep}{2}
+\renewcommand{\cfttoctitlefont}{\normalfont\fontsize{20}{24}\selectfont\color{auditink}}
+\setlength{\cftaftertoctitleskip}{1.2em}
+
+\frenchspacing
+\let\origsection\section
+\renewcommand{\section}{\needspace{8\baselineskip}\origsection}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6\baselineskip}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.25}
+\setlist{leftmargin=1.5em,itemsep=2pt,topsep=3pt,parsep=0pt}
+\setlist[itemize]{label={\color{auditaccent}\textbullet}}
+
+% Badges: \severitybadge{high}, \statusbadge{draft}, \verdictbadge{partial}.
+\newcommand{\badgebox}[2]{\tcbox[on line,enhanced,colback=#1,colframe=#1,boxrule=0pt,
+    arc=2pt,left=5pt,right=5pt,top=1.5pt,bottom=1.5pt,boxsep=0pt,
+    fontupper=\sffamily\scriptsize\bfseries\scshape\color{white}]{#2}}
+\newcommand{\badge}[2]{\edef\badgecolor{#1}\expandafter\badgebox\expandafter{\badgecolor}{#2}}
+\newcommand{\stcolordraft}{sevmedium}
+\newcommand{\stcolorfinal}{auditgood}
+\newcommand{\vdcolorcovered}{auditgood}
+\newcommand{\vdcolorpartial}{sevmedium}
+\newcommand{\vdcolornone}{sevcritical}
+\newcommand{\severitybadge}[1]{\badge{sev#1}{\csname lblsev#1\endcsname}}
+\newcommand{\statusbadge}[1]{\badge{\csname stcolor#1\endcsname}{\csname lblst#1\endcsname}}
+\newcommand{\verdictbadge}[1]{\badge{\csname vdcolor#1\endcsname}{\csname lblvd#1\endcsname}}
+
+% Findings are counted as they are written; the totals are saved in the aux
+% file so the executive summary can show them on the next pass.
+\newcounter{cntcritical}\newcounter{cnthigh}\newcounter{cntmedium}
+\newcounter{cntlow}\newcounter{cntinfo}
+\providecommand{\sevtotalcritical}{0}\providecommand{\sevtotalhigh}{0}
+\providecommand{\sevtotalmedium}{0}\providecommand{\sevtotallow}{0}
+\providecommand{\sevtotalinfo}{0}
+\makeatletter
+\AtEndDocument{\@for\sv:=critical,high,medium,low,info\do{%
+    \immediate\write\@auxout{\string\gdef\expandafter\string\csname sevtotal\sv\endcsname{\arabic{cnt\sv}}}}}
+\makeatother
+
+% The risk matrix is filled by the findings themselves: each one adds its id to
+% the cell for its likelihood and impact.
+\newcommand{\placeinmatrix}[3]{%
+  \ifcsdef{rmcell#1x#2}{\csxappto{rmcell#1x#2}{, #3}}{\csxdef{rmcell#1x#2}{#3}}}
+\newcommand{\matrixcell}[2]{\ifcsdef{rmcell#1x#2}{\csuse{rmcell#1x#2}}{}}
+
+% A finding is one environment; its metadata are keys.
+\pgfkeys{/finding/.cd,id/.store in=\fid,title/.store in=\ftitle,
+  severity/.store in=\fsev,likelihood/.store in=\flik,impact/.store in=\fimp,
+  effort/.store in=\feff,status/.store in=\fstat}
+\newcommand{\findingpart}[1]{\par\vspace{4pt}{\sffamily\scriptsize\scshape\bfseries
+    \color{auditaccent}#1}\par\nopagebreak\vspace{-3pt}}
+\newenvironment{finding}[1][]
+{\pgfkeys{/finding/.cd,id=F-00,title=Untitled,severity=info,likelihood=1,
+    impact=1,effort=small,status=open,#1}%
+  \stepcounter{cnt\fsev}%
+  \placeinmatrix{\flik}{\fimp}{\fid}%
+  \addcontentsline{toc}{subsection}{\fid\hspace{0.8em}\ftitle}%
+  \needspace{9\baselineskip}%
+  \par\vspace{10pt}\noindent
+  \begin{tcolorbox}[enhanced,colback=benchlamp!35,colframe=benchlamp!35,
+      boxrule=0pt,arc=0pt,borderline west={3pt}{0pt}{sev\fsev},
+      left=10pt,right=10pt,top=7pt,bottom=7pt,before skip=0pt,after skip=4pt]
+    \setlength{\parskip}{0pt}%
+    \noindent\parbox[t]{\dimexpr\linewidth-2.4cm\relax}{%
+      {\sffamily\bfseries\color{sev\fsev}\fid}\hspace{0.8em}%
+      {\fontsize{14}{17}\selectfont\color{auditink}\ftitle}}%
+    \hfill\parbox[t]{2.2cm}{\raggedleft\severitybadge{\fsev}}%
+    \par\vspace{5pt}
+    {\color{auditrule}\hrule height 0.4pt}\par\vspace{5pt}
+    \begin{tabular}{@{}p{3.1cm}p{3.1cm}p{3.1cm}p{3.1cm}@{}}
+      \metalabel{\lblLikelihood} & \metalabel{\lblImpact} &
+      \metalabel{\lblEffort} & \metalabel{\lblFindingStatus} \\[1pt]
+      \flik\,/\,5 & \fimp\,/\,5 & \csname lblef\feff\endcsname &
+      \csname lblfs\fstat\endcsname \\
+    \end{tabular}
+  \end{tcolorbox}\nopagebreak}
+{\par\vspace{6pt}}
+
+% Evidence references: \evrow{asset id}{bytes}{sha-256}.
+\newcommand{\evrow}[3]{{\sffamily\small #1} & #2 & {\ttfamily\fontsize{6.6}{8}\selectfont #3} \\}
+\newenvironment{evidence}
+{\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}p{1.9cm}r@{\hspace{10pt}}l@{}}
+    \toprule
+    \sffamily\small\bfseries\lblAsset & \sffamily\small\bfseries\lblBytes &
+    \sffamily\small\bfseries SHA-256 \\
+    \midrule}
+  {\bottomrule\end{tabular}}
+
+\newcommand{\sevstat}[1]{\begin{tabular}[t]{@{}c@{}}\severitybadge{#1}\\[6pt]
+    {\fontsize{28}{30}\selectfont\color{sev#1}\csname sevtotal#1\endcsname}\end{tabular}}
+\newcommand{\sevstrip}{\par\vspace{4pt}\noindent
+  \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}ccccc@{}}
+    \sevstat{critical} & \sevstat{high} & \sevstat{medium} & \sevstat{low} & \sevstat{info}
+  \end{tabular*}\par\vspace{2pt}}
+
+% Risk matrix: likelihood against impact, one coloured cell per pair.
+\newcommand{\riskmatrix}{%
+  \begin{center}
+    \begin{tikzpicture}[x=24mm,y=14mm]
+      \foreach \l in {1,...,5}{\foreach \i in {1,...,5}{%
+          \pgfmathtruncatemacro{\sc}{\l*\i}%
+          \ifnum\sc>14 \def\rc{sevcritical}\else\ifnum\sc>9 \def\rc{sevhigh}\else
+          \ifnum\sc>4 \def\rc{sevmedium}\else\def\rc{sevlow}\fi\fi\fi
+          \fill[\rc!24] (\i-1,\l-1) rectangle (\i,\l);
+          \draw[white,line width=1.4pt] (\i-1,\l-1) rectangle (\i,\l);
+          \node[font=\sffamily\bfseries\small,text=\rc!85!black,text width=22mm,align=center]
+          at (\i-0.5,\l-0.5) {\matrixcell{\l}{\i}};}}
+      \foreach \n in {1,...,5}{%
+        \node[font=\sffamily\small,text=auditmuted] at (\n-0.5,-0.4) {\n};
+        \node[font=\sffamily\small,text=auditmuted] at (-0.35,\n-0.5) {\n};}
+      \node[font=\sffamily\scriptsize\scshape,text=auditmuted] at (2.5,-0.95) {\lblImpact\ $\rightarrow$};
+      \node[font=\sffamily\scriptsize\scshape,text=auditmuted,rotate=90] at (-0.85,2.5)
+      {\lblLikelihood\ $\rightarrow$};
+    \end{tikzpicture}
+  \end{center}}
+
+% Catalogue rows: \catrow{asset id}{description}{bytes}{sha-256}.
+\newcommand{\catrow}[4]{{\sffamily\small #1} & {\small #2} & #3 & {\ttfamily\fontsize{6.6}{8}\selectfont #4} \\}
+% Coverage rows: \covrow{area}{covered|partial|none}{what was done}.
+\newcommand{\covrow}[3]{#1 & \verdictbadge{#2} & #3 \\}
+% Roadmap rows: \roadrow{order}{action}{finding id}{effort}{target}.
+\newcommand{\roadrow}[5]{#1 & #2 & #3 & #4 & #5 \\}
+
+\begin{document}
+
+  % Cover: title, client and system sit in a block framed by garnet rules.
+  \begingroup
+  \thispagestyle{empty}
+  \covertexture
+  \noindent\begin{minipage}[t][\dimexpr\textheight-2\baselineskip\relax][t]{\textwidth}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,minimum width=\paperwidth,
+        minimum height=2.4mm] at ([yshift=-22mm]current page.north west) {};
+      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,minimum width=\paperwidth,
+        minimum height=0.9mm] at ([yshift=-132mm]current page.north west) {};
+      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,minimum width=\paperwidth,
+        minimum height=0.35mm] at ([yshift=-134mm]current page.north west) {};
+    \end{tikzpicture}\par\nointerlineskip
+    \raggedright\color{auditink}
+    \vspace*{2mm}
+    \IfFileExists{\RepLogo}{\placelogo[height=12mm]{\RepLogo}\par\vspace{5mm}}{}
+    {\large\color{auditmuted}\caps{\RepAuditor}\par}
+    \vspace{18mm}
+    {\sffamily\small\scshape\color{auditaccent}\lblKicker\par}
+    \vspace{4mm}
+    {\fontsize{38}{42}\selectfont\RepTitle\par}
+    \vspace{6mm}
+    {\fontsize{16}{20}\selectfont\itshape\color{auditmuted}\lblPreparedFor\ \RepClient\par}
+    \vspace{42mm}\color{auditink}
+    \begin{tabular}{@{}p{5.6cm}p{5.6cm}@{}}
+      \metalabel{\lblSystem} & \metalabel{\lblPeriod} \\[2pt]
+      \RepSystem & \RepPeriod \\[18pt]
+      \metalabel{\lblVersion} & \metalabel{\lblStatus} \\[2pt]
+      \RepVersion & \statusbadge{\RepStatus} \\[18pt]
+      \metalabel{\lblDate} & \metalabel{\lblClassification} \\[2pt]
+      \RepDate & {\sffamily\small\scshape\bfseries\color{benchgarnet}\RepClass} \\
+    \end{tabular}
+    \vfill
+    {\color{auditmuted}\small\lblPreparedBy\ \RepAuditor\par}
+  \end{minipage}
+  \endgroup
+  \clearpage
+
+  \tableofcontents
+  \clearpage
+
+  \input{sections/{{language}}}
+
+\end{document}

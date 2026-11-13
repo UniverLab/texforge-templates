@@ -1,5 +1,5 @@
 id = "book"
-version = "0.2.0"
+version = "0.3.0"
 display_name = "Book"
 description = "A long-form book layout with epigraphs, front matter, chapter openings and a literary paragraph style"
 

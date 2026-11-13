@@ -1,0 +1,212 @@
+% Reemplace el contenido de ejemplo con los resultados de su auditoría.
+\section{\lblExecutive}
+Auditamos la seguridad y el uso diario de \RepSystem{} en las fechas que
+indica la portada. El sistema está en general bien construido, pero un hallazgo
+crítico expone datos de clientes y debe corregirse antes que cualquier otro.
+
+\sevstrip
+
+Este informe recoge cuatro hallazgos, abiertos o corregidos. El hallazgo
+crítico (F-01) y el de severidad alta (F-02) pueden corregirse en menos de dos
+semanas y eliminan casi todo el riesgo. Los demás son trabajo de
+endurecimiento que puede seguir el ciclo normal de versiones.
+
+\section{\lblScope}
+La auditoría cubrió la aplicación web pública, su interfaz de programación y
+el almacenamiento que guarda las exportaciones de clientes. Quedaron fuera los
+sistemas de terceros y la red de la oficina.
+
+Trabajamos en cuatro pasos: mapear el sistema, revisar su configuración,
+probarlo desde el punto de vista de un usuario externo y confirmar cada
+resultado con un paso reproducible y una evidencia guardada.
+
+\begin{mermaid}[style=editorial,width=0.9\linewidth,
+    caption={Método de la auditoría},pos=H]
+  flowchart LR
+  A[Mapear] --> B[Revisar] --> C[Probar] --> D[Confirmar] --> E[Informar]
+\end{mermaid}
+
+\section{\lblCoverage}
+La tabla muestra qué recibió cada área y hasta dónde llegó el trabajo.
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}p{3.2cm}p{2.5cm}X@{}}
+    \toprule
+    \sffamily\small\bfseries\lblArea & \sffamily\small\bfseries\lblVerdict &
+    \sffamily\small\bfseries\lblWhatWasDone \\
+    \midrule
+    \covrow{Autenticación}{covered}{Se revisaron el inicio de sesión, el restablecimiento y las sesiones; se probó contra adivinación y repetición.}
+    \covrow{Almacenamiento}{covered}{Se revisaron las políticas del depósito y los registros de acceso; se comprobó el acceso público.}
+    \covrow{Interfaz}{partial}{Se probaron los puntos de lectura; los de escritura solo se revisaron en el código.}
+    \covrow{Cliente móvil}{none}{No forma parte del alcance acordado.}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblFindings}
+Cada hallazgo tiene una severidad, una probabilidad y un impacto en una escala
+de uno a cinco, una estimación de esfuerzo y un estado. La evidencia se lista
+por identificador de recurso y puede contrastarse con el catálogo del anexo.
+
+\begin{finding}[id=F-01,title={Las exportaciones de clientes son de lectura pública},
+    severity=critical,likelihood=5,impact=5,effort=small,status=open]
+  \findingpart{\lblDescription}
+  El depósito que guarda las exportaciones de clientes permite a cualquier
+  persona en internet listar y descargar sus archivos. Las exportaciones
+  contienen nombres, correos electrónicos e historial de pedidos.
+
+  \findingpart{\lblReproduction}
+  \begin{code}[lang=bash]
+curl -s https://storage.example.org/orbit-exports/ | head -n 5
+  \end{code}
+
+  \findingpart{\lblRootCause}
+  Se añadió una regla de lectura amplia durante una migración y nunca se retiró.
+
+  \findingpart{\lblImpact}
+  Cualquier persona puede leer datos personales de todos los clientes, lo que
+  incumple el contrato y la ley de protección de datos.
+
+  \findingpart{\lblRecommendation}
+  Retire hoy la regla pública, renueve los enlaces expuestos y revise los
+  registros de acceso en busca de descargas anteriores.
+
+  \findingpart{\lblEvidence}
+  \begin{evidence}
+    \evrow{A-0101}{18\,432}{ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb}
+    \evrow{A-0102}{2\,210}{3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d}
+  \end{evidence}
+\end{finding}
+
+\begin{finding}[id=F-02,title={El restablecimiento de contraseña no tiene límite de intentos},
+    severity=high,likelihood=4,impact=4,effort=medium,status=open]
+  \findingpart{\lblDescription}
+  La solicitud de restablecimiento de contraseña acepta un número ilimitado de
+  intentos desde una misma dirección, de modo que un atacante puede inundar a
+  los usuarios con correos o averiguar qué cuentas existen.
+
+  \findingpart{\lblRootCause}
+  La ruta de restablecimiento quedó fuera de las reglas comunes de limitación.
+
+  \findingpart{\lblImpact}
+  Enumeración de cuentas y riesgo de acoso a usuarios reales.
+
+  \findingpart{\lblRecommendation}
+  Aplique a la ruta el límite común y devuelva la misma respuesta exista o no
+  la cuenta.
+
+  \findingpart{\lblEvidence}
+  \begin{evidence}
+    \evrow{A-0103}{5\,876}{2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6}
+  \end{evidence}
+\end{finding}
+
+\begin{finding}[id=F-03,title={Las páginas de error revelan detalles internos},
+    severity=medium,likelihood=3,impact=3,effort=small,status=fixed]
+  \findingpart{\lblDescription}
+  Una solicitud mal formada devolvió una traza completa con rutas de archivos y
+  la versión de una biblioteca.
+
+  \findingpart{\lblRecommendation}
+  Devuelva un mensaje genérico corto y registre el detalle en el servidor. El
+  equipo lo corrigió durante la auditoría y confirmamos el cambio.
+
+  \findingpart{\lblEvidence}
+  \begin{evidence}
+    \evrow{A-0104}{3\,904}{18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4}
+  \end{evidence}
+\end{finding}
+
+\begin{finding}[id=F-04,title={La cookie de sesión no define el atributo de mismo sitio},
+    severity=low,likelihood=2,impact=2,effort=small,status=open]
+  \findingpart{\lblDescription}
+  La cookie de sesión no declara una política de mismo sitio, por lo que los
+  navegadores aplican la suya por defecto.
+
+  \findingpart{\lblRecommendation}
+  Defina el atributo de forma explícita con el valor estricto o laxo.
+
+  \findingpart{\lblEvidence}
+  \begin{evidence}
+    \evrow{A-0105}{1\,288}{3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea}
+  \end{evidence}
+\end{finding}
+
+\section{\lblMatrix}
+Los hallazgos se ubican por probabilidad e impacto. Las celdas se colorean según
+el producto de ambas puntuaciones.
+
+\riskmatrix
+
+\section{\lblRoadmap}
+Las acciones se ordenan por el riesgo que eliminan por unidad de esfuerzo.
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}cXlll@{}}
+    \toprule
+    \sffamily\small\bfseries\lblOrder & \sffamily\small\bfseries\lblAction &
+    \sffamily\small\bfseries\lblFinding & \sffamily\small\bfseries\lblEffort &
+    \sffamily\small\bfseries\lblTarget \\
+    \midrule
+    \roadrow{1}{Cerrar el acceso público al depósito de exportaciones}{F-01}{\lblefsmall}{1 día}
+    \roadrow{2}{Limitar los intentos en la ruta de restablecimiento}{F-02}{\lblefmedium}{2 semanas}
+    \roadrow{3}{Definir el atributo de mismo sitio en la cookie}{F-04}{\lblefsmall}{Próxima versión}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblDoneWell}
+\begin{itemize}
+  \item El inicio de sesión usa llaves físicas para todas las personas administradoras.
+  \item Los despliegues están automatizados y toda modificación la revisa una segunda persona.
+  \item El equipo respondió al hallazgo crítico en menos de una hora.
+\end{itemize}
+
+\section{\lblLimitations}
+La auditoría es una revisión en un momento dado y no demuestra la ausencia de
+otras fallas. Los puntos de escritura se revisaron solo en el código y no se
+examinó el cliente móvil.
+
+\section{\lblGlossary}
+\begin{description}[style=nextline,leftmargin=1.2em,itemsep=4pt,topsep=2pt,
+    font={\sffamily\bfseries\color{auditaccent}\small}]
+  \item[Probabilidad] Qué tan fácil es para un atacante provocar el problema, de uno a cinco.
+  \item[Impacto] Cuánto daño causaría el problema si ocurriera, de uno a cinco.
+  \item[Evidencia] Un archivo guardado que respalda un hallazgo, identificado por un id de recurso y una suma de verificación.
+  \item[SHA-256] Una huella de un archivo; si cambia un solo byte, cambia la huella.
+\end{description}
+
+\appendix
+\section{\lblSources}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}p{3.6cm}X@{}}
+    \toprule
+    \sffamily\small\bfseries\lblSource & \sffamily\small\bfseries\lblLink \\
+    \midrule
+    Política de acceso & \url{https://docs.example.org/policies/access} \\
+    Configuración del almacenamiento & \url{https://console.example.org/storage/orbit-exports} \\
+    Historial de cambios & \url{https://git.example.org/orbit/portal/commits/main} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblCatalogue}
+\begin{table}[H]
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{@{}p{1.5cm}p{3.2cm}r@{\hspace{8pt}}l@{}}
+    \toprule
+    \sffamily\small\bfseries\lblAsset & \sffamily\small\bfseries\lblDescription &
+    \sffamily\small\bfseries\lblBytes & \sffamily\small\bfseries SHA-256 \\
+    \midrule
+    \catrow{A-0101}{Respuesta del listado del depósito}{18\,432}{ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb}
+    \catrow{A-0102}{Encabezado de una exportación}{2\,210}{3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d}
+    \catrow{A-0103}{Registro de solicitudes de restablecimiento}{5\,876}{2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6}
+    \catrow{A-0104}{Respuesta con traza de error}{3\,904}{18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4}
+    \catrow{A-0105}{Captura del encabezado de la cookie}{1\,288}{3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea}
+    \bottomrule
+  \end{tabular}
+\end{table}

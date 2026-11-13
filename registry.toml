@@ -1,12 +1,12 @@
 [[templates]]
 nombre = "apa-general"
 descripcion = "Academic report or thesis with chapters, and APA 7 tables, figures and references"
-version = "0.3.0"
+version = "0.3.1"
 
 [[templates]]
 nombre = "apa-unisalle"
 descripcion = "APA 7 thesis proposal for Universidad de La Salle"
-version = "0.3.0"
+version = "0.3.1"
 
 [[templates]]
 nombre = "apa7-student"
@@ -16,49 +16,64 @@ version = "0.1.0"
 [[templates]]
 nombre = "article"
 descripcion = "Single-column academic article with running heads and author affiliations"
-version = "0.3.0"
+version = "0.4.0"
+
+[[templates]]
+nombre = "audit-report"
+descripcion = "Security and usage audit report with a band cover, severity-coded findings, risk matrix, fix roadmap and evidence catalogue"
+version = "0.1.0"
 
 [[templates]]
 nombre = "book"
 descripcion = "Long-form book layout with epigraphs and front matter"
-version = "0.2.0"
+version = "0.3.0"
+
+[[templates]]
+nombre = "contract"
+descripcion = "Services agreement layout with parties block, numbered clauses, annexes and signature block; clause text is for you to write"
+version = "0.1.0"
 
 [[templates]]
 nombre = "cv"
 descripcion = "Clean, ATS-friendly curriculum vitae"
-version = "0.1.0"
+version = "0.2.0"
 
 [[templates]]
 nombre = "general"
 descripcion = "Editorial foundation for essays and other documents, with serif type and spaced paragraphs"
-version = "0.3.0"
+version = "0.4.0"
 
 [[templates]]
 nombre = "ieee"
 descripcion = "IEEE journal format for technical papers"
-version = "0.2.0"
+version = "0.2.1"
+
+[[templates]]
+nombre = "internal-docs"
+descripcion = "Handbook for internal policies, procedures, playbooks and decision records, with a cover, document control and callouts"
+version = "0.1.0"
 
 [[templates]]
 nombre = "letter"
 descripcion = "Formal letter template for professional correspondence"
-version = "0.2.0"
+version = "0.3.0"
 
 [[templates]]
 nombre = "report"
 descripcion = "Structured university report with front matter, contents and appendices"
-version = "0.3.0"
+version = "0.4.0"
 
 [[templates]]
 nombre = "slides"
 descripcion = "16:9 presentation slides with code and diagrams"
-version = "0.1.0"
+version = "0.2.0"
 
 [[templates]]
 nombre = "technical-brief"
 descripcion = "Concise technical update with callouts, diagrams, code and results"
-version = "0.2.0"
+version = "0.3.0"
 
 [[templates]]
 nombre = "workshop"
 descripcion = "Workshop handout with a cover page, workflow, code and test table"
-version = "0.3.0"
+version = "0.4.0"

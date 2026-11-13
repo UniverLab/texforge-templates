@@ -7,7 +7,8 @@
 % % The document language comes from {{language}} (default: english).
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{newpxtext,newpxmath}
+\usepackage[lining]{ebgaramond}
+\usepackage{ebgaramond-maths}
 \usepackage{microtype}
 \usepackage{csquotes}
 \usepackage[paperwidth=6in,paperheight=9in,inner=2.2cm,outer=1.7cm,top=2cm,bottom=2cm,headheight=14pt,headsep=12pt,footskip=14pt]{geometry}
@@ -30,7 +31,19 @@
 \renewcommand{\textflush}{flushright}
 
 % --- Compact chapter openings preserve space for the text ---
-\definecolor{bookaccent}{HTML}{8A493D}
+\definecolor{bookaccent}{HTML}{87222C}
+\definecolor{bookmark}{HTML}{87222C}
+\definecolor{bookmuted}{HTML}{6B5A43}
+% Fixed labels, in English and Spanish.
+\newcommand{\lblFirstEdition}{First edition}
+\newcommand{\lblRights}{All rights reserved. No part of this book may be reproduced without written permission from the rights holder.}
+\newcommand{\lblPreface}{Preface}
+\newcommand{\lblAck}{Acknowledgments}
+\addto\captionsspanish{%
+  \renewcommand{\lblFirstEdition}{Primera edición}
+  \renewcommand{\lblRights}{Todos los derechos reservados. Ninguna parte de este libro puede reproducirse sin permiso escrito del titular de los derechos.}
+  \renewcommand{\lblPreface}{Prólogo}
+  \renewcommand{\lblAck}{Agradecimientos}}
 \titleformat{\chapter}[display]
 {\normalfont\huge\bfseries}{\textcolor{bookaccent}{\chaptertitlename\ \thechapter}}{16pt}{\Huge}[\vspace{0.35em}{\color{bookaccent}\titlerule[0.5pt]}]
 \titlespacing*{\chapter}{0pt}{-12pt}{16pt}
@@ -82,12 +95,12 @@
   \begin{titlepage}
     \centering
     % % Replace with the book title.
-    {\Huge\bfseries {{title}} \par}
+    {\fontsize{34}{38}\selectfont {{title}} \par}
     \vspace{0.5cm}
     % % Replace with the book subtitle.
-    {\Large {{subtitle}} \par}
+    {\Large\itshape\color{bookmuted} {{subtitle}} \par}
     \vspace{0.8cm}
-    \rule{0.3\textwidth}{0.4pt}
+    {\color{bookmark}\rule{0.3\textwidth}{2pt}\par}
     \vspace{0.8cm}
     % % Replace with the author's name.
     {\Large {{author}} \par}
@@ -101,10 +114,9 @@
   \thispagestyle{empty}
   % % Replace this block with the details of your edition.
   \noindent \textcopyright\ {{year}} {{author}}. \par
-  \noindent First edition: {{publisher}}, {{year}}. \par
+  \noindent \lblFirstEdition: {{publisher}}, {{year}}. \par
   \vspace{0.4cm}
-  \noindent All rights reserved. No part of this book may be reproduced
-  without written permission from the rights holder. \par
+  \noindent \lblRights \par
   \clearpage
 
   % --- Dedication: one generic line, aligned right ---
@@ -122,9 +134,9 @@
   \clearpage
 
   % --- Preface: introduce the book in two short paragraphs ---
-  \chapter*{Preface}
-  \addcontentsline{toc}{chapter}{Preface}
-  \markboth{Preface}{Preface}
+  \chapter*{\lblPreface}
+  \addcontentsline{toc}{chapter}{\lblPreface}
+  \markboth{\lblPreface}{\lblPreface}
   % % Replace with the book's origin: why it exists and whom it is for.
   This book brings together three short chapters about how we see ordinary
   days. It began as a set of unhurried notes and is meant to be read slowly,
@@ -144,7 +156,7 @@
   \backmatter
 
   % --- Acknowledgments: a brief closing for the book ---
-  \chapter{Acknowledgments}
+  \chapter{\lblAck}
   % % Replace with two short paragraphs of acknowledgments.
   This book owes much to the people who read early drafts and told the truth
   with kindness. Thank you to everyone who lent time, quiet and good

@@ -49,6 +49,16 @@
 \floatstyle{plaintop}\restylefloat{figure}
 \captionsetup{position=top,labelsep=newline,labelfont=bf,textfont=it,
   justification=raggedright,singlelinecheck=false,skip=4pt}
+% Fixed labels of the cover and the abstract, in English and Spanish.
+\newcommand{\lblProposal}{Research Proposal}
+\newcommand{\lblAdvisor}{Advisor}
+\newcommand{\lblSubmission}{Submission Date}
+\newcommand{\lblKeywords}{Keywords}
+\addto\captionsspanish{%
+  \renewcommand{\lblProposal}{Propuesta de investigación}
+  \renewcommand{\lblAdvisor}{Director}
+  \renewcommand{\lblSubmission}{Fecha de entrega}
+  \renewcommand{\lblKeywords}{Palabras clave}}
 \AtBeginDocument{\iflanguage{spanish}{\captionsetup[table]{name=Tabla}}{}}
 
 \numberwithin{equation}{chapter}
@@ -95,18 +105,18 @@
     \includegraphics[width=8cm]{assets/images/logosalle.png}\\[1cm]
     \universidad\\[0.5cm]\programa\\[2cm]
     {\LARGE\bfseries \titulo}\\[2cm]
-    \textbf{Research Proposal}\\[2cm]
+    \textbf{\lblProposal}\\[2cm]
     \Large\autor\\\codigo\\[1cm]
-    Advisor: \director\\\correo\\[2cm]
-    Submission Date: \today\\\vspace*{\fill}
+    \lblAdvisor: \director\\\correo\\[2cm]
+    \lblSubmission: \today\\\vspace*{\fill}
   \end{titlepage}
 
   \thispagestyle{empty}\newpage
 
   % Replace this abstract with a one-paragraph summary of your own proposal.
-  \chapter*{Abstract}
+  \chapter*{\abstractname}
   Write your abstract here. This document provides a template for academic projects in APA format.
-  \textit{Keywords}: keyword1, keyword2, keyword3
+  \textit{\lblKeywords}: keyword1, keyword2, keyword3
 
   \chapter{Introduction}\label{chap:introduction}
   % Replace this paragraph with the background and the problem of your own study.

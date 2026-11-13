@@ -4,7 +4,7 @@
 
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{newpxtext}
+\usepackage[lining]{ebgaramond}
 \usepackage{microtype}
 \usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt,footskip=14pt]{geometry}
 \usepackage{amsmath,amssymb}
@@ -18,9 +18,26 @@
 \usepackage{hyperref}
 
 % A restrained palette keeps callouts distinct without overpowering the page.
-\definecolor{briefink}{HTML}{292927}
-\definecolor{briefaccent}{HTML}{8A493D}
-\definecolor{briefwarning}{HTML}{A66B2B}
+\definecolor{briefink}{HTML}{1D1510}
+\definecolor{briefaccent}{HTML}{87222C}
+\definecolor{briefwarning}{HTML}{8A6A2C}
+\definecolor{briefmark}{HTML}{87222C}
+\definecolor{briefmuted}{HTML}{6B5A43}
+\usepackage[font=small,labelfont={bf,color=briefaccent},skip=6pt]{caption}
+% Fixed labels, in English and Spanish.
+\newcommand{\lblAuthor}{Author}
+\newcommand{\lblCourse}{Course or project}
+\newcommand{\lblDate}{Date}
+\newcommand{\lblRepository}{Repository}
+\newcommand{\lblKeyPoint}{Key Point}
+\newcommand{\lblPleaseNote}{Please Note}
+\addto\captionsspanish{%
+  \renewcommand{\lblAuthor}{Autor}
+  \renewcommand{\lblCourse}{Curso o proyecto}
+  \renewcommand{\lblDate}{Fecha}
+  \renewcommand{\lblRepository}{Repositorio}
+  \renewcommand{\lblKeyPoint}{Punto clave}
+  \renewcommand{\lblPleaseNote}{Tenga en cuenta}}
 \hypersetup{colorlinks=true,linkcolor=briefaccent,urlcolor=briefaccent,
   citecolor=briefaccent,breaklinks=true,pdftitle={{{title}}},pdfauthor={{{author}}}}
 
@@ -47,33 +64,34 @@
   fonttitle=\bfseries,coltitle=briefink,boxrule=0.5pt,arc=1mm,
   left=6pt,right=6pt,top=5pt,bottom=5pt}
 \newtcolorbox{keyBox}{colback=briefaccent!5,colframe=briefaccent!60,
-  fonttitle=\bfseries,title=Key Point,boxrule=0.6pt,arc=1mm,
+  fonttitle=\bfseries,title={\lblKeyPoint},boxrule=0.6pt,arc=1mm,
   left=6pt,right=6pt,top=5pt,bottom=5pt}
 \newtcolorbox{cautionBox}{colback=briefwarning!6,colframe=briefwarning!70,
-  fonttitle=\bfseries,title=Please Note,boxrule=0.6pt,arc=1mm,
+  fonttitle=\bfseries,title={\lblPleaseNote},boxrule=0.6pt,arc=1mm,
   left=6pt,right=6pt,top=5pt,bottom=5pt}
 
 \begin{document}
 
   % Cover page: keep this block to one page.
   \begin{titlepage}
-    \centering
-    {\scshape\large {{kicker}} \par}
-    \vspace{0.9cm}
-    {\huge\bfseries\color{briefink} {{title}} \par}
-    \vspace{0.4cm}
-    {\Large {{subtitle}} \par}
-    \vspace{1.3cm}
-    \begin{tcolorbox}[colback=briefaccent!4,colframe=briefaccent!50,
-        width=0.88\textwidth,boxrule=0.6pt,arc=1mm]
-      \begin{tabular}{@{}ll@{}}
-        \textbf{Author:} & {{author}} \\
-        \textbf{Course or project:} & {{course}} \\
-        \textbf{Date:} & {{date}} \\
-        \textbf{Repository:} & {\small\url{{{repository}}}} \\
-      \end{tabular}
-    \end{tcolorbox}
+    \raggedright
+    \vspace*{3.2cm}
+    {\scshape\large\color{briefaccent} {{kicker}} \par}
+    \vspace{0.7cm}
+    {\fontsize{36}{40}\selectfont\color{briefink} {{title}} \par}
+    \vspace{0.6cm}
+    {\color{briefmark}\rule{3cm}{2.4pt}\par}
+    \vspace{0.6cm}
+    {\fontsize{16}{21}\selectfont\itshape\color{briefmuted} {{subtitle}} \par}
     \vfill
+    \setlength{\tabcolsep}{0pt}
+    \begin{tabular}{@{}l@{\hspace{2.5em}}l@{}}
+      {\scshape\color{briefmuted}\lblAuthor} & {{author}} \\[6pt]
+      {\scshape\color{briefmuted}\lblCourse} & {{course}} \\[6pt]
+      {\scshape\color{briefmuted}\lblDate} & {{date}} \\[6pt]
+      {\scshape\color{briefmuted}\lblRepository} & {\small\url{{{repository}}}} \\
+    \end{tabular}
+    \vspace{1.2cm}
   \end{titlepage}
 
   % Replace with the document's purpose and key result.

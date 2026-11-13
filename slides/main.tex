@@ -2,12 +2,14 @@
 % Placeholders are filled in when the project is created; every % comment
 % says what to replace. Text below is generic sample content.
 % Tectonic reads UTF-8 directly, so no input encoding package is loaded.
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[aspectratio=169,14pt]{beamer}
 
 % Document language from the {{language}} placeholder (default english).
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+\usefonttheme{serif}
+\usepackage[lining]{ebgaramond}
+\usepackage{microtype}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{float}
@@ -16,18 +18,42 @@
 \usetheme{default}
 
 % One accent colour for frame titles, structure and itemize bullets.
-\definecolor{acento}{HTML}{1F4E79}
+\definecolor{acento}{HTML}{87222C}
+\definecolor{tinta}{HTML}{1D1510}
+\definecolor{sepia}{HTML}{6B5A43}
+\definecolor{pergamino}{HTML}{F4F0EA}
+\setbeamercolor{normal text}{fg=tinta}
+% Fixed labels, in English and Spanish.
+\newcommand{\lblThanks}{Thank you}
+\newcommand{\lblQuestions}{Questions?}
+\addto\captionsspanish{\renewcommand{\lblThanks}{Gracias}\renewcommand{\lblQuestions}{¿Preguntas?}}
 \setbeamercolor{frametitle}{fg=acento}
 \setbeamercolor{structure}{fg=acento}
 \setbeamercolor{itemize item}{fg=acento}
 \setbeamercolor{itemize subitem}{fg=acento}
 \setbeamercolor{itemize subsubitem}{fg=acento}
 
+% Title page and frame titles: left aligned, with a short garnet rule.
+\setbeamertemplate{title page}{%
+  \vfill
+  \begin{flushleft}
+    {\fontsize{30}{34}\selectfont\color{tinta}\inserttitle\par}\vskip 3mm
+    {\color{acento}\rule{3cm}{2pt}\par}\vskip 3mm
+    {\itshape\large\color{sepia}\insertsubtitle\par}\vskip 8mm
+    {\large\insertauthor\par}
+    {\small\color{sepia}\insertinstitute\quad\insertdate\par}
+  \end{flushleft}
+  \vfill}
+\setbeamertemplate{frametitle}{%
+  \vskip 3mm\nointerlineskip
+  {\Large\color{acento}\insertframetitle\par}\vskip 1mm
+  {\color{sepia!40}\rule{\textwidth}{0.4pt}\par}}
+
 % Navigation symbols off; footline keeps author, short title and frame/total.
 \setbeamertemplate{navigation symbols}{}
-\setbeamercolor{author in head/foot}{fg=black,bg=black!8}
-\setbeamercolor{title in head/foot}{fg=black,bg=black!8}
-\setbeamercolor{date in head/foot}{fg=black,bg=black!8}
+\setbeamercolor{author in head/foot}{fg=sepia,bg=pergamino}
+\setbeamercolor{title in head/foot}{fg=sepia,bg=pergamino}
+\setbeamercolor{date in head/foot}{fg=sepia,bg=pergamino}
 \setbeamertemplate{footline}{%
   \leavevmode%
   \hbox{%
@@ -58,7 +84,7 @@
   \end{frame}
 
   % Keep the outline right after the title frame; it lists the sections below.
-  \begin{frame}{Outline}
+  \begin{frame}{\contentsname}
     \tableofcontents
   \end{frame}
 
@@ -151,9 +177,9 @@ print(average(scores))
   \end{frame}
 
   % Replace the closing line with your own contact or question prompt.
-  \begin{frame}{Thank you}
+  \begin{frame}{\lblThanks}
     \centering
-    \Large Questions?
+    \Large \lblQuestions
     \vspace{1em}
 
     \normalsize\texttt{author@example.org}

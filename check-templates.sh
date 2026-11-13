@@ -232,8 +232,8 @@ for p, text in files:
         if pat in text:
             print("forbidden pattern " + pat + " in " + str(p.relative_to(dest)))
             raise SystemExit(1)
-if name in ("letter", "cv"):
-    raise SystemExit(0)  # content requirements are skipped for letter/cv
+if name in ("letter", "cv", "contract"):
+    raise SystemExit(0)  # content requirements are skipped for letter/cv/contract
 entry = dest / "main.tex"
 if not entry.is_file():
     print("main.tex not found"); raise SystemExit(1)

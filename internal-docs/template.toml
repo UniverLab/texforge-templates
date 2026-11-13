@@ -1,0 +1,99 @@
+id = "internal-docs"
+version = "0.1.0"
+display_name = "Internal Documentation"
+description = "Handbook for internal policies, procedures, playbooks and decision records, with a cover, document control and callouts"
+
+[files]
+include = ["**/*.tex", "**/*.txt", "assets/**"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Document title"
+required = true
+default = "Information Security Handbook"
+
+[[placeholders]]
+name = "subtitle"
+type = "string"
+description = "Subtitle or short description"
+required = false
+default = "Policies, procedures and decisions for day-to-day operations"
+
+[[placeholders]]
+name = "organization"
+type = "string"
+description = "Organisation that owns the document"
+required = false
+default = "Example Organization"
+
+[[placeholders]]
+name = "owner"
+type = "string"
+description = "Document owner (person or team accountable for the content)"
+required = true
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "version"
+type = "string"
+description = "Document version"
+required = false
+default = "1.0"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Document date"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "review_date"
+type = "string"
+description = "Date of the next scheduled review"
+required = false
+default = "12 months after approval"
+
+[[placeholders]]
+name = "classification"
+type = "string"
+description = "Classification label shown on the cover and in every footer"
+required = false
+default = "Internal"
+
+[[placeholders]]
+name = "accent"
+type = "string"
+description = "Accent colour as a six-digit HTML hex value, without the hash"
+required = false
+default = "87222C"
+
+[[placeholders]]
+name = "logo"
+type = "string"
+description = "Path to an optional logo image, shown on the cover when the file exists"
+required = false
+default = "assets/logo.png"
+
+[[placeholders]]
+name = "paper_texture"
+type = "boolean"
+description = "Put a parchment texture behind every page, for documents read on screen (the cover always has it)"
+required = false
+default = false
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language for babel; fixed labels are translated for English and Spanish"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "build"
+description = "Compile the document to PDF"
+command = "texforge build"
+optional = true

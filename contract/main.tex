@@ -1,0 +1,290 @@
+% Services agreement layout. This template is a layout only: the clause text
+% is placeholder wording that you must write or have reviewed by a lawyer.
+% Text in double braces is filled in when the project is created.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[lining]{ebgaramond}
+\usepackage[scale=0.92]{sourcesanspro}
+\usepackage{microtype}
+\usepackage[a4paper,left=30mm,right=27mm,top=28mm,bottom=32mm,
+  headheight=14pt,headsep=12mm,footskip=14mm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{needspace}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{lastpage}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+
+\usepackage{graphicx}
+
+% Palette: the lab's bench tokens, defined once. The accent placeholder
+% (garnet by default) drives rules and numbers; the rest is fixed.
+\definecolor{benchparchment}{HTML}{F4F0EA}
+\definecolor{benchdeep}{HTML}{EEE7DC}
+\definecolor{benchlamp}{HTML}{F6ECD2}
+\definecolor{benchink}{HTML}{1D1510}
+\definecolor{benchsepia}{HTML}{6B5A43}
+\definecolor{benchgraphite}{HTML}{5D5852}
+\definecolor{benchbrass}{HTML}{8A6A2C}
+\definecolor{benchcopper}{HTML}{9A5530}
+\definecolor{benchgarnet}{HTML}{87222C}
+\colorlet{conink}{benchink}
+\definecolor{conaccent}{HTML}{{{accent}}}
+\colorlet{conmuted}{benchsepia}
+\colorlet{conrule}{benchsepia!35!white}
+\hypersetup{colorlinks=true,linkcolor=conaccent,urlcolor=conaccent,
+  citecolor=conaccent,breaklinks=true,pdftitle={{{title}}}}
+
+% Fixed labels and clause headings. English defaults, then Spanish overrides.
+\newcommand{\lblAgreementNo}{Agreement no.}
+\newcommand{\lblProvider}{Provider}
+\newcommand{\lblClient}{Client}
+\newcommand{\lblName}{Name}
+\newcommand{\lblId}{ID or tax number}
+\newcommand{\lblAddress}{Address}
+\newcommand{\lblRepresentative}{Represented by}
+\newcommand{\lblEmail}{Email}
+\newcommand{\lblRole}{Role}
+\newcommand{\lblDate}{Date}
+\newcommand{\lblCity}{City}
+\newcommand{\lblSignature}{Signature}
+\newcommand{\lblInitials}{Initials}
+\newcommand{\lblPage}{Page}
+\newcommand{\lblOf}{of}
+\newcommand{\lblAnnex}{Annex}
+\newcommand{\lblClause}{clause}
+\newcommand{\lblPlaceholder}{Placeholder}
+\newcommand{\lblIntro}{This agreement is made on \AgrDate{} in \AgrCity{} between the
+  parties identified below, who agree as follows.}
+\newcommand{\lblSigned}{Signed by the parties on the date and in the city shown below.}
+\newcommand{\lblItem}{Item}
+\newcommand{\lblDeliverable}{Deliverable}
+\newcommand{\lblDescription}{Description}
+\newcommand{\lblDue}{Due}
+\newcommand{\lblMilestone}{Milestone}
+\newcommand{\lblAmount}{Amount}
+\newcommand{\lblCondition}{Condition}
+\newcommand{\lblTotal}{Total}
+\newcommand{\lblclObject}{Object}
+\newcommand{\lblclScope}{Scope and deliverables}
+\newcommand{\lblclTerm}{Term and schedule}
+\newcommand{\lblclPrice}{Price and payment}
+\newcommand{\lblclClientDuties}{Client obligations}
+\newcommand{\lblclProviderDuties}{Provider obligations}
+\newcommand{\lblclConfidentiality}{Confidentiality}
+\newcommand{\lblclData}{Personal data}
+\newcommand{\lblclIP}{Intellectual property}
+\newcommand{\lblclAcceptance}{Acceptance of deliverables}
+\newcommand{\lblclLiability}{Liability}
+\newcommand{\lblclTermination}{Termination}
+\newcommand{\lblclNotices}{Notices}
+\newcommand{\lblclLaw}{Governing law and disputes}
+\newcommand{\lblclEntire}{Entire agreement}
+\newcommand{\lblAnnexScope}{Scope and deliverables}
+\newcommand{\lblAnnexPrice}{Price and payment schedule}
+\newcommand{\lblDefTitle}{Services Agreement}
+\newcommand{\lblDefCity}{Example City}
+\newcommand{\lblDefProvName}{Example Provider Ltd.}
+\newcommand{\lblDefProvAddr}{100 Example Street, Example City}
+\newcommand{\lblDefProvRep}{Provider Representative}
+\newcommand{\lblDefProvRole}{Managing Director}
+\newcommand{\lblDefCliName}{Example Client Inc.}
+\newcommand{\lblDefCliAddr}{200 Sample Avenue, Example City}
+\newcommand{\lblDefCliRep}{Client Representative}
+\newcommand{\lblDefCliRole}{General Manager}
+\addto\captionsspanish{%
+  \renewcommand{\lblAgreementNo}{Contrato n.º}
+  \renewcommand{\lblProvider}{Proveedor}
+  \renewcommand{\lblClient}{Cliente}
+  \renewcommand{\lblName}{Nombre}
+  \renewcommand{\lblId}{Identificación o NIT}
+  \renewcommand{\lblAddress}{Dirección}
+  \renewcommand{\lblRepresentative}{Representado por}
+  \renewcommand{\lblEmail}{Correo electrónico}
+  \renewcommand{\lblRole}{Cargo}
+  \renewcommand{\lblDate}{Fecha}
+  \renewcommand{\lblCity}{Ciudad}
+  \renewcommand{\lblSignature}{Firma}
+  \renewcommand{\lblInitials}{Iniciales}
+  \renewcommand{\lblPage}{Página}
+  \renewcommand{\lblOf}{de}
+  \renewcommand{\lblAnnex}{Anexo}
+  \renewcommand{\lblClause}{cláusula}
+  \renewcommand{\lblPlaceholder}{Texto de ejemplo}
+  \renewcommand{\lblIntro}{Este contrato se celebra el \AgrDate{} en \AgrCity{} entre las
+    partes que se identifican a continuación, que acuerdan lo siguiente.}
+  \renewcommand{\lblSigned}{Firmado por las partes en la fecha y la ciudad que se indican.}
+  \renewcommand{\lblItem}{Ítem}
+  \renewcommand{\lblDeliverable}{Entregable}
+  \renewcommand{\lblDescription}{Descripción}
+  \renewcommand{\lblDue}{Entrega}
+  \renewcommand{\lblMilestone}{Hito}
+  \renewcommand{\lblAmount}{Valor}
+  \renewcommand{\lblCondition}{Condición}
+  \renewcommand{\lblclObject}{Objeto}
+  \renewcommand{\lblclScope}{Alcance y entregables}
+  \renewcommand{\lblclTerm}{Plazo y cronograma}
+  \renewcommand{\lblclPrice}{Precio y forma de pago}
+  \renewcommand{\lblclClientDuties}{Obligaciones del cliente}
+  \renewcommand{\lblclProviderDuties}{Obligaciones del proveedor}
+  \renewcommand{\lblclConfidentiality}{Confidencialidad}
+  \renewcommand{\lblclData}{Datos personales}
+  \renewcommand{\lblclIP}{Propiedad intelectual}
+  \renewcommand{\lblclAcceptance}{Aceptación de los entregables}
+  \renewcommand{\lblclLiability}{Responsabilidad}
+  \renewcommand{\lblclTermination}{Terminación}
+  \renewcommand{\lblclNotices}{Notificaciones}
+  \renewcommand{\lblclLaw}{Ley aplicable y controversias}
+  \renewcommand{\lblclEntire}{Acuerdo completo}
+  \renewcommand{\lblAnnexScope}{Alcance y entregables}
+  \renewcommand{\lblAnnexPrice}{Precio y calendario de pagos}
+  \renewcommand{\lblDefTitle}{Contrato de prestación de servicios}
+  \renewcommand{\lblDefCity}{Ciudad de ejemplo}
+  \renewcommand{\lblDefProvName}{Proveedor de ejemplo S.A.S.}
+  \renewcommand{\lblDefProvAddr}{Calle de ejemplo 100, Ciudad de ejemplo}
+  \renewcommand{\lblDefProvRep}{Representante del proveedor}
+  \renewcommand{\lblDefProvRole}{Gerente general}
+  \renewcommand{\lblDefCliName}{Cliente de ejemplo S.A.}
+  \renewcommand{\lblDefCliAddr}{Avenida de muestra 200, Ciudad de ejemplo}
+  \renewcommand{\lblDefCliRep}{Representante del cliente}
+  \renewcommand{\lblDefCliRole}{Gerente}}
+
+% A value left at its English default follows the document language.
+\newcommand{\localize}[3]{\ifstrequal{#1}{#2}{#3}{#1}}
+% Agreement data, set once and reused by the first page, header and footer.
+\newcommand{\AgrTitle}{\localize{{{title}}}{Services Agreement}{\lblDefTitle}}
+\newcommand{\AgrNo}{{{agreement_number}}}
+\newcommand{\AgrDate}{{{date}}}
+\newcommand{\AgrCity}{\localize{{{city}}}{Example City}{\lblDefCity}}
+\newcommand{\AgrProvName}{\localize{{{provider_name}}}{Example Provider Ltd.}{\lblDefProvName}}
+\newcommand{\AgrProvAddr}{\localize{{{provider_address}}}{100 Example Street, Example City}{\lblDefProvAddr}}
+\newcommand{\AgrProvRep}{\localize{{{provider_rep}}}{Provider Representative}{\lblDefProvRep}}
+\newcommand{\AgrProvRole}{\localize{{{provider_role}}}{Managing Director}{\lblDefProvRole}}
+\newcommand{\AgrCliName}{\localize{{{client_name}}}{Example Client Inc.}{\lblDefCliName}}
+\newcommand{\AgrCliAddr}{\localize{{{client_address}}}{200 Sample Avenue, Example City}{\lblDefCliAddr}}
+\newcommand{\AgrCliRep}{\localize{{{client_rep}}}{Client Representative}{\lblDefCliRep}}
+\newcommand{\AgrCliRole}{\localize{{{client_role}}}{General Manager}{\lblDefCliRole}}
+\newcommand{\AgrCurrency}{{{currency}}}
+
+% Letterspacing does not work with xetex, so small caps carry the emphasis.
+\newcommand{\caps}[1]{{\sffamily\scshape #1}}
+\newcommand{\metalabel}[1]{{\sffamily\scriptsize\scshape\color{conmuted}#1}}
+
+% Placeholder wording is grey and italic so nobody mistakes it for final text.
+\newcommand{\placeholder}[1]{{\itshape\color{conmuted}[\lblPlaceholder: #1]}}
+% Defined terms: bold where defined, plain capitalised wherever used.
+\newcommand{\defn}[1]{\textbf{``#1''}}
+\newcommand{\term}[1]{#1}
+% Cross-references to clauses, sub-clauses and annexes.
+\let\xref\ref
+\newcommand{\clauseref}[1]{\lblClause~\xref{#1}}
+\newcommand{\annexref}[1]{\lblAnnex~\xref{#1}}
+
+% Page styles: the first page has no header; every page carries initials.
+\fancypagestyle{contract}{%
+  \fancyhf{}
+  \fancyhead[L]{\small\itshape\AgrTitle}
+  \fancyhead[R]{\small\caps{\lblAgreementNo}\ \AgrNo}
+  \fancyfoot[L]{\small\sffamily\lblInitials:\quad\lblProvider\ \rule[-2pt]{13mm}{0.4pt}\quad
+    \lblClient\ \rule[-2pt]{13mm}{0.4pt}}
+  \fancyfoot[R]{\small\sffamily\lblPage\ \thepage\ \lblOf\ \pageref*{LastPage}}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \renewcommand{\headrule}{\hbox to\headwidth{\color{conrule}\leaders\hrule height \headrulewidth\hfill}}
+  \renewcommand{\footrule}{\hbox to\headwidth{\color{conrule}\leaders\hrule height \footrulewidth\hfill}}}
+\fancypagestyle{firstpage}{%
+  \pagestyle{contract}
+  \fancyhead{}
+  \renewcommand{\headrulewidth}{0pt}}
+\pagestyle{contract}
+\fancypagestyle{plain}{\pagestyle{contract}}
+
+% Numbered clauses: a heading with a hanging number, then numbered sub-clauses.
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\titleformat{\section}{\normalfont\large\bfseries\scshape\color{conink}}
+{\textcolor{conaccent}{\thesection.}}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.6\baselineskip}{0.4\baselineskip}
+\newcommand{\subclause}{\refstepcounter{subsection}\par\noindent
+  \hangindent=1.2cm\hangafter=1
+  \makebox[1.2cm][l]{\sffamily\small\color{conaccent}\thesubsection}\ignorespaces}
+\setlist[enumerate,1]{label=(\alph*),leftmargin=2.2cm,labelsep=0.5em,itemsep=2pt,topsep=2pt,parsep=0pt}
+
+% Annexes: \annex{Title} starts a page; refer to it with \annexref{label}.
+\newcounter{annex}
+\renewcommand{\theannex}{\Alph{annex}}
+\newcommand{\annex}[1]{\ifnum\value{annex}=0\clearpage\else\par\vspace{2.4em}\needspace{10\baselineskip}\fi\refstepcounter{annex}%
+  {\sffamily\small\scshape\color{conaccent}\lblAnnex\ \theannex\par}\vspace{2pt}%
+  {\normalfont\fontsize{20}{24}\selectfont\color{conink}#1\par}%
+  \vspace{2pt}{\color{conrule}\hrule height 0.4pt}\vspace{1em}}
+
+\frenchspacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.3}
+
+% A party block: \party{heading}{name}{id}{address}{representative}{email}.
+\newcommand{\party}[6]{\begin{minipage}[t]{0.47\textwidth}
+    {\sffamily\small\scshape\bfseries\color{conaccent}#1}\par\vspace{2pt}
+    {\color{conaccent}\hrule height 0.8pt}\par\vspace{6pt}
+    \metalabel{\lblName}\par {\bfseries #2}\par\vspace{5pt}
+    \metalabel{\lblId}\par #3\par\vspace{5pt}
+    \metalabel{\lblAddress}\par #4\par\vspace{5pt}
+    \metalabel{\lblRepresentative}\par #5\par\vspace{5pt}
+    \metalabel{\lblEmail}\par #6
+  \end{minipage}}
+
+% A signature column: \signer{heading}{name}{id}{role}.
+\newcommand{\signline}[2]{\vspace{15pt}{\color{conmuted}\hrule height 0.4pt}\vspace{2pt}
+  \par\metalabel{#1}\ #2\par}
+\newcommand{\signer}[4]{\begin{minipage}[t]{0.47\textwidth}
+    {\sffamily\small\scshape\bfseries\color{conaccent}#1}\par\vspace{34pt}
+    {\color{conink}\hrule height 0.6pt}\vspace{2pt}
+    \par\metalabel{\lblSignature}\par\vspace{4pt}
+    \metalabel{\lblName}\par #2\par\vspace{3pt}
+    \metalabel{\lblId}\par #3\par\vspace{3pt}
+    \metalabel{\lblRole}\par #4\par\vspace{16pt}
+    {\color{conmuted}\hrule height 0.4pt}\vspace{2pt}\par\metalabel{\lblDate}\par\vspace{14pt}
+    {\color{conmuted}\hrule height 0.4pt}\vspace{2pt}\par\metalabel{\lblCity}
+  \end{minipage}}
+
+\begin{document}
+
+  \thispagestyle{firstpage}
+  % First page: title, agreement number, date and the two parties.
+  {\sffamily\small\scshape\color{conaccent}\lblAgreementNo\ \AgrNo\par}
+  \vspace{4pt}
+  {\normalfont\fontsize{30}{34}\selectfont\color{conink}\AgrTitle\par}
+  \vspace{6pt}
+  {\color{benchgarnet}\rule{22mm}{2pt}\par}
+  \vspace{8pt}
+  {\itshape\color{conmuted}\lblIntro\par}
+  \vspace{10pt}
+
+  \noindent
+  \party{\lblProvider}{\AgrProvName}{{{provider_id}}}{\AgrProvAddr}{\AgrProvRep}{{{provider_email}}}%
+  \hfill
+  \party{\lblClient}{\AgrCliName}{{{client_id}}}{\AgrCliAddr}{\AgrCliRep}{{{client_email}}}
+
+  \vspace{6pt}
+  \input{sections/{{language}}}
+
+  \needspace{16\baselineskip}
+  \vspace{1.6em}
+  {\itshape\color{conmuted}\lblSigned\par}
+  \vspace{4pt}
+  \noindent
+  \signer{\lblProvider}{\AgrProvRep}{{{provider_id}}}{\AgrProvRole}%
+  \hfill
+  \signer{\lblClient}{\AgrCliRep}{{{client_id}}}{\AgrCliRole}
+
+  \input{sections/{{language}}-annexes}
+
+\end{document}

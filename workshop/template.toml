@@ -1,5 +1,5 @@
 id = "workshop"
-version = "0.3.0"
+version = "0.4.0"
 display_name = "Workshop Handout"
 description = "A polished workshop deliverable with a cover page, code sample, workflow diagram and test table"
 

@@ -1,0 +1,2 @@
+# Words the spell checker accepts in this template. One word per line.
+lblcl

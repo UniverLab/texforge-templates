@@ -5,7 +5,8 @@
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
-\usepackage{lmodern}
+\usepackage[lining]{ebgaramond}
+\usepackage{microtype}
 \usepackage[a4paper,ignoreheadfoot,nomarginpar,top=15mm,bottom=15mm,left=15mm,right=15mm,headheight=12pt,headsep=4mm,footskip=8mm]{geometry}
 \usepackage{array}
 \usepackage{booktabs}
@@ -29,9 +30,26 @@
   pdfkeywords={{{headline}}}
 }
 
-% Greys from the reference CV: black!20 rules, grey secondary text.
-\definecolor{cvgray}{gray}{0.55}
-\definecolor{cvrule}{gray}{0.8}
+% Palette: ink text, garnet for the name and section titles, sepia for
+% secondary text and rules.
+\definecolor{cvink}{HTML}{1D1510}
+\definecolor{cvgarnet}{HTML}{87222C}
+\definecolor{cvgray}{HTML}{6B5A43}
+\definecolor{cvrule}{HTML}{C9BFB0}
+% Fixed section labels, in English and Spanish.
+\newcommand{\lblProfile}{Profile}
+\newcommand{\lblExperience}{Experience}
+\newcommand{\lblEducation}{Education}
+\newcommand{\lblSkills}{Skills}
+\newcommand{\lblProjects}{Projects}
+\newcommand{\lblLanguages}{Languages}
+\addto\captionsspanish{%
+  \renewcommand{\lblProfile}{Perfil}
+  \renewcommand{\lblExperience}{Experiencia}
+  \renewcommand{\lblEducation}{Formación}
+  \renewcommand{\lblSkills}{Habilidades}
+  \renewcommand{\lblProjects}{Proyectos}
+  \renewcommand{\lblLanguages}{Idiomas}}
 
 % Empty header and footer: a one-page CV needs neither.
 \pagestyle{fancy}
@@ -43,7 +61,7 @@
 
 % Section titles: bold, a touch larger than the body, thin grey rule hugging
 % the title (negative vspace pulls the rule up right under the text).
-\titleformat{\section}{\normalfont\large\bfseries}{}{0pt}{}[\vspace{-8pt}\textcolor{cvrule}{\rule{\textwidth}{0.4pt}}]
+\titleformat{\section}{\normalfont\large\scshape\bfseries\color{cvgarnet}}{}{0pt}{}[\vspace{-8pt}\textcolor{cvrule}{\rule{\textwidth}{0.4pt}}]
 \titlespacing*{\section}{0pt}{6pt}{3pt}
 
 % Tight bullets, used under every entry.
@@ -64,8 +82,8 @@
   % Header — replace every {{...}} placeholder.
   % ----------------------------------------------------------------------
   \begin{center}
-    {\huge\bfseries {{name}}}\\[4pt]
-    {\large {{headline}}}\\[2pt]
+    {\fontsize{26}{30}\selectfont\color{cvgarnet} {{name}}}\\[4pt]
+    {\large\itshape\color{cvgray} {{headline}}}\\[2pt]
     {\small
       \href{mailto:{{email}}}{{{email}}} \textbar\
       {{phone}} \textbar\
@@ -77,7 +95,7 @@
   % ----------------------------------------------------------------------
   % Profile — one short paragraph, three to four lines.
   % ----------------------------------------------------------------------
-  \section*{Profile}
+  \section*{\lblProfile}
   Generic software engineer with several years building reliable web
   applications and automation tools. Comfortable from data models and APIs to
   release pipelines, with a focus on clarity, testing and measurable results.
@@ -86,7 +104,7 @@
   % Experience — repeat the block for each role, newest first. \cventry takes
   % {role}{organization}{dates}{location}; add two to four bullets after it.
   % ----------------------------------------------------------------------
-  \section*{Experience}
+  \section*{\lblExperience}
 
   \cventry{Senior Software Engineer}{Example Corp}{2022 -- Present}{City, Country}
   \begin{itemize}
@@ -112,7 +130,7 @@
   % ----------------------------------------------------------------------
   % Education — two entries, same \cventry{degree}{institution}{dates}{city}.
   % ----------------------------------------------------------------------
-  \section*{Education}
+  \section*{\lblEducation}
 
   \cventry{M.Sc. in Software Engineering}{Sample University}{2020 -- 2022}{City, Country}
   \cventry{B.Sc. in Computer Science}{Sample University}{2016 -- 2020}{City, Country}
@@ -121,7 +139,7 @@
   % Skills — two columns: category and a comma-separated list. Add rows as
   % needed; keep each list on one line if you can.
   % ----------------------------------------------------------------------
-  \section*{Skills}
+  \section*{\lblSkills}
   {\renewcommand{\arraystretch}{1.2}%
     \arrayrulecolor{cvrule}%
     % No \toprule: the grey rule under the section title already caps the
@@ -138,7 +156,7 @@
   % ----------------------------------------------------------------------
   % Projects — two entries, each with a one-line description and a link.
   % ----------------------------------------------------------------------
-  \section*{Projects}
+  \section*{\lblProjects}
 
   \textbf{Project One} --- a small tool that automates a common task and is
   documented for reuse.\\
@@ -152,7 +170,7 @@
   % ----------------------------------------------------------------------
   % Languages — replace with your own levels.
   % ----------------------------------------------------------------------
-  \section*{Languages}
+  \section*{\lblLanguages}
   English (native) \textbar\ Spanish (professional)
 
 \end{document}

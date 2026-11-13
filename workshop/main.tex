@@ -4,7 +4,7 @@
 
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{newpxtext}
+\usepackage[lining]{ebgaramond}
 \usepackage{microtype}
 \usepackage[skip=0.55\baselineskip]{parskip}
 \usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt]{geometry}
@@ -18,8 +18,25 @@
 \usepackage{float}
 \usepackage{hyperref}
 
-\definecolor{workshopink}{HTML}{292927}
-\definecolor{workshopaccent}{HTML}{8A493D}
+\definecolor{workshopink}{HTML}{1D1510}
+\definecolor{workshopaccent}{HTML}{87222C}
+\definecolor{workshopmark}{HTML}{87222C}
+\definecolor{workshopmuted}{HTML}{6B5A43}
+\usepackage[font=small,labelfont={bf,color=workshopaccent},skip=6pt]{caption}
+% Fixed labels, in English and Spanish.
+\newcommand{\lblStudent}{Student}
+\newcommand{\lblCourse}{Course}
+\newcommand{\lblDeliverable}{Deliverable}
+\newcommand{\lblDate}{Date}
+\newcommand{\lblRepository}{Repository}
+\newcommand{\lblSteps}{Algorithm Steps}
+\addto\captionsspanish{%
+  \renewcommand{\lblStudent}{Estudiante}
+  \renewcommand{\lblCourse}{Curso}
+  \renewcommand{\lblDeliverable}{Entregable}
+  \renewcommand{\lblDate}{Fecha}
+  \renewcommand{\lblRepository}{Repositorio}
+  \renewcommand{\lblSteps}{Pasos del algoritmo}}
 \hypersetup{colorlinks=true,linkcolor=workshopaccent,urlcolor=workshopaccent,
   citecolor=workshopaccent,breaklinks=true,pdftitle={{{title}}},pdfauthor={{{author}}}}
 
@@ -46,24 +63,24 @@
 
   % Cover page: keep this block to one page.
   \begin{titlepage}
-    \centering
-    {\scshape\large {{deliverable}} \par}
-    \vspace{1.1cm}
-    {\huge\bfseries\color{workshopink} {{title}} \par}
-    \vspace{0.45cm}
-    {\Large {{subtitle}} \par}
-    \vspace{1.5cm}
-    \begin{tcolorbox}[colback=workshopaccent!4,colframe=workshopaccent!55,
-        width=0.88\textwidth,boxrule=0.6pt,arc=1mm]
-      \begin{tabular}{@{}ll@{}}
-        \textbf{Student:} & {{author}} \\
-        \textbf{Course:} & {{course}} \\
-        \textbf{Deliverable:} & {{deliverable}} \\
-        \textbf{Date:} & {{date}} \\
-        \textbf{Repository:} & {\small\url{{{repository}}}} \\
-      \end{tabular}
-    \end{tcolorbox}
+    \raggedright
+    \vspace*{3.2cm}
+    {\scshape\large\color{workshopaccent} {{deliverable}} \par}
+    \vspace{0.7cm}
+    {\fontsize{36}{40}\selectfont\color{workshopink} {{title}} \par}
+    \vspace{0.6cm}
+    {\color{workshopmark}\rule{3cm}{2.4pt}\par}
+    \vspace{0.6cm}
+    {\fontsize{16}{21}\selectfont\itshape\color{workshopmuted} {{subtitle}} \par}
     \vfill
+    \begin{tabular}{@{}l@{\hspace{2.5em}}l@{}}
+      {\scshape\color{workshopmuted}\lblStudent} & {{author}} \\
+      {\scshape\color{workshopmuted}\lblCourse} & {{course}} \\
+      {\scshape\color{workshopmuted}\lblDeliverable} & {{deliverable}} \\
+      {\scshape\color{workshopmuted}\lblDate} & {{date}} \\
+      {\scshape\color{workshopmuted}\lblRepository} & {\small\url{{{repository}}}} \\
+    \end{tabular}
+    \vspace{1.2cm}
   \end{titlepage}
 
   \section{Problem Statement}
@@ -84,8 +101,8 @@
   The solution reads an input, validates it, applies a simple rule and
   presents the result in an organised form.
 
-  \begin{tcolorbox}[colback=gray!4,colframe=gray!45,coltitle=workshopink,
-      title={Algorithm Steps},boxrule=0.5pt,arc=1mm]
+  \begin{tcolorbox}[colback=workshopaccent!3,colframe=workshopaccent!35,coltitle=workshopink,
+      title={\lblSteps},boxrule=0.5pt,arc=1mm]
     \begin{enumerate}
       \item Initialise the data and state.
       \item Read the user's input.
@@ -96,8 +113,8 @@
   \end{tcolorbox}
 
   % Replace the nodes with your own flow; keep the style and caption.
-  \begin{mermaid}[style=editorial,width=0.68\linewidth,
-      caption={Algorithm workflow}]
+  \begin{mermaid}[style=editorial,width=0.4\linewidth,
+      caption={Algorithm workflow},pos=t]
     flowchart TD
     A[Start] --> B[Read input]
     B --> C{Input valid?}
