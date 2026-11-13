@@ -6,7 +6,8 @@
 % The document language is set by the {{language}} placeholder.
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{newpxtext,newpxmath}
+\usepackage[lining]{ebgaramond}
+\usepackage{ebgaramond-maths}
 \usepackage{microtype}
 \usepackage[skip=0.6\baselineskip]{parskip}
 \usepackage[a4paper,margin=2.5cm]{geometry}
@@ -17,9 +18,12 @@
 \usepackage{url}
 \usepackage{xcolor}
 \usepackage{titlesec}
+\usepackage[font=small,labelfont={bf,color=editorialaccent},skip=6pt]{caption}
 
-\definecolor{editorialink}{HTML}{292927}
-\definecolor{editorialaccent}{HTML}{984C3D}
+\definecolor{editorialink}{HTML}{1D1510}
+\definecolor{editorialaccent}{HTML}{87222C}
+\definecolor{editorialgold}{HTML}{E6C84A}
+\definecolor{editorialmuted}{HTML}{6B5A43}
 \usepackage[colorlinks=true,linkcolor=editorialaccent,citecolor=editorialaccent,
   urlcolor=editorialaccent,breaklinks=true,pdfauthor={{{author}}},
   pdftitle={{{title}}}]{hyperref}
@@ -32,6 +36,17 @@
 {\thesubsection}{0.7em}{}
 \titlespacing*{\subsection}{0pt}{1.15\baselineskip}{0.4\baselineskip}
 \setlength{\emergencystretch}{2em}
+
+% Title block: left aligned, with a gold rule and the author and date in sepia.
+\makeatletter
+\renewcommand{\maketitle}{\begingroup\raggedright
+  {\fontsize{28}{32}\selectfont\color{editorialink}\@title\par}\vspace{8pt}
+  {\color{editorialgold}\rule{22mm}{2pt}\par}\vspace{6pt}
+  {\itshape\color{editorialmuted}\@author\quad\@date\par}\vspace{14pt}\endgroup}
+\makeatother
+\renewenvironment{abstract}
+{\begin{quote}\small{\scshape\bfseries\color{editorialaccent}\abstractname}\quad\ignorespaces}
+  {\end{quote}}
 
 % Replace the three fields below with your own.
 \title{{{title}}}

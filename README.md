@@ -16,7 +16,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 | `book` | Long-form book layout with epigraphs and front matter | 0.2.0 |
 | `contract` | Services agreement layout with parties block, numbered clauses, annexes and signature block; clause text is for you to write | 0.1.0 |
 | `cv` | Curriculum vitae — clean, ATS-friendly résumé | 0.1.0 |
-| `general` | Editorial foundation for essays and other documents; serif type and spaced paragraphs | 0.3.0 |
+| `general` | Editorial foundation for essays and other documents; serif type and spaced paragraphs | 0.4.0 |
 | `ieee` | IEEE journal format for technical papers | 0.2.0 |
 | `internal-docs` | Handbook for internal policies, procedures, playbooks and decision records, with a cover, document control and callouts | 0.1.0 |
 | `letter` | Formal letter template for professional correspondence | 0.2.0 |
