@@ -1,0 +1,11 @@
+# Words the spell checker accepts in this template. One word per line.
+flowchart
+lr
+mermaid
+yaml
+chatbot
+chatbots
+guardrails
+escalations
+triage
+yshift

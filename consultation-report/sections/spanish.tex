@@ -1,0 +1,127 @@
+% Sustituye el contenido de ejemplo por el registro de tu propia sesión.
+\section{\lblGlance}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}l@{\hspace{1.2cm}}X@{}}
+    \toprule
+    \metalabel{\lblDate} & \RepDate \\
+    \metalabel{\lblDuration} & \RepDuration \\
+    \metalabel{\lblAttendees} & Dos miembros del equipo de soporte y la responsable de operaciones \\
+    \metalabel{\lblFormat} & Videollamada con pantalla compartida \\
+    \metalabel{\lblTopics} & Agentes de IA en atención al cliente, revisión de respuestas, manejo de datos de clientes \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{itemize}
+  \item Los agentes ya pueden redactar respuestas para el equipo de soporte, pero no deben enviarlas solos.
+  \item Los datos de clientes necesitan un límite claro antes de que un agente lea cualquier ticket.
+  \item Un piloto pequeño con resultados medidos es mejor punto de partida que un despliegue completo.
+\end{itemize}
+
+\section{\lblQuestions}
+\begin{enumerate}
+  \item ¿Qué tareas de soporte puede hacer hoy un agente de IA de forma segura?
+  \item ¿Cómo evitamos que un agente comparta datos de clientes que no debería ver?
+  \item ¿Quién revisa el trabajo del agente y cuánto tiempo lleva?
+  \item ¿Cómo sabremos que el agente ayuda y no solo que es rápido?
+\end{enumerate}
+
+\section{\lblFound}
+\subsection{Los tickets mezclan solicitudes rutinarias y sensibles}
+\findingpart{\lblContext}
+El equipo atiende unos 300 tickets por semana. La mayoría son consultas sobre
+pedidos y contraseñas; unos pocos tratan reembolsos, quejas o datos personales.
+
+\findingpart{\lblObservation}
+Los tickets rutinarios encajan bien con un agente. Los sensibles están en la
+misma cola sin etiqueta, así que un agente no puede distinguirlos.
+
+\subsection{Las respuestas no se revisan de forma consistente}
+\findingpart{\lblContext}
+Hoy cada persona del equipo revisa las respuestas a su manera, y no hay un
+estándar escrito de tono ni de exactitud.
+
+\findingpart{\lblObservation}
+Sin un estándar compartido, quien revisa no puede decir si un borrador es
+bueno, y el equipo no puede medir al agente contra nada.
+
+\begin{insight}
+  El límite seguro de un agente lo fija lo que puede ver y lo que puede enviar,
+  no lo inteligente que sea. Conviene fijar primero esos dos límites.
+\end{insight}
+
+\begin{mermaid}[style=editorial,width=0.9\linewidth,
+    caption={Manejo propuesto de un ticket},pos=H]
+  flowchart LR
+  A[Ticket] --> B[El agente redacta] --> C[Una persona revisa] --> D[Envío]
+\end{mermaid}
+
+\section{\lblRecommendations}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}lXll@{}}
+    \toprule
+    & \sffamily\small\bfseries\lblRecommendation & \sffamily\small\bfseries\lblPriority &
+    \sffamily\small\bfseries\lblEffort \\
+    \midrule
+    \recrow{1}{Mantener a una persona entre el agente y el cliente}{Solo borradores; una persona envía cada respuesta.}{high}{small}
+    \recrow{2}{Ocultar los datos personales al agente}{Enmascarar nombres, correos y datos de pago antes de que lea el ticket.}{high}{medium}
+    \recrow{3}{Escribir un estándar de respuestas de una página}{Da a quienes revisan y al piloto una medida común de calidad.}{medium}{small}
+    \recrow{4}{Hacer un piloto de cuatro semanas con tickets rutinarios}{Medir el tiempo ahorrado y los errores antes de ampliar el alcance.}{medium}{medium}
+    \recrow{5}{Añadir una revisión mensual de los errores del agente}{Mantiene las reglas al día cuando cambian los tickets.}{low}{small}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblResources}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}Xl@{}}
+    \toprule
+    \sffamily\small\bfseries\lblResource & \sffamily\small\bfseries\lblLink \\
+    \midrule
+    \resrow{Lista de control para revisar las respuestas de un agente}{https://example.org/checklist}
+    \resrow{Plantilla de estándar de respuestas de una página}{https://example.org/reply-standard}
+    \resrow{Guía para enmascarar datos personales en tickets}{https://example.org/masking}
+    \resrow{Hoja de trabajo del plan piloto}{https://example.org/pilot-plan}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblNextSteps}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}Xlr@{}}
+    \toprule
+    \sffamily\small\bfseries\lblAction & \sffamily\small\bfseries\lblOwner &
+    \sffamily\small\bfseries\lblTarget \\
+    \midrule
+    \actrow{Etiquetar los tickets sensibles en la cola}{client}{20 de noviembre de 2026}
+    \actrow{Enviar la guía de enmascarado y un ejemplo de configuración}{consultant}{23 de noviembre de 2026}
+    \actrow{Redactar el estándar de respuestas de una página}{client}{27 de noviembre de 2026}
+    \actrow{Revisar el borrador del estándar y el plan piloto}{consultant}{2 de diciembre de 2026}
+    \actrow{Iniciar el piloto de cuatro semanas}{client}{7 de diciembre de 2026}
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{\lblNotes}
+\begin{rawnotes}
+  \begin{itemize}
+    \item Al equipo le preocupan las promesas de reembolso erróneas; el agente nunca debe afirmar un reembolso.
+    \item La herramienta actual guarda el historial completo, incluidos dígitos de tarjeta en texto libre.
+    \item La responsable de operaciones quiere un número semanal: tickets respondidos, ediciones por borrador.
+    \item Idea: empezar solo con estado de pedidos y añadir ayuda con contraseñas después.
+  \end{itemize}
+  Esquema de reglas acordado en la llamada:
+  \begin{code}[lang=yaml]
+agent:
+  can_read: [order_status, shipping]
+  can_send: false
+  blocked: [refund, complaint, payment]
+  \end{code}
+\end{rawnotes}
+
+\section{\lblFollowUp}
+{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000 \RepBooking\par}
