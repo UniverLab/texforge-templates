@@ -258,7 +258,7 @@ template (the next template still runs).
 | c | render | the template is copied to a temp dir (without `template.toml`), every `{{token}}` is replaced with its `default` (or a `Sample …` stand-in), and a `project.toml` is written (`[document]` + `[build] entry = "main.tex"`, plus `bibliography = "bib/references.bib"` when that file exists) |
 | d | texforge | in the rendered copy: `texforge check` exits 0 **and** prints no line matching `WARNING\|ERROR`; `texforge fmt --check` exits 0; `texforge build` exits 0; `texforge pdf check` exits 0 |
 | e | previews | `texforge preview --scale 1.5` writes PNG pages into `<git-dir>/template-previews/<name>/` (the directory is emptied first), and the page count is read from `texforge pdf info` |
-| f | content | *(requirements skipped for `letter` and `cv`)* `main.tex` or a file it `\input`s contains a `\begin{code}[lang=…]` block, and at least one `\begin{mermaid}` / `\begin{graphviz}` / `\begin{d2}` whose options contain `style=`. For **every** template: no `\usepackage[utf8]{inputenc}`, no `\lstdefinestyle`, no `\begin{lstlisting}`, no `\usepackage{minted}` |
+| f | content | *(requirements skipped for `letter`, `cv` and `contract`)* `main.tex` or a file it `\input`s contains a `\begin{code}[lang=…]` block, and at least one `\begin{mermaid}` / `\begin{graphviz}` / `\begin{d2}` whose options contain `style=`. For **every** template: no `\usepackage[utf8]{inputenc}`, no `\lstdefinestyle`, no `\begin{lstlisting}`, no `\usepackage{minted}` |
 
 ### Where previews land
 
