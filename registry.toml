@@ -36,7 +36,7 @@ version = "0.1.0"
 [[templates]]
 nombre = "cv"
 descripcion = "Clean, ATS-friendly curriculum vitae"
-version = "0.1.0"
+version = "0.2.0"
 
 [[templates]]
 nombre = "general"
