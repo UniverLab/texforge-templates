@@ -6,7 +6,7 @@ version = "0.3.1"
 [[templates]]
 nombre = "apa-unisalle"
 descripcion = "APA 7 thesis proposal for Universidad de La Salle"
-version = "0.3.0"
+version = "0.3.1"
 
 [[templates]]
 nombre = "apa7-student"

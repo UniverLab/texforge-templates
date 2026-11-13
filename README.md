@@ -9,7 +9,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 | Template | Description | Version |
 |----------|-------------|---------|
 | `apa-general` | Academic report or thesis with chapters, and APA 7 tables, figures and references | 0.3.1 |
-| `apa-unisalle` | APA 7 thesis proposal for Universidad de La Salle | 0.3.0 |
+| `apa-unisalle` | APA 7 thesis proposal for Universidad de La Salle | 0.3.1 |
 | `apa7-student` | APA 7 student paper with student title page, double spacing, headings, tables and references | 0.1.0 |
 | `article` | Single-column academic article with running heads and author affiliations | 0.4.0 |
 | `audit-report` | Security and usage audit report with a band cover, severity-coded findings, risk matrix, fix roadmap and evidence catalogue | 0.1.0 |
