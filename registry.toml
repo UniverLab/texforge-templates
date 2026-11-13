@@ -19,9 +19,19 @@ descripcion = "Single-column academic article with running heads and author affi
 version = "0.3.0"
 
 [[templates]]
+nombre = "audit-report"
+descripcion = "Security and usage audit report with a band cover, severity-coded findings, risk matrix, fix roadmap and evidence catalogue"
+version = "0.1.0"
+
+[[templates]]
 nombre = "book"
 descripcion = "Long-form book layout with epigraphs and front matter"
 version = "0.2.0"
+
+[[templates]]
+nombre = "contract"
+descripcion = "Services agreement layout with parties block, numbered clauses, annexes and signature block; clause text is for you to write"
+version = "0.1.0"
 
 [[templates]]
 nombre = "cv"
@@ -37,6 +47,11 @@ version = "0.3.0"
 nombre = "ieee"
 descripcion = "IEEE journal format for technical papers"
 version = "0.2.0"
+
+[[templates]]
+nombre = "internal-docs"
+descripcion = "Handbook for internal policies, procedures, playbooks and decision records, with a cover, document control and callouts"
+version = "0.1.0"
 
 [[templates]]
 nombre = "letter"
