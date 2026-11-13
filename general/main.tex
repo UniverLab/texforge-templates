@@ -22,7 +22,7 @@
 
 \definecolor{editorialink}{HTML}{1D1510}
 \definecolor{editorialaccent}{HTML}{87222C}
-\definecolor{editorialgold}{HTML}{E6C84A}
+\definecolor{editorialmark}{HTML}{87222C}
 \definecolor{editorialmuted}{HTML}{6B5A43}
 \usepackage[colorlinks=true,linkcolor=editorialaccent,citecolor=editorialaccent,
   urlcolor=editorialaccent,breaklinks=true,pdfauthor={{{author}}},
@@ -37,11 +37,11 @@
 \titlespacing*{\subsection}{0pt}{1.15\baselineskip}{0.4\baselineskip}
 \setlength{\emergencystretch}{2em}
 
-% Title block: left aligned, with a gold rule and the author and date in sepia.
+% Title block: left aligned, with a garnet rule and the author and date in sepia.
 \makeatletter
 \renewcommand{\maketitle}{\begingroup\raggedright
   {\fontsize{28}{32}\selectfont\color{editorialink}\@title\par}\vspace{8pt}
-  {\color{editorialgold}\rule{22mm}{2pt}\par}\vspace{6pt}
+  {\color{editorialmark}\rule{22mm}{2pt}\par}\vspace{6pt}
   {\itshape\color{editorialmuted}\@author\quad\@date\par}\vspace{14pt}\endgroup}
 \makeatother
 \renewenvironment{abstract}
