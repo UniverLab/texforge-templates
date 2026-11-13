@@ -22,6 +22,18 @@
 \usepackage{etoolbox}
 \usepackage{hyperref}
 
+% Parchment texture for the cover; it also sits behind every page when the
+% paper_texture placeholder is true (for documents read on screen). The image
+% is stretched to the page height and cropped by the page edge, so it covers
+% the page with no seam.
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\newcommand{\papertexture}{{{paper_texture}}}
+\newcommand{\texturebg}{\AtPageLowerLeft{\makebox[\paperwidth][l]{%
+      \includegraphics[width=\paperheight,height=\paperheight]{assets/pergamino.jpg}}}}
+\ifdefstring{\papertexture}{true}{\AddToShipoutPictureBG{\texturebg}}{}
+\newcommand{\covertexture}{\ifdefstring{\papertexture}{true}{}{\AddToShipoutPictureBG*{\texturebg}}}
+
 % Palette: the lab's bench tokens, defined once. The accent placeholder
 % (garnet by default) drives rules and numbers; the rest is fixed.
 \definecolor{benchparchment}{HTML}{F4F0EA}
@@ -33,7 +45,6 @@
 \definecolor{benchbrass}{HTML}{8A6A2C}
 \definecolor{benchcopper}{HTML}{9A5530}
 \definecolor{benchgarnet}{HTML}{87222C}
-\definecolor{benchslate}{HTML}{222928}
 \colorlet{conink}{benchink}
 \definecolor{conaccent}{HTML}{{{accent}}}
 \colorlet{conmuted}{benchsepia}
@@ -257,6 +268,7 @@
 \begin{document}
 
   \thispagestyle{firstpage}
+  \covertexture
   % First page: title, agreement number, date and the two parties.
   {\sffamily\small\scshape\color{conaccent}\lblAgreementNo\ \AgrNo\par}
   \vspace{4pt}
