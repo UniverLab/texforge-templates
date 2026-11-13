@@ -1,0 +1,97 @@
+% Reemplace las secciones de ejemplo con sus propias políticas y procedimientos.
+\section{Propósito y alcance}
+Este manual describe cómo la organización protege sus sistemas y sus datos.
+Se aplica a todas las personas empleadas, contratistas y proveedores que tienen
+acceso a los sistemas de la empresa.
+
+\begin{policybox}
+  Todos los datos de la empresa deben clasificarse, guardarse en un sistema
+  aprobado y compartirse solo con quienes los necesitan para su trabajo.
+\end{policybox}
+
+\subsection{Roles y responsabilidades}
+Cada rol tiene un responsable claro. La tabla indica quién decide, quién opera y
+a quién hay que informar.
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}lXl@{}}
+    \toprule
+    \textbf{Rol} & \textbf{Responsabilidad} & \textbf{Contacto} \\
+    \midrule
+    Responsable de seguridad & Es dueño de este manual y aprueba las excepciones. & Equipo de seguridad \\
+    Dueño del sistema & Mantiene al día las listas de acceso y los parches. & Equipo de plataforma \\
+    Colaborador & Cumple las políticas e informa los incidentes. & Todas las personas \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Gestión de accesos}
+El acceso se concede por rol y se revisa cada trimestre. No se permiten cuentas
+compartidas; cada acción debe poder atribuirse a una sola persona.
+
+\begin{procedurebox}
+  \begin{steps}
+    \item La jefatura presenta una solicitud de acceso con el sistema y el rol.
+    \item El dueño del sistema verifica que el rol corresponde al cargo.
+    \item El equipo de plataforma concede el acceso y anota el número del ticket.
+    \item La persona confirma el acceso en un plazo de dos días hábiles.
+  \end{steps}
+\end{procedurebox}
+
+\begin{warningbox}
+  Nunca comparta credenciales por chat ni por correo. Si sospecha que una
+  contraseña quedó expuesta, cámbiela primero e infórmelo después.
+\end{warningbox}
+
+\section{Plan de respuesta a incidentes}
+Cuando algo parece estar mal, el primer objetivo es contener el problema y el
+segundo es entenderlo. El flujo muestra el recorrido de todo incidente.
+
+\begin{mermaid}[style=editorial,width=0.9\linewidth,
+    caption={Flujo de respuesta a incidentes},pos=H]
+  flowchart LR
+  A[Detectar] --> B[Clasificar] --> C[Contener] --> D[Recuperar] --> E[Revisar]
+\end{mermaid}
+
+La persona de guardia puede listar los inicios de sesión fallidos recientes con
+el comando siguiente.\par\vspace{2pt}
+
+\begin{code}[lang=bash]
+grep "authentication failure" /var/log/auth.log | tail -n 20
+\end{code}
+
+\begin{notebox}
+  Anote en el ticket cada acción y su hora mientras trabaja. La revisión
+  posterior depende de ese registro.
+\end{notebox}
+
+\section{Registro de decisiones}
+Las decisiones importantes se registran para que quien lea después sepa por qué
+se tomaron.
+
+\begin{decision}{DR-004}{Adoptar llaves de seguridad físicas}
+  \decisionpart{\lblContext}
+  Los intentos de suplantación aumentaron en los dos últimos trimestres y los
+  códigos de un solo uso todavía pueden interceptarse.
+
+  \decisionpart{\lblDecision}
+  Todo el personal con acceso a producción usará llaves de seguridad físicas
+  para iniciar sesión desde el primero de enero.
+
+  \decisionpart{\lblConsequences}
+  Cada persona necesita dos llaves y se guarda una de repuesto en la caja fuerte
+  de la oficina. Soporte debe atender la pérdida de una llave en un día hábil.
+\end{decision}
+
+\clearpage
+\section*{\lblGlossary}
+\addcontentsline{toc}{section}{\lblGlossary}
+\begin{termlist}
+  \item[Clasificación] La etiqueta que indica hasta dónde puede compartirse un documento.
+  \item[Incidente] Todo evento que daña o puede dañar la confidencialidad, la integridad o la disponibilidad de los datos de la empresa.
+  \item[Guía operativa] Una lista breve y probada de pasos para una tarea recurrente.
+  \item[Mínimo privilegio] Dar a una persona solo el acceso que necesita para su trabajo actual.
+  \item[Revisión] Una comprobación programada de que una política, un rol o una lista de acceso sigue siendo correcta.
+  \item[Dueño del sistema] La persona responsable de un sistema y de su lista de acceso.
+\end{termlist}

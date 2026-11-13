@@ -1,0 +1,95 @@
+% Replace the sample sections with your own policies and procedures.
+\section{Purpose and scope}
+This handbook describes how the organization protects its systems and data.
+It applies to every employee, contractor and service provider who has access
+to company systems.
+
+\begin{policybox}
+  All company data must be classified, stored in an approved system and
+  shared only with people who need it for their work.
+\end{policybox}
+
+\subsection{Roles and responsibilities}
+Every role has a clear owner. The table lists who decides, who operates and
+who must be told.
+
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\linewidth}{@{}lXl@{}}
+    \toprule
+    \textbf{Role} & \textbf{Responsibility} & \textbf{Contact} \\
+    \midrule
+    Security lead & Owns this handbook and approves exceptions. & Security team \\
+    System owner & Keeps access lists and patches up to date. & Platform team \\
+    Employee & Follows the policies and reports incidents. & Everyone \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Access management}
+Access is granted by role and reviewed every quarter. Shared accounts are not
+allowed; every action must be traceable to one person.
+
+\begin{procedurebox}
+  \begin{steps}
+    \item The manager files an access request naming the system and the role.
+    \item The system owner checks that the role matches the job.
+    \item The platform team grants the access and records the ticket number.
+    \item The employee confirms access within two working days.
+  \end{steps}
+\end{procedurebox}
+
+\begin{warningbox}
+  Never share credentials in chat or email. If you suspect a password is
+  exposed, change it first and report it afterwards.
+\end{warningbox}
+
+\section{Incident response playbook}
+When something looks wrong, the first goal is to contain the problem, and the
+second is to understand it. The flow below shows the path of every incident.
+
+\begin{mermaid}[style=editorial,width=0.9\linewidth,
+    caption={Incident response flow},pos=H]
+  flowchart LR
+  A[Detect] --> B[Triage] --> C[Contain] --> D[Recover] --> E[Review]
+\end{mermaid}
+
+The on-call engineer can list recent failed sign-ins with the command below.\par\vspace{2pt}
+
+\begin{code}[lang=bash]
+grep "authentication failure" /var/log/auth.log | tail -n 20
+\end{code}
+
+\begin{notebox}
+  Record every action and its time in the incident ticket while you work. The
+  review depends on that record.
+\end{notebox}
+
+\section{Decision records}
+Significant choices are recorded so that later readers know why they were made.
+
+\begin{decision}{DR-004}{Adopt hardware security keys}
+  \decisionpart{\lblContext}
+  Phishing attempts rose during the last two quarters and one-time codes can
+  still be intercepted.
+
+  \decisionpart{\lblDecision}
+  All staff with access to production systems will use hardware security keys
+  for sign-in from the first of January.
+
+  \decisionpart{\lblConsequences}
+  Each person needs two keys and a spare is kept in the office safe. Support
+  must handle key loss within one working day.
+\end{decision}
+
+\clearpage
+\section*{\lblGlossary}
+\addcontentsline{toc}{section}{\lblGlossary}
+\begin{termlist}
+  \item[Classification] The label that tells readers how widely a document may be shared.
+  \item[Incident] Any event that harms or could harm the confidentiality, integrity or availability of company data.
+  \item[Runbook] A short, tested list of steps for one recurring task.
+  \item[Least privilege] Giving a person only the access they need for their current work.
+  \item[Review] A scheduled check that a policy, a role or an access list is still correct.
+  \item[System owner] The person accountable for one system and its access list.
+\end{termlist}

@@ -24,14 +24,27 @@
 \usepackage{lastpage}
 \usepackage{tikz}
 \usepackage[most]{tcolorbox}
+\usepackage{etoolbox}
 \usepackage{hyperref}
 
-% One accent colour carries the whole design; ink and rule colours are fixed.
-\definecolor{docink}{HTML}{22262A}
+% Palette: the lab's bench tokens, defined once. The accent placeholder
+% (garnet by default) drives rules and numbers; the rest is fixed.
+\definecolor{benchparchment}{HTML}{F4F0EA}
+\definecolor{benchdeep}{HTML}{EEE7DC}
+\definecolor{benchlamp}{HTML}{F6ECD2}
+\definecolor{benchink}{HTML}{1D1510}
+\definecolor{benchsepia}{HTML}{6B5A43}
+\definecolor{benchgraphite}{HTML}{5D5852}
+\definecolor{benchbrass}{HTML}{8A6A2C}
+\definecolor{benchgold}{HTML}{E6C84A}
+\definecolor{benchcopper}{HTML}{9A5530}
+\definecolor{benchgarnet}{HTML}{87222C}
+\definecolor{benchslate}{HTML}{222928}
+\colorlet{docink}{benchink}
 \definecolor{docaccent}{HTML}{{{accent}}}
-\definecolor{docmuted}{HTML}{6B7178}
-\definecolor{docrule}{HTML}{C9CDD1}
-\definecolor{docwarn}{HTML}{A33A2B}
+\colorlet{docmuted}{benchsepia}
+\colorlet{docrule}{benchsepia!35!white}
+\colorlet{docwarn}{benchgarnet}
 \hypersetup{colorlinks=true,linkcolor=docink,urlcolor=docaccent,
   citecolor=docaccent,breaklinks=true,pdftitle={{{title}}},pdfauthor={{{owner}}}}
 
@@ -56,6 +69,11 @@
 \newcommand{\lblPage}{Page}
 \newcommand{\lblOf}{of}
 \newcommand{\lblGlossary}{Glossary}
+\newcommand{\lblDefTitle}{Information Security Handbook}
+\newcommand{\lblDefSubtitle}{Policies, procedures and decisions for day-to-day operations}
+\newcommand{\lblDefOrg}{Example Organization}
+\newcommand{\lblDefReview}{12 months after approval}
+\newcommand{\lblDefClass}{Internal}
 \addto\captionsspanish{%
   \renewcommand{\lblOwner}{Responsable}
   \renewcommand{\lblVersion}{Versión}
@@ -76,17 +94,24 @@
   \renewcommand{\lblConsequences}{Consecuencias}
   \renewcommand{\lblPage}{Página}
   \renewcommand{\lblOf}{de}
-  \renewcommand{\lblGlossary}{Glosario}}
+  \renewcommand{\lblGlossary}{Glosario}
+  \renewcommand{\lblDefTitle}{Manual de seguridad de la información}
+  \renewcommand{\lblDefSubtitle}{Políticas, procedimientos y decisiones para la operación diaria}
+  \renewcommand{\lblDefOrg}{Organización de ejemplo}
+  \renewcommand{\lblDefReview}{12 meses después de la aprobación}
+  \renewcommand{\lblDefClass}{Interno}}
 
+% A value left at its English default follows the document language.
+\newcommand{\localize}[3]{\ifstrequal{#1}{#2}{#3}{#1}}
 % Document metadata, set once and reused by the cover, header and footer.
-\newcommand{\DocTitle}{{{title}}}
-\newcommand{\DocSubtitle}{{{subtitle}}}
-\newcommand{\DocOrg}{{{organization}}}
+\newcommand{\DocTitle}{\localize{{{title}}}{Information Security Handbook}{\lblDefTitle}}
+\newcommand{\DocSubtitle}{\localize{{{subtitle}}}{Policies, procedures and decisions for day-to-day operations}{\lblDefSubtitle}}
+\newcommand{\DocOrg}{\localize{{{organization}}}{Example Organization}{\lblDefOrg}}
 \newcommand{\DocOwner}{{{owner}}}
 \newcommand{\DocVersion}{{{version}}}
 \newcommand{\DocDate}{{{date}}}
-\newcommand{\DocReview}{{{review_date}}}
-\newcommand{\DocClass}{{{classification}}}
+\newcommand{\DocReview}{\localize{{{review_date}}}{12 months after approval}{\lblDefReview}}
+\newcommand{\DocClass}{\localize{{{classification}}}{Internal}{\lblDefClass}}
 \let\placelogo\includegraphics
 \newcommand{\DocLogo}{{{logo}}}
 
@@ -148,10 +173,10 @@
     fonttitle=\sffamily\scriptsize\scshape\bfseries,coltitle=#1,
     attach boxed title to top left={xshift=-1pt,yshift=-1pt},
     boxed title style={empty,left=0pt,top=0pt,bottom=0pt}}}
-\newtcolorbox{policybox}[1][]{docbox=docaccent,title={\textls[90]{\lblPolicy}},#1}
+\newtcolorbox{policybox}[1][]{docbox=benchbrass,title={\textls[90]{\lblPolicy}},#1}
 \newtcolorbox{notebox}[1][]{docbox=docmuted,title={\textls[90]{\lblNote}},#1}
 \newtcolorbox{warningbox}[1][]{docbox=docwarn,title={\textls[90]{\lblWarning}},#1}
-\newtcolorbox{procedurebox}[1][]{docbox=docaccent,title={\textls[90]{\lblProcedure}},#1}
+\newtcolorbox{procedurebox}[1][]{docbox=benchslate,title={\textls[90]{\lblProcedure}},#1}
 \newlist{steps}{enumerate}{1}
 \setlist[steps]{label={\sffamily\bfseries\color{docaccent}\arabic*.},leftmargin=1.7em,
   itemsep=3pt,topsep=2pt,parsep=0pt}
@@ -188,7 +213,9 @@
     \begingroup
     \thispagestyle{empty}
     \begin{tikzpicture}[remember picture,overlay]
-      \node[anchor=north west,inner sep=0pt,fill=docaccent,minimum width=16mm,
+      \node[anchor=north west,inner sep=0pt,fill=benchgold,minimum width=17.4mm,
+        minimum height=\paperheight] at (current page.north west) {};
+      \node[anchor=north west,inner sep=0pt,fill=benchslate,minimum width=16mm,
         minimum height=\paperheight] at (current page.north west) {};
     \end{tikzpicture}
     \hspace*{-6mm}%
@@ -208,9 +235,9 @@
         \DocOwner & \DocVersion & \DocDate \\
       \end{tabular}
       \vspace{9mm}\par
-      \tcbox[enhanced,colback=white,colframe=docaccent,boxrule=0.8pt,arc=0pt,
+      \tcbox[enhanced,colback=white,colframe=docwarn,boxrule=0.8pt,arc=0pt,
         left=8pt,right=8pt,top=3pt,bottom=3pt]
-      {\sffamily\small\scshape\textls[120]{\color{docaccent}\bfseries\lblClassification:\ \DocClass}}
+      {\sffamily\small\scshape\textls[120]{\color{docwarn}\bfseries\lblClassification:\ \DocClass}}
     \end{minipage}
     \endgroup
     \clearpage
@@ -218,7 +245,7 @@
     % Document control: owner, review date and version history.
     \section*{\lblControl}
     \vspace{-4pt}
-    \begin{tabular}{@{}p{4.6cm}p{4.6cm}p{4.6cm}@{}}
+    \begin{tabular}{@{}p{4.1cm}p{4.1cm}p{6cm}@{}}
       \metalabel{\lblOwner} & \metalabel{\lblVersion} & \metalabel{\lblReview} \\[2pt]
       \DocOwner & \DocVersion & \DocReview \\[8pt]
       \metalabel{\lblOrganization} & \metalabel{\lblDate} & \metalabel{\lblClassification} \\[2pt]
@@ -227,110 +254,12 @@
 
     \vspace{1.6em}
     {\sffamily\bfseries\lblHistory\par}
-    \begin{versionhistory}
-      \vhrow{1.0}{2026-09-01}{Security team}{First approved edition.}
-      \vhrow{0.2}{2026-08-12}{Security team}{Added the incident response playbook.}
-      \vhrow{0.1}{2026-07-20}{Security team}{Initial draft for review.}
-    \end{versionhistory}
+    \input{sections/{{language}}-front}
 
     \vspace{2.4em}
     \tableofcontents
     \clearpage
 
-    % Replace the sample sections with your own policies and procedures.
-    \section{Purpose and scope}
-    This handbook describes how the organization protects its systems and data.
-    It applies to every employee, contractor and service provider who has access
-    to company systems.
-
-    \begin{policybox}
-      All company data must be classified, stored in an approved system and
-      shared only with people who need it for their work.
-    \end{policybox}
-
-    \subsection{Roles and responsibilities}
-    Every role has a clear owner. The table lists who decides, who operates and
-    who must be told.
-
-    \begin{table}[H]
-      \centering
-      \begin{tabularx}{\linewidth}{@{}lXl@{}}
-        \toprule
-        \textbf{Role} & \textbf{Responsibility} & \textbf{Contact} \\
-        \midrule
-        Security lead & Owns this handbook and approves exceptions. & Security team \\
-        System owner & Keeps access lists and patches up to date. & Platform team \\
-        Employee & Follows the policies and reports incidents. & Everyone \\
-        \bottomrule
-      \end{tabularx}
-    \end{table}
-
-    \section{Access management}
-    Access is granted by role and reviewed every quarter. Shared accounts are not
-    allowed; every action must be traceable to one person.
-
-    \begin{procedurebox}
-      \begin{steps}
-        \item The manager files an access request naming the system and the role.
-        \item The system owner checks that the role matches the job.
-        \item The platform team grants the access and records the ticket number.
-        \item The employee confirms access within two working days.
-      \end{steps}
-    \end{procedurebox}
-
-    \begin{warningbox}
-      Never share credentials in chat or email. If you suspect a password is
-      exposed, change it first and report it afterwards.
-    \end{warningbox}
-
-    \section{Incident response playbook}
-    When something looks wrong, the first goal is to contain the problem, and the
-    second is to understand it. The flow below shows the path of every incident.
-
-    \begin{mermaid}[style=editorial,width=0.9\linewidth,
-        caption={Incident response flow},pos=H]
-      flowchart LR
-      A[Detect] --> B[Triage] --> C[Contain] --> D[Recover] --> E[Review]
-    \end{mermaid}
-
-    The on-call engineer can list recent failed sign-ins with the command below.\par\vspace{2pt}
-
-    \begin{code}[lang=bash]
-grep "authentication failure" /var/log/auth.log | tail -n 20
-    \end{code}
-
-    \begin{notebox}
-      Record every action and its time in the incident ticket while you work. The
-      review depends on that record.
-    \end{notebox}
-
-    \section{Decision records}
-    Significant choices are recorded so that later readers know why they were made.
-
-    \begin{decision}{DR-004}{Adopt hardware security keys}
-      \decisionpart{\lblContext}
-      Phishing attempts rose during the last two quarters and one-time codes can
-      still be intercepted.
-
-      \decisionpart{\lblDecision}
-      All staff with access to production systems will use hardware security keys
-      for sign-in from the first of January.
-
-      \decisionpart{\lblConsequences}
-      Each person needs two keys and a spare is kept in the office safe. Support
-      must handle key loss within one working day.
-    \end{decision}
-
-    \clearpage
-    \section*{\lblGlossary}
-    \addcontentsline{toc}{section}{\lblGlossary}
-    \begin{termlist}
-      \item[Classification] The label that tells readers how widely a document may be shared.
-      \item[Incident] Any event that harms or could harm the confidentiality, integrity or availability of company data.
-      \item[Runbook] A short, tested list of steps for one recurring task.
-      \item[Least privilege] Giving a person only the access they need for their current work.
-      \item[Review] A scheduled check that a policy, a role or an access list is still correct.
-      \item[System owner] The person accountable for one system and its access list.
-    \end{termlist}
+    \input{sections/{{language}}}
 
   \end{document}
