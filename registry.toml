@@ -61,7 +61,7 @@ version = "0.2.0"
 [[templates]]
 nombre = "report"
 descripcion = "Structured university report with front matter, contents and appendices"
-version = "0.3.0"
+version = "0.4.0"
 
 [[templates]]
 nombre = "slides"
