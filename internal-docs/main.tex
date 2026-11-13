@@ -27,6 +27,17 @@
 \usepackage{etoolbox}
 \usepackage{hyperref}
 
+% Parchment texture for the cover; it also sits behind every page when the
+% paper_texture placeholder is true (for documents read on screen). The image
+% is stretched to the page height and cropped by the page edge, so it covers
+% the page with no seam.
+\usepackage{eso-pic}
+\newcommand{\papertexture}{{{paper_texture}}}
+\newcommand{\texturebg}{\AtPageLowerLeft{\makebox[\paperwidth][l]{%
+      \includegraphics[width=\paperheight,height=\paperheight]{assets/pergamino.jpg}}}}
+\ifdefstring{\papertexture}{true}{\AddToShipoutPictureBG{\texturebg}}{}
+\newcommand{\covertexture}{\ifdefstring{\papertexture}{true}{}{\AddToShipoutPictureBG*{\texturebg}}}
+
 % Palette: the lab's bench tokens, defined once. The accent placeholder
 % (garnet by default) drives rules and numbers; the rest is fixed.
 \definecolor{benchparchment}{HTML}{F4F0EA}
@@ -38,7 +49,6 @@
 \definecolor{benchbrass}{HTML}{8A6A2C}
 \definecolor{benchcopper}{HTML}{9A5530}
 \definecolor{benchgarnet}{HTML}{87222C}
-\definecolor{benchslate}{HTML}{222928}
 \colorlet{docink}{benchink}
 \definecolor{docaccent}{HTML}{{{accent}}}
 \colorlet{docmuted}{benchsepia}
@@ -175,7 +185,7 @@
 \newtcolorbox{policybox}[1][]{docbox=benchbrass,title={\textls[90]{\lblPolicy}},#1}
 \newtcolorbox{notebox}[1][]{docbox=docmuted,title={\textls[90]{\lblNote}},#1}
 \newtcolorbox{warningbox}[1][]{docbox=docwarn,title={\textls[90]{\lblWarning}},#1}
-\newtcolorbox{procedurebox}[1][]{docbox=benchslate,title={\textls[90]{\lblProcedure}},#1}
+\newtcolorbox{procedurebox}[1][]{docbox=docink,title={\textls[90]{\lblProcedure}},#1}
 \newlist{steps}{enumerate}{1}
 \setlist[steps]{label={\sffamily\bfseries\color{docaccent}\arabic*.},leftmargin=1.7em,
   itemsep=3pt,topsep=2pt,parsep=0pt}
@@ -211,17 +221,16 @@
     % Cover: keep this block to one page. The logo shows only if the file exists.
     \begingroup
     \thispagestyle{empty}
+    \covertexture
     \begin{tikzpicture}[remember picture,overlay]
-      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,minimum width=17.4mm,
-        minimum height=\paperheight] at (current page.north west) {};
-      \node[anchor=north west,inner sep=0pt,fill=benchslate,minimum width=16mm,
-        minimum height=\paperheight] at (current page.north west) {};
+      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,minimum width=1.4mm,
+        minimum height=\paperheight] at ([xshift=16mm]current page.north west) {};
     \end{tikzpicture}
-    \hspace*{-6mm}%
-    \begin{minipage}[t][\textheight][t]{\dimexpr\textwidth+6mm\relax}
+    \noindent%
+    \begin{minipage}[t][\dimexpr\textheight-2\baselineskip\relax][t]{\textwidth}
       \raggedright
       \IfFileExists{\DocLogo}{\placelogo[height=13mm]{\DocLogo}\par\vspace{6mm}}{}
-      {\large\caps{\DocOrg}\par}
+      {\large\color{docaccent}\caps{\DocOrg}\par}
       \vspace{38mm}
       {\fontsize{38}{42}\selectfont\color{docink}\DocTitle\par}
       \vspace{7mm}
@@ -234,9 +243,8 @@
         \DocOwner & \DocVersion & \DocDate \\
       \end{tabular}
       \vspace{9mm}\par
-      \tcbox[enhanced,colback=white,colframe=docwarn,boxrule=0.8pt,arc=0pt,
-        left=8pt,right=8pt,top=3pt,bottom=3pt]
-      {\sffamily\small\scshape\textls[120]{\color{docwarn}\bfseries\lblClassification:\ \DocClass}}
+      {\setlength{\fboxsep}{6pt}\setlength{\fboxrule}{0.8pt}\color{docwarn}%
+        \fbox{\sffamily\small\scshape\textls[120]{\bfseries\lblClassification:\ \DocClass}}}
     \end{minipage}
     \endgroup
     \clearpage
