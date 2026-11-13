@@ -46,4 +46,4 @@ jobs:
           key: texforge-${{ env.TEXFORGE_VERSION }}-${{ runner.os }}
 
       - name: Check every template
-        run: ./check-templates.sh
+        run: bash ./check-templates.sh
