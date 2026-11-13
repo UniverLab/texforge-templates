@@ -1,0 +1,336 @@
+% Internal documentation: handbook, policy set or playbook.
+% Text in double braces is filled in when the project is created; the %
+% comments say what to replace. Tectonic reads UTF-8 directly.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[lining]{ebgaramond}
+\usepackage[scale=0.92]{sourcesanspro}
+\usepackage{microtype}
+\usepackage[a4paper,left=30mm,right=26mm,top=30mm,bottom=32mm,
+  headheight=14pt,headsep=14mm,footskip=14mm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{needspace}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+
+% One accent colour carries the whole design; ink and rule colours are fixed.
+\definecolor{docink}{HTML}{22262A}
+\definecolor{docaccent}{HTML}{{{accent}}}
+\definecolor{docmuted}{HTML}{6B7178}
+\definecolor{docrule}{HTML}{C9CDD1}
+\definecolor{docwarn}{HTML}{A33A2B}
+\hypersetup{colorlinks=true,linkcolor=docink,urlcolor=docaccent,
+  citecolor=docaccent,breaklinks=true,pdftitle={{{title}}},pdfauthor={{{owner}}}}
+
+% Fixed labels. English defaults first, then one override block per language.
+\newcommand{\lblOwner}{Owner}
+\newcommand{\lblVersion}{Version}
+\newcommand{\lblDate}{Date}
+\newcommand{\lblClassification}{Classification}
+\newcommand{\lblControl}{Document control}
+\newcommand{\lblReview}{Next review}
+\newcommand{\lblOrganization}{Organization}
+\newcommand{\lblHistory}{Version history}
+\newcommand{\lblAuthor}{Author}
+\newcommand{\lblChange}{Change}
+\newcommand{\lblPolicy}{Policy}
+\newcommand{\lblProcedure}{Procedure}
+\newcommand{\lblNote}{Note}
+\newcommand{\lblWarning}{Warning}
+\newcommand{\lblDecision}{Decision}
+\newcommand{\lblContext}{Context}
+\newcommand{\lblConsequences}{Consequences}
+\newcommand{\lblPage}{Page}
+\newcommand{\lblOf}{of}
+\newcommand{\lblGlossary}{Glossary}
+\addto\captionsspanish{%
+  \renewcommand{\lblOwner}{Responsable}
+  \renewcommand{\lblVersion}{Versión}
+  \renewcommand{\lblDate}{Fecha}
+  \renewcommand{\lblClassification}{Clasificación}
+  \renewcommand{\lblControl}{Control del documento}
+  \renewcommand{\lblReview}{Próxima revisión}
+  \renewcommand{\lblOrganization}{Organización}
+  \renewcommand{\lblHistory}{Historial de versiones}
+  \renewcommand{\lblAuthor}{Autor}
+  \renewcommand{\lblChange}{Cambio}
+  \renewcommand{\lblPolicy}{Política}
+  \renewcommand{\lblProcedure}{Procedimiento}
+  \renewcommand{\lblNote}{Nota}
+  \renewcommand{\lblWarning}{Advertencia}
+  \renewcommand{\lblDecision}{Decisión}
+  \renewcommand{\lblContext}{Contexto}
+  \renewcommand{\lblConsequences}{Consecuencias}
+  \renewcommand{\lblPage}{Página}
+  \renewcommand{\lblOf}{de}
+  \renewcommand{\lblGlossary}{Glosario}}
+
+% Document metadata, set once and reused by the cover, header and footer.
+\newcommand{\DocTitle}{{{title}}}
+\newcommand{\DocSubtitle}{{{subtitle}}}
+\newcommand{\DocOrg}{{{organization}}}
+\newcommand{\DocOwner}{{{owner}}}
+\newcommand{\DocVersion}{{{version}}}
+\newcommand{\DocDate}{{{date}}}
+\newcommand{\DocReview}{{{review_date}}}
+\newcommand{\DocClass}{{{classification}}}
+\let\placelogo\includegraphics
+\newcommand{\DocLogo}{{{logo}}}
+
+% Letterspacing does not work with xetex, so small caps carry the emphasis.
+\renewcommand{\textls}[2][]{#2}
+\newcommand{\caps}[1]{{\sffamily\scshape #1}}
+\newcommand{\metalabel}[1]{{\sffamily\scriptsize\scshape\textls[90]{\color{docmuted}#1}}}
+
+% Page style: running head on top, classification and page count below.
+\fancypagestyle{doc}{%
+  \fancyhf{}
+  \fancyhead[L]{\small\caps{\DocOrg}}
+  \fancyhead[R]{\small\itshape\DocTitle}
+  \fancyfoot[L]{\small\caps{\DocClass}}
+  \fancyfoot[R]{\small\sffamily\lblPage\ \thepage\ \lblOf\ \pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \renewcommand{\headrule}{\hbox to\headwidth{\color{docrule}\leaders\hrule height \headrulewidth\hfill}}
+  \renewcommand{\footrule}{\hbox to\headwidth{\color{docrule}\leaders\hrule height \footrulewidth\hfill}}}
+\pagestyle{doc}
+\fancypagestyle{plain}{\pagestyle{doc}}
+
+% Headings: Garamond sections with an accent number, sans subsections.
+\titleformat{\section}{\normalfont\fontsize{20}{24}\selectfont\color{docink}}
+{\textcolor{docaccent}{\thesection}}{0.7em}{}[{\vspace{3pt}\color{docrule}\titlerule}]
+\titlespacing*{\section}{0pt}{2.2\baselineskip}{1\baselineskip}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize\color{docink}}
+{\textcolor{docaccent}{\thesubsection}}{0.7em}{}
+\titlespacing*{\subsection}{0pt}{1.4\baselineskip}{0.4\baselineskip}
+\titleformat{\subsubsection}{\normalfont\itshape\color{docink}}{}{0pt}{}
+\titlespacing*{\subsubsection}{0pt}{1\baselineskip}{0.2\baselineskip}
+
+% Table of contents.
+\renewcommand{\cftsecfont}{\normalfont\bfseries}
+\renewcommand{\cftsecpagefont}{\normalfont\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\renewcommand{\cftsecdotsep}{\cftnodots}
+\renewcommand{\cftsubsecdotsep}{\cftdotsep}
+\setlength{\cftbeforesecskip}{0.7em}
+\setlength{\cftbeforesubsecskip}{0.15em}
+\renewcommand{\cftdotsep}{2}
+\renewcommand{\cfttoctitlefont}{\normalfont\fontsize{20}{24}\selectfont\color{docink}}
+\setlength{\cftaftertoctitleskip}{1.2em}
+
+\frenchspacing
+\let\origsection\section
+\renewcommand{\section}{\needspace{8\baselineskip}\origsection}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6\baselineskip}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.25}
+\setlist{leftmargin=1.5em,itemsep=2pt,topsep=3pt,parsep=0pt}
+\setlist[itemize]{label={\color{docaccent}\textbullet}}
+
+% Callout boxes: a tinted panel with an accent bar and a small-caps label.
+\tcbset{docbox/.style={enhanced,breakable,colback=#1!6,colframe=#1!6,
+    boxrule=0pt,arc=0pt,outer arc=0pt,borderline west={2.4pt}{0pt}{#1},
+    left=11pt,right=10pt,top=7pt,bottom=7pt,before skip=9pt,after skip=9pt,
+    fonttitle=\sffamily\scriptsize\scshape\bfseries,coltitle=#1,
+    attach boxed title to top left={xshift=-1pt,yshift=-1pt},
+    boxed title style={empty,left=0pt,top=0pt,bottom=0pt}}}
+\newtcolorbox{policybox}[1][]{docbox=docaccent,title={\textls[90]{\lblPolicy}},#1}
+\newtcolorbox{notebox}[1][]{docbox=docmuted,title={\textls[90]{\lblNote}},#1}
+\newtcolorbox{warningbox}[1][]{docbox=docwarn,title={\textls[90]{\lblWarning}},#1}
+\newtcolorbox{procedurebox}[1][]{docbox=docaccent,title={\textls[90]{\lblProcedure}},#1}
+\newlist{steps}{enumerate}{1}
+\setlist[steps]{label={\sffamily\bfseries\color{docaccent}\arabic*.},leftmargin=1.7em,
+  itemsep=3pt,topsep=2pt,parsep=0pt}
+
+% Decision record: \begin{decision}{ID}{Title} with three \decisionpart blocks.
+  \newcommand{\decisionpart}[1]{\par\vspace{2pt}{\sffamily\scriptsize\scshape\textls[90]{\color{docaccent}\bfseries#1}}\par\nopagebreak}
+  \newtcolorbox{decision}[2]{enhanced,breakable,colback=white,colframe=docrule,
+    boxrule=0.6pt,arc=0pt,outer arc=0pt,left=11pt,right=11pt,top=8pt,bottom=8pt,
+    before skip=10pt,after skip=10pt,
+    title={\textls[90]{\lblDecision}\hspace{0.6em}\textbf{#1}\hspace{0.6em}#2},
+    fonttitle=\sffamily\small\color{docink},coltitle=docink,
+    colbacktitle=docaccent!8,titlerule=0.6pt,colframe=docrule,
+    toptitle=4pt,bottomtitle=4pt}
+
+  % Glossary: \begin{termlist} \item[Term] Definition \end{termlist}.
+  \newenvironment{termlist}
+  {\begin{description}[style=nextline,leftmargin=1.2em,itemsep=4pt,topsep=2pt,
+        font={\sffamily\bfseries\color{docaccent}\small}]}
+    {\end{description}}
+
+  % Version history table: rows are \vhrow{version}{date}{author}{change}.
+  \newcommand{\vhrow}[4]{#1 & #2 & #3 & #4 \\}
+  \newenvironment{versionhistory}
+  {\begin{tabular}{@{}p{1.6cm}p{2.9cm}p{3.4cm}p{\dimexpr\linewidth-7.9cm-6\tabcolsep\relax}@{}}
+      \toprule
+      \sffamily\small\bfseries\lblVersion & \sffamily\small\bfseries\lblDate &
+      \sffamily\small\bfseries\lblAuthor & \sffamily\small\bfseries\lblChange \\
+      \midrule}
+    {\bottomrule\end{tabular}}
+
+  \begin{document}
+
+    % Cover: keep this block to one page. The logo shows only if the file exists.
+    \begingroup
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north west,inner sep=0pt,fill=docaccent,minimum width=16mm,
+        minimum height=\paperheight] at (current page.north west) {};
+    \end{tikzpicture}
+    \hspace*{-6mm}%
+    \begin{minipage}[t][\textheight][t]{\dimexpr\textwidth+6mm\relax}
+      \raggedright
+      \IfFileExists{\DocLogo}{\placelogo[height=13mm]{\DocLogo}\par\vspace{6mm}}{}
+      {\large\caps{\DocOrg}\par}
+      \vspace{38mm}
+      {\fontsize{38}{42}\selectfont\color{docink}\DocTitle\par}
+      \vspace{7mm}
+      {\color{docaccent}\rule{22mm}{1.6pt}\par}
+      \vspace{7mm}
+      {\fontsize{16}{21}\selectfont\itshape\color{docmuted}\DocSubtitle\par}
+      \vfill
+      \begin{tabular}{@{}p{4.2cm}p{4.2cm}p{4.2cm}@{}}
+        \metalabel{\lblOwner} & \metalabel{\lblVersion} & \metalabel{\lblDate} \\[2pt]
+        \DocOwner & \DocVersion & \DocDate \\
+      \end{tabular}
+      \vspace{9mm}\par
+      \tcbox[enhanced,colback=white,colframe=docaccent,boxrule=0.8pt,arc=0pt,
+        left=8pt,right=8pt,top=3pt,bottom=3pt]
+      {\sffamily\small\scshape\textls[120]{\color{docaccent}\bfseries\lblClassification:\ \DocClass}}
+    \end{minipage}
+    \endgroup
+    \clearpage
+
+    % Document control: owner, review date and version history.
+    \section*{\lblControl}
+    \vspace{-4pt}
+    \begin{tabular}{@{}p{4.6cm}p{4.6cm}p{4.6cm}@{}}
+      \metalabel{\lblOwner} & \metalabel{\lblVersion} & \metalabel{\lblReview} \\[2pt]
+      \DocOwner & \DocVersion & \DocReview \\[8pt]
+      \metalabel{\lblOrganization} & \metalabel{\lblDate} & \metalabel{\lblClassification} \\[2pt]
+      \DocOrg & \DocDate & \DocClass \\
+    \end{tabular}
+
+    \vspace{1.6em}
+    {\sffamily\bfseries\lblHistory\par}
+    \begin{versionhistory}
+      \vhrow{1.0}{2026-09-01}{Security team}{First approved edition.}
+      \vhrow{0.2}{2026-08-12}{Security team}{Added the incident response playbook.}
+      \vhrow{0.1}{2026-07-20}{Security team}{Initial draft for review.}
+    \end{versionhistory}
+
+    \vspace{2.4em}
+    \tableofcontents
+    \clearpage
+
+    % Replace the sample sections with your own policies and procedures.
+    \section{Purpose and scope}
+    This handbook describes how the organization protects its systems and data.
+    It applies to every employee, contractor and service provider who has access
+    to company systems.
+
+    \begin{policybox}
+      All company data must be classified, stored in an approved system and
+      shared only with people who need it for their work.
+    \end{policybox}
+
+    \subsection{Roles and responsibilities}
+    Every role has a clear owner. The table lists who decides, who operates and
+    who must be told.
+
+    \begin{table}[H]
+      \centering
+      \begin{tabularx}{\linewidth}{@{}lXl@{}}
+        \toprule
+        \textbf{Role} & \textbf{Responsibility} & \textbf{Contact} \\
+        \midrule
+        Security lead & Owns this handbook and approves exceptions. & Security team \\
+        System owner & Keeps access lists and patches up to date. & Platform team \\
+        Employee & Follows the policies and reports incidents. & Everyone \\
+        \bottomrule
+      \end{tabularx}
+    \end{table}
+
+    \section{Access management}
+    Access is granted by role and reviewed every quarter. Shared accounts are not
+    allowed; every action must be traceable to one person.
+
+    \begin{procedurebox}
+      \begin{steps}
+        \item The manager files an access request naming the system and the role.
+        \item The system owner checks that the role matches the job.
+        \item The platform team grants the access and records the ticket number.
+        \item The employee confirms access within two working days.
+      \end{steps}
+    \end{procedurebox}
+
+    \begin{warningbox}
+      Never share credentials in chat or email. If you suspect a password is
+      exposed, change it first and report it afterwards.
+    \end{warningbox}
+
+    \section{Incident response playbook}
+    When something looks wrong, the first goal is to contain the problem, and the
+    second is to understand it. The flow below shows the path of every incident.
+
+    \begin{mermaid}[style=editorial,width=0.9\linewidth,
+        caption={Incident response flow},pos=H]
+      flowchart LR
+      A[Detect] --> B[Triage] --> C[Contain] --> D[Recover] --> E[Review]
+    \end{mermaid}
+
+    The on-call engineer can list recent failed sign-ins with the command below.\par\vspace{2pt}
+
+    \begin{code}[lang=bash]
+grep "authentication failure" /var/log/auth.log | tail -n 20
+    \end{code}
+
+    \begin{notebox}
+      Record every action and its time in the incident ticket while you work. The
+      review depends on that record.
+    \end{notebox}
+
+    \section{Decision records}
+    Significant choices are recorded so that later readers know why they were made.
+
+    \begin{decision}{DR-004}{Adopt hardware security keys}
+      \decisionpart{\lblContext}
+      Phishing attempts rose during the last two quarters and one-time codes can
+      still be intercepted.
+
+      \decisionpart{\lblDecision}
+      All staff with access to production systems will use hardware security keys
+      for sign-in from the first of January.
+
+      \decisionpart{\lblConsequences}
+      Each person needs two keys and a spare is kept in the office safe. Support
+      must handle key loss within one working day.
+    \end{decision}
+
+    \clearpage
+    \section*{\lblGlossary}
+    \addcontentsline{toc}{section}{\lblGlossary}
+    \begin{termlist}
+      \item[Classification] The label that tells readers how widely a document may be shared.
+      \item[Incident] Any event that harms or could harm the confidentiality, integrity or availability of company data.
+      \item[Runbook] A short, tested list of steps for one recurring task.
+      \item[Least privilege] Giving a person only the access they need for their current work.
+      \item[Review] A scheduled check that a policy, a role or an access list is still correct.
+      \item[System owner] The person accountable for one system and its access list.
+    \end{termlist}
+
+  \end{document}

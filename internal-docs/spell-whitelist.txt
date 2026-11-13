@@ -1,0 +1,7 @@
+# Words the spell checker accepts in this template. One word per line.
+flowchart
+lr
+mermaid
+runbook
+runbooks
+phishing
