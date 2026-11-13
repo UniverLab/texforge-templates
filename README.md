@@ -20,6 +20,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 | `ieee` | IEEE journal format for technical papers | 0.2.1 |
 | `internal-docs` | Handbook for internal policies, procedures, playbooks and decision records, with a cover, document control and callouts | 0.1.0 |
 | `letter` | Formal letter template for professional correspondence | 0.3.0 |
+| `quotation` | Service quotation with itemised prices, scope, 50/50 payment terms and acceptance through the signed service order | 0.1.0 |
 | `report` | Structured university report with front matter, contents and appendices | 0.4.0 |
 | `slides` | 16:9 presentation slides with code and diagrams | 0.2.0 |
 | `technical-brief` | Concise technical update with callouts, diagrams, code and results | 0.3.0 |
