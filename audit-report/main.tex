@@ -31,6 +31,17 @@
 
 % One accent colour carries the design. Severity colours are defined once here
 % and used by badges, finding headers, the summary strip and the risk matrix.
+% Parchment texture for the cover; it also sits behind every page when the
+% paper_texture placeholder is true (for documents read on screen). The image
+% is stretched to the page height and cropped by the page edge, so it covers
+% the page with no seam.
+\usepackage{eso-pic}
+\newcommand{\papertexture}{{{paper_texture}}}
+\newcommand{\texturebg}{\AtPageLowerLeft{\makebox[\paperwidth][l]{%
+      \includegraphics[width=\paperheight,height=\paperheight]{assets/pergamino.jpg}}}}
+\ifdefstring{\papertexture}{true}{\AddToShipoutPictureBG{\texturebg}}{}
+\newcommand{\covertexture}{\ifdefstring{\papertexture}{true}{}{\AddToShipoutPictureBG*{\texturebg}}}
+
 % Palette: the lab's bench tokens, defined once. The accent placeholder
 % (garnet by default) drives rules and numbers; the band and the severity
 % colours come straight from the palette.
@@ -48,7 +59,7 @@
 \definecolor{auditaccent}{HTML}{{{accent}}}
 \colorlet{auditmuted}{benchsepia}
 \colorlet{auditrule}{benchsepia!35!white}
-\colorlet{auditgood}{benchslate}
+\colorlet{auditgood}{benchink}
 \colorlet{sevcritical}{benchgarnet}
 \colorlet{sevhigh}{benchcopper}
 \colorlet{sevmedium}{benchbrass}
@@ -362,27 +373,30 @@
 
 \begin{document}
 
-  % Cover: a full-width colour band carries title, client and system.
+  % Cover: title, client and system sit in a block framed by garnet rules.
   \begingroup
   \thispagestyle{empty}
+  \covertexture
   \noindent\begin{minipage}[t][\dimexpr\textheight-2\baselineskip\relax][t]{\textwidth}
     \begin{tikzpicture}[remember picture,overlay]
-      \node[anchor=north west,inner sep=0pt,fill=benchslate,minimum width=\paperwidth,
-        minimum height=132mm] at (current page.north west) {};
-      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,
-        minimum width=\paperwidth,minimum height=3mm] at ([yshift=-132mm]current page.north west) {};
+      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,minimum width=\paperwidth,
+        minimum height=2.4mm] at ([yshift=-22mm]current page.north west) {};
+      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,minimum width=\paperwidth,
+        minimum height=0.9mm] at ([yshift=-132mm]current page.north west) {};
+      \node[anchor=north west,inner sep=0pt,fill=benchgarnet,minimum width=\paperwidth,
+        minimum height=0.35mm] at ([yshift=-134mm]current page.north west) {};
     \end{tikzpicture}\par\nointerlineskip
-    \raggedright\color{benchparchment}
-    \vspace*{-12mm}
+    \raggedright\color{auditink}
+    \vspace*{2mm}
     \IfFileExists{\RepLogo}{\placelogo[height=12mm]{\RepLogo}\par\vspace{5mm}}{}
-    {\large\caps{\RepAuditor}\par}
-    \vspace{20mm}
-    {\sffamily\small\scshape\lblKicker\par}
+    {\large\color{auditmuted}\caps{\RepAuditor}\par}
+    \vspace{18mm}
+    {\sffamily\small\scshape\color{auditaccent}\lblKicker\par}
     \vspace{4mm}
     {\fontsize{38}{42}\selectfont\RepTitle\par}
     \vspace{6mm}
-    {\fontsize{16}{20}\selectfont\itshape\lblPreparedFor\ \RepClient\par}
-    \vspace{52mm}\color{auditink}
+    {\fontsize{16}{20}\selectfont\itshape\color{auditmuted}\lblPreparedFor\ \RepClient\par}
+    \vspace{42mm}\color{auditink}
     \begin{tabular}{@{}p{5.6cm}p{5.6cm}@{}}
       \metalabel{\lblSystem} & \metalabel{\lblPeriod} \\[2pt]
       \RepSystem & \RepPeriod \\[18pt]

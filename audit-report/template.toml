@@ -4,7 +4,7 @@ display_name = "Security and Usage Audit Report"
 description = "Audit report with a band cover, severity-coded findings, risk matrix, fix roadmap and evidence catalogue"
 
 [files]
-include = ["**/*.tex", "**/*.txt"]
+include = ["**/*.tex", "**/*.txt", "assets/**"]
 exclude = []
 
 [[placeholders]]
@@ -84,6 +84,13 @@ type = "string"
 description = "Path to an optional logo image, shown on the cover band when the file exists"
 required = false
 default = "assets/logo.png"
+
+[[placeholders]]
+name = "paper_texture"
+type = "boolean"
+description = "Put a parchment texture behind every page, for documents read on screen (the cover always has it)"
+required = false
+default = false
 
 [[placeholders]]
 name = "language"
