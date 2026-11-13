@@ -76,4 +76,4 @@ version = "0.3.0"
 [[templates]]
 nombre = "workshop"
 descripcion = "Workshop handout with a cover page, workflow, code and test table"
-version = "0.3.0"
+version = "0.4.0"
