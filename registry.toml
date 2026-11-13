@@ -16,7 +16,7 @@ version = "0.1.0"
 [[templates]]
 nombre = "article"
 descripcion = "Single-column academic article with running heads and author affiliations"
-version = "0.3.0"
+version = "0.4.0"
 
 [[templates]]
 nombre = "audit-report"

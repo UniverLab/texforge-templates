@@ -7,7 +7,8 @@
 % Document language from the {{language}} placeholder (default english).
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{newpxtext,newpxmath}
+\usepackage[lining]{ebgaramond}
+\usepackage{ebgaramond-maths}
 \usepackage{microtype}
 \usepackage[skip=0.5\baselineskip]{parskip}
 \usepackage[a4paper,margin=2.5cm,headheight=14pt,headsep=12pt]{geometry}
@@ -22,8 +23,14 @@
 \usepackage{titlesec}
 
 % Warm, restrained accent; body text remains near-black for print contrast.
-\definecolor{articleink}{HTML}{292927}
-\definecolor{articlelink}{HTML}{8A493D}
+\definecolor{articleink}{HTML}{1D1510}
+\definecolor{articlelink}{HTML}{87222C}
+\definecolor{articlegold}{HTML}{E6C84A}
+\definecolor{articlemuted}{HTML}{6B5A43}
+\usepackage[font=small,labelfont={bf,color=articlelink},skip=6pt]{caption}
+% Fixed labels, in English and Spanish.
+\newcommand{\lblKeywords}{Keywords}
+\addto\captionsspanish{\renewcommand{\lblKeywords}{Palabras clave}}
 \titleformat{\section}{\normalfont\Large\bfseries\color{articleink}}
 {\textcolor{articlelink}{\thesection}}{0.75em}{}
 \titlespacing*{\section}{0pt}{1.5\baselineskip}{0.5\baselineskip}
@@ -58,7 +65,20 @@
 }
 
 % Author block: the superscript numbers come from authblk.
-% Replace the affiliation and the e-mail with your own.
+% Replace the affiliation and the e-mail with your own. The title block is
+% left aligned, with a gold rule under the title.
+\makeatletter
+\renewcommand{\Authfont}{\itshape\color{articlemuted}}
+\renewcommand{\Affilfont}{\small\color{articlemuted}}
+\renewcommand{\@maketitle}{\newpage\begingroup\raggedright
+  {\fontsize{26}{30}\selectfont\color{articleink}\@title\par}\vspace{8pt}
+  {\color{articlegold}\rule{22mm}{2pt}\par}\vspace{8pt}
+  {\large\@author\par}\vspace{4pt}
+  {\small\itshape\color{articlemuted}\@date\par}\vspace{12pt}\endgroup}
+\makeatother
+\renewenvironment{abstract}
+{\begin{quote}\small{\scshape\bfseries\color{articlelink}\abstractname}\quad\ignorespaces}
+  {\end{quote}}
 \title{{{title}}}
 \author[1]{{{author}}}
 \affil[1]{{{affiliation}}\\ \texttt{{{email}}}}
@@ -78,7 +98,7 @@
   \end{abstract}
 
   % Replace these with the index terms of your article.
-  \noindent\textbf{Keywords:} sample term, second term, third term.
+  \noindent\textbf{\lblKeywords:} sample term, second term, third term.
 
   \section{Introduction}
   % State the problem, why it matters and what this article contributes.
