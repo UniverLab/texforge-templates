@@ -1,7 +1,7 @@
 [[templates]]
 nombre = "apa-general"
 descripcion = "Academic report or thesis with chapters, and APA 7 tables, figures and references"
-version = "0.3.0"
+version = "0.3.1"
 
 [[templates]]
 nombre = "apa-unisalle"
