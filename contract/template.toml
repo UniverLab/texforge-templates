@@ -131,7 +131,7 @@ name = "accent"
 type = "string"
 description = "Accent colour as a six-digit HTML hex value, without the hash"
 required = false
-default = "7B2D3B"
+default = "87222C"
 
 [[placeholders]]
 name = "language"

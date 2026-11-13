@@ -19,12 +19,26 @@
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{lastpage}
+\usepackage{etoolbox}
 \usepackage{hyperref}
 
-\definecolor{conink}{HTML}{22262A}
+% Palette: the lab's bench tokens, defined once. The accent placeholder
+% (garnet by default) drives rules and numbers; the rest is fixed.
+\definecolor{benchparchment}{HTML}{F4F0EA}
+\definecolor{benchdeep}{HTML}{EEE7DC}
+\definecolor{benchlamp}{HTML}{F6ECD2}
+\definecolor{benchink}{HTML}{1D1510}
+\definecolor{benchsepia}{HTML}{6B5A43}
+\definecolor{benchgraphite}{HTML}{5D5852}
+\definecolor{benchbrass}{HTML}{8A6A2C}
+\definecolor{benchgold}{HTML}{E6C84A}
+\definecolor{benchcopper}{HTML}{9A5530}
+\definecolor{benchgarnet}{HTML}{87222C}
+\definecolor{benchslate}{HTML}{222928}
+\colorlet{conink}{benchink}
 \definecolor{conaccent}{HTML}{{{accent}}}
-\definecolor{conmuted}{HTML}{6B7178}
-\definecolor{conrule}{HTML}{C9CDD1}
+\colorlet{conmuted}{benchsepia}
+\colorlet{conrule}{benchsepia!35!white}
 \hypersetup{colorlinks=true,linkcolor=conaccent,urlcolor=conaccent,
   citecolor=conaccent,breaklinks=true,pdftitle={{{title}}}}
 
@@ -75,6 +89,16 @@
 \newcommand{\lblclEntire}{Entire agreement}
 \newcommand{\lblAnnexScope}{Scope and deliverables}
 \newcommand{\lblAnnexPrice}{Price and payment schedule}
+\newcommand{\lblDefTitle}{Services Agreement}
+\newcommand{\lblDefCity}{Example City}
+\newcommand{\lblDefProvName}{Example Provider Ltd.}
+\newcommand{\lblDefProvAddr}{100 Example Street, Example City}
+\newcommand{\lblDefProvRep}{Provider Representative}
+\newcommand{\lblDefProvRole}{Managing Director}
+\newcommand{\lblDefCliName}{Example Client Inc.}
+\newcommand{\lblDefCliAddr}{200 Sample Avenue, Example City}
+\newcommand{\lblDefCliRep}{Client Representative}
+\newcommand{\lblDefCliRole}{General Manager}
 \addto\captionsspanish{%
   \renewcommand{\lblAgreementNo}{Contrato n.º}
   \renewcommand{\lblProvider}{Proveedor}
@@ -120,13 +144,33 @@
   \renewcommand{\lblclLaw}{Ley aplicable y controversias}
   \renewcommand{\lblclEntire}{Acuerdo completo}
   \renewcommand{\lblAnnexScope}{Alcance y entregables}
-  \renewcommand{\lblAnnexPrice}{Precio y calendario de pagos}}
+  \renewcommand{\lblAnnexPrice}{Precio y calendario de pagos}
+  \renewcommand{\lblDefTitle}{Contrato de prestación de servicios}
+  \renewcommand{\lblDefCity}{Ciudad de ejemplo}
+  \renewcommand{\lblDefProvName}{Proveedor de ejemplo S.A.S.}
+  \renewcommand{\lblDefProvAddr}{Calle de ejemplo 100, Ciudad de ejemplo}
+  \renewcommand{\lblDefProvRep}{Representante del proveedor}
+  \renewcommand{\lblDefProvRole}{Gerente general}
+  \renewcommand{\lblDefCliName}{Cliente de ejemplo S.A.}
+  \renewcommand{\lblDefCliAddr}{Avenida de muestra 200, Ciudad de ejemplo}
+  \renewcommand{\lblDefCliRep}{Representante del cliente}
+  \renewcommand{\lblDefCliRole}{Gerente}}
 
+% A value left at its English default follows the document language.
+\newcommand{\localize}[3]{\ifstrequal{#1}{#2}{#3}{#1}}
 % Agreement data, set once and reused by the first page, header and footer.
-\newcommand{\AgrTitle}{{{title}}}
+\newcommand{\AgrTitle}{\localize{{{title}}}{Services Agreement}{\lblDefTitle}}
 \newcommand{\AgrNo}{{{agreement_number}}}
 \newcommand{\AgrDate}{{{date}}}
-\newcommand{\AgrCity}{{{city}}}
+\newcommand{\AgrCity}{\localize{{{city}}}{Example City}{\lblDefCity}}
+\newcommand{\AgrProvName}{\localize{{{provider_name}}}{Example Provider Ltd.}{\lblDefProvName}}
+\newcommand{\AgrProvAddr}{\localize{{{provider_address}}}{100 Example Street, Example City}{\lblDefProvAddr}}
+\newcommand{\AgrProvRep}{\localize{{{provider_rep}}}{Provider Representative}{\lblDefProvRep}}
+\newcommand{\AgrProvRole}{\localize{{{provider_role}}}{Managing Director}{\lblDefProvRole}}
+\newcommand{\AgrCliName}{\localize{{{client_name}}}{Example Client Inc.}{\lblDefCliName}}
+\newcommand{\AgrCliAddr}{\localize{{{client_address}}}{200 Sample Avenue, Example City}{\lblDefCliAddr}}
+\newcommand{\AgrCliRep}{\localize{{{client_rep}}}{Client Representative}{\lblDefCliRep}}
+\newcommand{\AgrCliRole}{\localize{{{client_role}}}{General Manager}{\lblDefCliRole}}
 \newcommand{\AgrCurrency}{{{currency}}}
 
 % Letterspacing does not work with xetex, so small caps carry the emphasis.
@@ -219,107 +263,28 @@
   \vspace{4pt}
   {\normalfont\fontsize{30}{34}\selectfont\color{conink}\AgrTitle\par}
   \vspace{6pt}
-  {\color{conaccent}\rule{22mm}{1.6pt}\par}
+  {\color{benchgold}\rule{22mm}{2pt}\par}
   \vspace{8pt}
   {\itshape\color{conmuted}\lblIntro\par}
   \vspace{10pt}
 
   \noindent
-  \party{\lblProvider}{{{provider_name}}}{{{provider_id}}}{{{provider_address}}}{{{provider_rep}}}{{{provider_email}}}%
+  \party{\lblProvider}{\AgrProvName}{{{provider_id}}}{\AgrProvAddr}{\AgrProvRep}{{{provider_email}}}%
   \hfill
-  \party{\lblClient}{{{client_name}}}{{{client_id}}}{{{client_address}}}{{{client_rep}}}{{{client_email}}}
+  \party{\lblClient}{\AgrCliName}{{{client_id}}}{\AgrCliAddr}{\AgrCliRep}{{{client_email}}}
 
   \vspace{6pt}
-  % Replace each placeholder sentence with the clause text you need.
-  \section{\lblclObject}\label{cl:object}
-  \subclause\label{sub:object}\placeholder{State in one sentence what the agreement is for.}
-
-  \section{\lblclScope}\label{cl:scope}
-  \subclause\placeholder{Describe the services and refer to the deliverables listed in \annexref{annex:scope}.}
-
-  \section{\lblclTerm}\label{cl:term}
-  \subclause\label{sub:start}\placeholder{State the start date and the expected duration.}
-  \subclause\placeholder{Say how the schedule may change and who approves the change.}
-
-  \section{\lblclPrice}\label{cl:price}
-  \subclause\placeholder{Refer to the fees and the payment schedule in \annexref{annex:price}.}
-  \subclause\placeholder{State the payment terms, the currency and how late payment is handled.}
-
-  \section{\lblclClientDuties}
-  \subclause\placeholder{List what the client must provide so the services can be delivered.}
-
-  \section{\lblclProviderDuties}
-  \subclause\placeholder{List the standard of work and the duties the provider accepts.}
-
-  \section{\lblclConfidentiality}
-  \subclause\placeholder{Say what information is confidential and for how long.}
-
-  \section{\lblclData}
-  \subclause\placeholder{Say how personal data is handled and which party decides its purpose.}
-
-  \section{\lblclIP}
-  \subclause\placeholder{Say who owns the deliverables and which rights each party keeps.}
-
-  \section{\lblclAcceptance}
-  \subclause\placeholder{Describe how deliverables are reviewed, within the term in \clauseref{cl:term}.}
-  \subclause\placeholder{State what happens if the client does not respond, see \ref{sub:start} for dates.}
-
-  \section{\lblclLiability}
-  \subclause\placeholder{State the limits of each party's liability.}
-
-  \section{\lblclTermination}
-  \subclause\placeholder{Say when and how either party may end the agreement.}
-
-  \section{\lblclNotices}
-  \subclause\placeholder{Say how formal notices are sent, using the contact details at the top of this agreement.}
-
-  \section{\lblclLaw}
-  \subclause\placeholder{Name the governing law and the way disputes are settled.}
-
-  \section{\lblclEntire}
-  \subclause\placeholder{Say that this agreement and its annexes replace earlier understandings.}
+  \input{sections/{{language}}}
 
   \needspace{16\baselineskip}
   \vspace{1.6em}
   {\itshape\color{conmuted}\lblSigned\par}
   \vspace{4pt}
   \noindent
-  \signer{\lblProvider}{{{provider_rep}}}{{{provider_id}}}{{{provider_role}}}%
+  \signer{\lblProvider}{\AgrProvRep}{{{provider_id}}}{\AgrProvRole}%
   \hfill
-  \signer{\lblClient}{{{client_rep}}}{{{client_id}}}{{{client_role}}}
+  \signer{\lblClient}{\AgrCliRep}{{{client_id}}}{\AgrCliRole}
 
-  \annex{\lblAnnexScope}\label{annex:scope}
-  \placeholder{Replace the rows below with the real deliverables.}
-
-  \begin{center}
-    \begin{tabularx}{\linewidth}{@{}clXl@{}}
-      \toprule
-      \sffamily\small\bfseries\lblItem & \sffamily\small\bfseries\lblDeliverable &
-      \sffamily\small\bfseries\lblDescription & \sffamily\small\bfseries\lblDue \\
-      \midrule
-      D1 & First deliverable & A short description of what is delivered. & Week 4 \\
-      D2 & Second deliverable & A short description of what is delivered. & Week 8 \\
-      D3 & Third deliverable & A short description of what is delivered. & Week 12 \\
-      \bottomrule
-    \end{tabularx}
-  \end{center}
-
-  \annex{\lblAnnexPrice}\label{annex:price}
-  \placeholder{Replace the amounts and conditions below with the agreed ones.}
-
-  \begin{center}
-    \begin{tabularx}{\linewidth}{@{}lXr@{}}
-      \toprule
-      \sffamily\small\bfseries\lblMilestone & \sffamily\small\bfseries\lblCondition &
-      \sffamily\small\bfseries\lblAmount\ (\AgrCurrency) \\
-      \midrule
-      1 & On signature of the agreement & 3,000.00 \\
-      2 & On acceptance of the second deliverable & 4,000.00 \\
-      3 & On acceptance of the final deliverable & 3,000.00 \\
-      \midrule
-      \multicolumn{2}{@{}l}{\textbf{\lblTotal}} & \textbf{10,000.00} \\
-      \bottomrule
-    \end{tabularx}
-  \end{center}
+  \input{sections/{{language}}-annexes}
 
 \end{document}
