@@ -4,7 +4,7 @@ display_name = "Services Agreement"
 description = "Services agreement layout with parties block, numbered clauses, annexes and signature block; clause text is for you to write"
 
 [files]
-include = ["**/*.tex", "**/*.txt", "assets/**"]
+include = ["**/*.tex", "**/*.txt"]
 exclude = []
 
 [[placeholders]]
@@ -132,13 +132,6 @@ type = "string"
 description = "Accent colour as a six-digit HTML hex value, without the hash"
 required = false
 default = "87222C"
-
-[[placeholders]]
-name = "paper_texture"
-type = "boolean"
-description = "Put a parchment texture behind every page, for documents read on screen (the cover always has it)"
-required = false
-default = false
 
 [[placeholders]]
 name = "language"
