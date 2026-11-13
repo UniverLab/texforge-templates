@@ -2,7 +2,7 @@
 \documentclass[12pt,letterpaper]{article}
 \usepackage[{{language}}]{babel}
 \usepackage[T1]{fontenc}
-\usepackage{newpxtext}
+\usepackage[lining]{ebgaramond}
 \usepackage{microtype}
 \usepackage[skip=0.55\baselineskip]{parskip}
 \usepackage{geometry}
@@ -13,11 +13,32 @@
 \geometry{left=2.54cm,right=2.54cm,top=2.54cm,bottom=2.54cm}
 \pagestyle{empty}
 \setlength{\emergencystretch}{2em}
-\definecolor{letteraccent}{HTML}{8A493D}
+\definecolor{letteraccent}{HTML}{87222C}
+\definecolor{lettermark}{HTML}{87222C}
+\definecolor{lettermuted}{HTML}{6B5A43}
+% Fixed labels, in English and Spanish.
+\newcommand{\lblSubject}{Subject}
+\newcommand{\lblSalutation}{Dear Sir/Madam:}
+\newcommand{\lblClosing}{Sincerely,}
+\newcommand{\lblEmail}{Email}
+\newcommand{\lblPhone}{Phone}
+\newcommand{\lblWhomItMayConcern}{To Whom It May Concern}
+\addto\captionsspanish{%
+  \renewcommand{\lblSubject}{Asunto}
+  \renewcommand{\lblSalutation}{Estimado señor o señora:}
+  \renewcommand{\lblClosing}{Atentamente,}
+  \renewcommand{\lblEmail}{Correo electrónico}
+  \renewcommand{\lblPhone}{Teléfono}
+  \renewcommand{\lblWhomItMayConcern}{A quien corresponda}}
 \hypersetup{colorlinks=true,linkcolor=letteraccent,urlcolor=letteraccent,
   pdftitle={{{title}}},pdfauthor={{{author}}}}
 
 \begin{document}
+
+  % Letterhead: the sender in small caps over a garnet rule.
+  {\scshape\large\color{lettermuted} {{author}} \par}
+  \vspace{3pt}
+  {\color{lettermark}\rule{\textwidth}{1.6pt}\par}
 
   \begin{flushright}
     \today
@@ -26,18 +47,18 @@
   \vspace{0.5cm}
 
   \noindent
-  To Whom It May Concern\\
+  \lblWhomItMayConcern\\
   \textbf{Recipient Organization}\\
   Department Name\\
   City, Country\\\
 
   \vspace{0.5cm}
 
-  \noindent\textcolor{letteraccent}{\textbf{Subject:}} {{{title}}}
+  \noindent\textcolor{letteraccent}{\textbf{\lblSubject:}} {{{title}}}
 
   \vspace{0.5cm}
 
-  \noindent Dear Sir/Madam:
+  \noindent \lblSalutation
 
   \vspace{0.3cm}
 
@@ -59,12 +80,12 @@
 
   \vspace{1.5cm}
 
-  \noindent Sincerely,
+  \noindent\lblClosing
 
   \vspace{1cm}
 
   \noindent\textbf{{{author}}}\\
-  Email: email@domain.com\\
-  Phone: +00 000 000 0000
+  \textcolor{lettermuted}{\lblEmail:} email@domain.com\\
+  \textcolor{lettermuted}{\lblPhone:} +00 000 000 0000
 
 \end{document}
