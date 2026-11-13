@@ -71,7 +71,7 @@ version = "0.1.0"
 [[templates]]
 nombre = "technical-brief"
 descripcion = "Concise technical update with callouts, diagrams, code and results"
-version = "0.2.0"
+version = "0.3.0"
 
 [[templates]]
 nombre = "workshop"

@@ -22,7 +22,7 @@ All templates support **multi-language output** via the `{{language}}` placehold
 | `letter` | Formal letter template for professional correspondence | 0.2.0 |
 | `report` | Structured university report with front matter, contents and appendices | 0.4.0 |
 | `slides` | 16:9 presentation slides with code and diagrams | 0.1.0 |
-| `technical-brief` | Concise technical update with callouts, diagrams, code and results | 0.2.0 |
+| `technical-brief` | Concise technical update with callouts, diagrams, code and results | 0.3.0 |
 | `workshop` | Workshop handout with a cover page, workflow, code and test table | 0.3.0 |
 
 Note: `contract` is a layout only; the clause text is placeholder wording that you must write or have reviewed by a lawyer.
