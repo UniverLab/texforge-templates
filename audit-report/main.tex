@@ -1,0 +1,591 @@
+% Security and usage audit report.
+% Text in double braces is filled in when the project is created; the %
+% comments say what to replace. Tectonic reads UTF-8 directly.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[{{language}}]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[lining]{ebgaramond}
+\usepackage[scale=0.92]{sourcesanspro}
+\usepackage[scale=0.82]{sourcecodepro}
+\usepackage{microtype}
+\usepackage[a4paper,left=27mm,right=24mm,top=30mm,bottom=32mm,
+  headheight=14pt,headsep=14mm,footskip=14mm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{needspace}
+\usepackage{etoolbox}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{url}
+\usepackage{hyperref}
+
+% One accent colour carries the design. Severity colours are defined once here
+% and used by badges, finding headers, the summary strip and the risk matrix.
+\definecolor{auditink}{HTML}{22262A}
+\definecolor{auditaccent}{HTML}{{{accent}}}
+\definecolor{auditmuted}{HTML}{6B7178}
+\definecolor{auditrule}{HTML}{C9CDD1}
+\definecolor{auditgood}{HTML}{2E7D4F}
+\definecolor{sevcritical}{HTML}{B3261E}
+\definecolor{sevhigh}{HTML}{D1601F}
+\definecolor{sevmedium}{HTML}{B98300}
+\definecolor{sevlow}{HTML}{2F7D9A}
+\definecolor{sevinfo}{HTML}{6B7178}
+\hypersetup{colorlinks=true,linkcolor=auditink,urlcolor=auditaccent,
+  citecolor=auditaccent,breaklinks=true,pdftitle={{{title}}},pdfauthor={{{auditor}}}}
+\urlstyle{sf}
+
+% Fixed labels. English defaults first, then one override block per language.
+\newcommand{\lblKicker}{Security and usage audit}
+\newcommand{\lblClient}{Client}
+\newcommand{\lblSystem}{System}
+\newcommand{\lblPeriod}{Audit period}
+\newcommand{\lblVersion}{Version}
+\newcommand{\lblStatus}{Status}
+\newcommand{\lblClassification}{Classification}
+\newcommand{\lblPreparedBy}{Prepared by}
+\newcommand{\lblDate}{Date}
+\newcommand{\lblPreparedFor}{Prepared for}
+\newcommand{\lblstdraft}{Draft}
+\newcommand{\lblstfinal}{Final}
+\newcommand{\lblsevcritical}{Critical}
+\newcommand{\lblsevhigh}{High}
+\newcommand{\lblsevmedium}{Medium}
+\newcommand{\lblsevlow}{Low}
+\newcommand{\lblsevinfo}{Info}
+\newcommand{\lblTotal}{Total}
+\newcommand{\lblLikelihood}{Likelihood}
+\newcommand{\lblImpact}{Impact}
+\newcommand{\lblEffort}{Effort}
+\newcommand{\lblFindingStatus}{Status}
+\newcommand{\lblefsmall}{Small}
+\newcommand{\lblefmedium}{Medium}
+\newcommand{\lbleflarge}{Large}
+\newcommand{\lblfsopen}{Open}
+\newcommand{\lblfsfixed}{Fixed}
+\newcommand{\lblDescription}{Description}
+\newcommand{\lblReproduction}{Reproduction}
+\newcommand{\lblRootCause}{Root cause}
+\newcommand{\lblRecommendation}{Recommendation}
+\newcommand{\lblEvidence}{Evidence}
+\newcommand{\lblAsset}{Asset}
+\newcommand{\lblBytes}{Bytes}
+\newcommand{\lblArea}{Area}
+\newcommand{\lblVerdict}{Verdict}
+\newcommand{\lblWhatWasDone}{What was done}
+\newcommand{\lblvdcovered}{Covered}
+\newcommand{\lblvdpartial}{Partial}
+\newcommand{\lblvdnone}{Not covered}
+\newcommand{\lblOrder}{Order}
+\newcommand{\lblAction}{Action}
+\newcommand{\lblFinding}{Finding}
+\newcommand{\lblTarget}{Target}
+\newcommand{\lblSource}{Source}
+\newcommand{\lblLink}{Permalink}
+\newcommand{\lblPage}{Page}
+\newcommand{\lblOf}{of}
+\newcommand{\lblExecutive}{Executive summary}
+\newcommand{\lblScope}{Scope and method}
+\newcommand{\lblCoverage}{Coverage}
+\newcommand{\lblFindings}{Findings}
+\newcommand{\lblMatrix}{Risk matrix}
+\newcommand{\lblRoadmap}{Fix roadmap}
+\newcommand{\lblDoneWell}{What is done well}
+\newcommand{\lblLimitations}{Limitations}
+\newcommand{\lblGlossary}{Glossary}
+\newcommand{\lblSources}{Sources}
+\newcommand{\lblCatalogue}{Asset catalogue}
+\addto\captionsspanish{%
+  \renewcommand{\lblKicker}{Auditoría de seguridad y uso}
+  \renewcommand{\lblClient}{Cliente}
+  \renewcommand{\lblSystem}{Sistema}
+  \renewcommand{\lblPeriod}{Período de la auditoría}
+  \renewcommand{\lblVersion}{Versión}
+  \renewcommand{\lblStatus}{Estado}
+  \renewcommand{\lblClassification}{Clasificación}
+  \renewcommand{\lblPreparedBy}{Preparado por}
+  \renewcommand{\lblDate}{Fecha}
+  \renewcommand{\lblPreparedFor}{Preparado para}
+  \renewcommand{\lblstdraft}{Borrador}
+  \renewcommand{\lblstfinal}{Final}
+  \renewcommand{\lblsevcritical}{Crítica}
+  \renewcommand{\lblsevhigh}{Alta}
+  \renewcommand{\lblsevmedium}{Media}
+  \renewcommand{\lblsevlow}{Baja}
+  \renewcommand{\lblsevinfo}{Info}
+  \renewcommand{\lblLikelihood}{Probabilidad}
+  \renewcommand{\lblImpact}{Impacto}
+  \renewcommand{\lblEffort}{Esfuerzo}
+  \renewcommand{\lblFindingStatus}{Estado}
+  \renewcommand{\lblefsmall}{Pequeño}
+  \renewcommand{\lblefmedium}{Medio}
+  \renewcommand{\lbleflarge}{Grande}
+  \renewcommand{\lblfsopen}{Abierto}
+  \renewcommand{\lblfsfixed}{Corregido}
+  \renewcommand{\lblDescription}{Descripción}
+  \renewcommand{\lblReproduction}{Reproducción}
+  \renewcommand{\lblRootCause}{Causa raíz}
+  \renewcommand{\lblRecommendation}{Recomendación}
+  \renewcommand{\lblEvidence}{Evidencia}
+  \renewcommand{\lblAsset}{Recurso}
+  \renewcommand{\lblArea}{Área}
+  \renewcommand{\lblVerdict}{Veredicto}
+  \renewcommand{\lblWhatWasDone}{Qué se hizo}
+  \renewcommand{\lblvdcovered}{Cubierto}
+  \renewcommand{\lblvdpartial}{Parcial}
+  \renewcommand{\lblvdnone}{No cubierto}
+  \renewcommand{\lblOrder}{Orden}
+  \renewcommand{\lblAction}{Acción}
+  \renewcommand{\lblFinding}{Hallazgo}
+  \renewcommand{\lblTarget}{Plazo}
+  \renewcommand{\lblSource}{Fuente}
+  \renewcommand{\lblLink}{Enlace permanente}
+  \renewcommand{\lblPage}{Página}
+  \renewcommand{\lblOf}{de}
+  \renewcommand{\lblExecutive}{Resumen ejecutivo}
+  \renewcommand{\lblScope}{Alcance y método}
+  \renewcommand{\lblCoverage}{Cobertura}
+  \renewcommand{\lblFindings}{Hallazgos}
+  \renewcommand{\lblMatrix}{Matriz de riesgo}
+  \renewcommand{\lblRoadmap}{Hoja de ruta de correcciones}
+  \renewcommand{\lblDoneWell}{Lo que se hace bien}
+  \renewcommand{\lblLimitations}{Limitaciones}
+  \renewcommand{\lblGlossary}{Glosario}
+  \renewcommand{\lblSources}{Fuentes}
+  \renewcommand{\lblCatalogue}{Catálogo de recursos}}
+
+% Report metadata, set once and reused by the cover, header and footer.
+\newcommand{\RepTitle}{{{title}}}
+\newcommand{\RepSystem}{{{system}}}
+\newcommand{\RepClient}{{{client}}}
+\newcommand{\RepAuditor}{{{auditor}}}
+\newcommand{\RepPeriod}{{{period}}}
+\newcommand{\RepVersion}{{{version}}}
+\newcommand{\RepStatus}{{{status}}}
+\newcommand{\RepClass}{{{classification}}}
+\newcommand{\RepDate}{{{date}}}
+\newcommand{\RepLogo}{{{logo}}}
+\let\placelogo\includegraphics
+
+% Letterspacing does not work with xetex, so small caps carry the emphasis.
+\renewcommand{\textls}[2][]{#2}
+\newcommand{\caps}[1]{{\sffamily\scshape #1}}
+\newcommand{\metalabel}[1]{{\sffamily\scriptsize\scshape\color{auditmuted}#1}}
+
+% Page style: running head on top, classification and page count below.
+\fancypagestyle{audit}{%
+  \fancyhf{}
+  \fancyhead[L]{\small\caps{\RepClient}}
+  \fancyhead[R]{\small\itshape\RepTitle}
+  \fancyfoot[L]{\small\caps{\RepClass}}
+  \fancyfoot[R]{\small\sffamily\lblPage\ \thepage\ \lblOf\ \pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \renewcommand{\headrule}{\hbox to\headwidth{\color{auditrule}\leaders\hrule height \headrulewidth\hfill}}
+  \renewcommand{\footrule}{\hbox to\headwidth{\color{auditrule}\leaders\hrule height \footrulewidth\hfill}}}
+\pagestyle{audit}
+\fancypagestyle{plain}{\pagestyle{audit}}
+
+% Headings and table of contents.
+\titleformat{\section}{\normalfont\fontsize{20}{24}\selectfont\color{auditink}}
+{\textcolor{auditaccent}{\thesection}}{0.7em}{}[{\vspace{3pt}\color{auditrule}\titlerule}]
+\titlespacing*{\section}{0pt}{2.2\baselineskip}{1\baselineskip}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize\color{auditink}}
+{\textcolor{auditaccent}{\thesubsection}}{0.7em}{}
+\titlespacing*{\subsection}{0pt}{1.4\baselineskip}{0.4\baselineskip}
+\renewcommand{\cftsecfont}{\normalfont\bfseries}
+\renewcommand{\cftsecpagefont}{\normalfont\bfseries}
+\renewcommand{\cftsecdotsep}{\cftnodots}
+\renewcommand{\cftsubsecdotsep}{\cftdotsep}
+\setlength{\cftbeforesecskip}{0.6em}
+\setlength{\cftbeforesubsecskip}{0.1em}
+\setlength{\cftsubsecindent}{1.5em}
+\setlength{\cftsubsecnumwidth}{3em}
+\renewcommand{\cftdotsep}{2}
+\renewcommand{\cfttoctitlefont}{\normalfont\fontsize{20}{24}\selectfont\color{auditink}}
+\setlength{\cftaftertoctitleskip}{1.2em}
+
+\frenchspacing
+\let\origsection\section
+\renewcommand{\section}{\needspace{8\baselineskip}\origsection}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6\baselineskip}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.25}
+\setlist{leftmargin=1.5em,itemsep=2pt,topsep=3pt,parsep=0pt}
+\setlist[itemize]{label={\color{auditaccent}\textbullet}}
+
+% Badges: \severitybadge{high}, \statusbadge{draft}, \verdictbadge{partial}.
+\newcommand{\badgebox}[2]{\tcbox[on line,enhanced,colback=#1,colframe=#1,boxrule=0pt,
+    arc=2pt,left=5pt,right=5pt,top=1.5pt,bottom=1.5pt,boxsep=0pt,
+    fontupper=\sffamily\scriptsize\bfseries\scshape\color{white}]{#2}}
+\newcommand{\badge}[2]{\edef\badgecolor{#1}\expandafter\badgebox\expandafter{\badgecolor}{#2}}
+\newcommand{\stcolordraft}{sevmedium}
+\newcommand{\stcolorfinal}{auditgood}
+\newcommand{\vdcolorcovered}{auditgood}
+\newcommand{\vdcolorpartial}{sevmedium}
+\newcommand{\vdcolornone}{sevcritical}
+\newcommand{\severitybadge}[1]{\badge{sev#1}{\csname lblsev#1\endcsname}}
+\newcommand{\statusbadge}[1]{\badge{\csname stcolor#1\endcsname}{\csname lblst#1\endcsname}}
+\newcommand{\verdictbadge}[1]{\badge{\csname vdcolor#1\endcsname}{\csname lblvd#1\endcsname}}
+
+% Findings are counted as they are written; the totals are saved in the aux
+% file so the executive summary can show them on the next pass.
+\newcounter{cntcritical}\newcounter{cnthigh}\newcounter{cntmedium}
+\newcounter{cntlow}\newcounter{cntinfo}
+\providecommand{\sevtotalcritical}{0}\providecommand{\sevtotalhigh}{0}
+\providecommand{\sevtotalmedium}{0}\providecommand{\sevtotallow}{0}
+\providecommand{\sevtotalinfo}{0}
+\makeatletter
+\AtEndDocument{\@for\sv:=critical,high,medium,low,info\do{%
+    \immediate\write\@auxout{\string\gdef\expandafter\string\csname sevtotal\sv\endcsname{\arabic{cnt\sv}}}}}
+\makeatother
+
+% The risk matrix is filled by the findings themselves: each one adds its id to
+% the cell for its likelihood and impact.
+\newcommand{\placeinmatrix}[3]{%
+  \ifcsdef{rmcell#1x#2}{\csxappto{rmcell#1x#2}{, #3}}{\csxdef{rmcell#1x#2}{#3}}}
+\newcommand{\matrixcell}[2]{\ifcsdef{rmcell#1x#2}{\csuse{rmcell#1x#2}}{}}
+
+% A finding is one environment; its metadata are keys.
+\pgfkeys{/finding/.cd,id/.store in=\fid,title/.store in=\ftitle,
+  severity/.store in=\fsev,likelihood/.store in=\flik,impact/.store in=\fimp,
+  effort/.store in=\feff,status/.store in=\fstat}
+\newcommand{\findingpart}[1]{\par\vspace{4pt}{\sffamily\scriptsize\scshape\bfseries
+    \color{auditaccent}#1}\par\nopagebreak\vspace{-3pt}}
+\newenvironment{finding}[1][]
+{\pgfkeys{/finding/.cd,id=F-00,title=Untitled,severity=info,likelihood=1,
+    impact=1,effort=small,status=open,#1}%
+  \stepcounter{cnt\fsev}%
+  \placeinmatrix{\flik}{\fimp}{\fid}%
+  \addcontentsline{toc}{subsection}{\fid\hspace{0.8em}\ftitle}%
+  \needspace{9\baselineskip}%
+  \par\vspace{10pt}\noindent
+  \begin{tcolorbox}[enhanced,colback=auditaccent!4,colframe=auditaccent!4,
+      boxrule=0pt,arc=0pt,borderline west={3pt}{0pt}{sev\fsev},
+      left=10pt,right=10pt,top=7pt,bottom=7pt,before skip=0pt,after skip=4pt]
+    \setlength{\parskip}{0pt}%
+    \noindent\parbox[t]{\dimexpr\linewidth-2.4cm\relax}{%
+      {\sffamily\bfseries\color{sev\fsev}\fid}\hspace{0.8em}%
+      {\fontsize{14}{17}\selectfont\color{auditink}\ftitle}}%
+    \hfill\parbox[t]{2.2cm}{\raggedleft\severitybadge{\fsev}}%
+    \par\vspace{5pt}
+    {\color{auditrule}\hrule height 0.4pt}\par\vspace{5pt}
+    \begin{tabular}{@{}p{3.1cm}p{3.1cm}p{3.1cm}p{3.1cm}@{}}
+      \metalabel{\lblLikelihood} & \metalabel{\lblImpact} &
+      \metalabel{\lblEffort} & \metalabel{\lblFindingStatus} \\[1pt]
+      \flik\,/\,5 & \fimp\,/\,5 & \csname lblef\feff\endcsname &
+      \csname lblfs\fstat\endcsname \\
+    \end{tabular}
+  \end{tcolorbox}\nopagebreak}
+{\par\vspace{6pt}}
+
+% Evidence references: \evrow{asset id}{bytes}{sha-256}.
+\newcommand{\evrow}[3]{{\sffamily\small #1} & #2 & {\ttfamily\fontsize{6.6}{8}\selectfont #3} \\}
+\newenvironment{evidence}
+{\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}p{1.9cm}r@{\hspace{10pt}}l@{}}
+    \toprule
+    \sffamily\small\bfseries\lblAsset & \sffamily\small\bfseries\lblBytes &
+    \sffamily\small\bfseries SHA-256 \\
+    \midrule}
+  {\bottomrule\end{tabular}}
+
+\newcommand{\sevstat}[1]{\begin{tabular}[t]{@{}c@{}}\severitybadge{#1}\\[6pt]
+    {\fontsize{28}{30}\selectfont\color{sev#1}\csname sevtotal#1\endcsname}\end{tabular}}
+\newcommand{\sevstrip}{\par\vspace{4pt}\noindent
+  \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}ccccc@{}}
+    \sevstat{critical} & \sevstat{high} & \sevstat{medium} & \sevstat{low} & \sevstat{info}
+  \end{tabular*}\par\vspace{2pt}}
+
+% Risk matrix: likelihood against impact, one coloured cell per pair.
+\newcommand{\riskmatrix}{%
+  \begin{center}
+    \begin{tikzpicture}[x=24mm,y=14mm]
+      \foreach \l in {1,...,5}{\foreach \i in {1,...,5}{%
+          \pgfmathtruncatemacro{\sc}{\l*\i}%
+          \ifnum\sc>14 \def\rc{sevcritical}\else\ifnum\sc>9 \def\rc{sevhigh}\else
+          \ifnum\sc>4 \def\rc{sevmedium}\else\def\rc{sevlow}\fi\fi\fi
+          \fill[\rc!24] (\i-1,\l-1) rectangle (\i,\l);
+          \draw[white,line width=1.4pt] (\i-1,\l-1) rectangle (\i,\l);
+          \node[font=\sffamily\bfseries\small,text=\rc!85!black,text width=22mm,align=center]
+          at (\i-0.5,\l-0.5) {\matrixcell{\l}{\i}};}}
+      \foreach \n in {1,...,5}{%
+        \node[font=\sffamily\small,text=auditmuted] at (\n-0.5,-0.4) {\n};
+        \node[font=\sffamily\small,text=auditmuted] at (-0.35,\n-0.5) {\n};}
+      \node[font=\sffamily\scriptsize\scshape,text=auditmuted] at (2.5,-0.95) {\lblImpact\ $\rightarrow$};
+      \node[font=\sffamily\scriptsize\scshape,text=auditmuted,rotate=90] at (-0.85,2.5)
+      {\lblLikelihood\ $\rightarrow$};
+    \end{tikzpicture}
+  \end{center}}
+
+% Catalogue rows: \catrow{asset id}{description}{bytes}{sha-256}.
+\newcommand{\catrow}[4]{{\sffamily\small #1} & {\small #2} & #3 & {\ttfamily\fontsize{6.6}{8}\selectfont #4} \\}
+% Coverage rows: \covrow{area}{covered|partial|none}{what was done}.
+\newcommand{\covrow}[3]{#1 & \verdictbadge{#2} & #3 \\}
+% Roadmap rows: \roadrow{order}{action}{finding id}{effort}{target}.
+\newcommand{\roadrow}[5]{#1 & #2 & #3 & #4 & #5 \\}
+
+\begin{document}
+
+  % Cover: a full-width colour band carries title, client and system.
+  \begingroup
+  \thispagestyle{empty}
+  \noindent\begin{minipage}[t][\dimexpr\textheight-2\baselineskip\relax][t]{\textwidth}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north west,inner sep=0pt,fill=auditaccent,minimum width=\paperwidth,
+        minimum height=132mm] at (current page.north west) {};
+      \node[anchor=north west,inner sep=0pt,fill=white,fill opacity=0.35,
+        minimum width=\paperwidth,minimum height=1.4mm] at ([yshift=-132mm]current page.north west) {};
+    \end{tikzpicture}\par\nointerlineskip
+    \raggedright\color{white}
+    \vspace*{-12mm}
+    \IfFileExists{\RepLogo}{\placelogo[height=12mm]{\RepLogo}\par\vspace{5mm}}{}
+    {\large\caps{\RepAuditor}\par}
+    \vspace{20mm}
+    {\sffamily\small\scshape\lblKicker\par}
+    \vspace{4mm}
+    {\fontsize{38}{42}\selectfont\RepTitle\par}
+    \vspace{6mm}
+    {\fontsize{16}{20}\selectfont\itshape\lblPreparedFor\ \RepClient\par}
+    \vspace{52mm}\color{auditink}
+    \begin{tabular}{@{}p{5.6cm}p{5.6cm}@{}}
+      \metalabel{\lblSystem} & \metalabel{\lblPeriod} \\[2pt]
+      \RepSystem & \RepPeriod \\[18pt]
+      \metalabel{\lblVersion} & \metalabel{\lblStatus} \\[2pt]
+      \RepVersion & \statusbadge{\RepStatus} \\[18pt]
+      \metalabel{\lblDate} & \metalabel{\lblClassification} \\[2pt]
+      \RepDate & {\sffamily\small\scshape\bfseries\color{auditaccent}\RepClass} \\
+    \end{tabular}
+    \vfill
+    {\color{auditmuted}\small\lblPreparedBy\ \RepAuditor\par}
+  \end{minipage}
+  \endgroup
+  \clearpage
+
+  \tableofcontents
+  \clearpage
+
+  % Replace the sample content below with your own audit results.
+  \section{\lblExecutive}
+  We audited the security and day-to-day use of \RepSystem{} between the dates
+  on the cover. The system is generally well built, but one critical finding
+  exposes customer data and must be fixed before anything else.
+
+  \sevstrip
+
+  Four findings are open or fixed in this report. The critical finding
+  (F-01) and the high finding (F-02) can be fixed in under two weeks and remove
+  most of the risk. The remaining findings are hardening work that can follow
+  the normal release cycle.
+
+  \section{\lblScope}
+  The audit covered the public web application, its programme interface and
+  the storage that holds customer exports. Systems that belong to third
+  parties, and the office network, were out of scope.
+
+  We worked in four steps: map the system, review its configuration, test it
+  from the point of view of an outside user, and confirm each result with a
+  reproducible step and a saved piece of evidence.
+
+  \begin{mermaid}[style=editorial,width=0.9\linewidth,
+      caption={Audit method},pos=H]
+    flowchart LR
+    A[Map] --> B[Review] --> C[Test] --> D[Confirm] --> E[Report]
+  \end{mermaid}
+
+  \section{\lblCoverage}
+  The table shows what each area received and how far the work went.
+
+  \begin{table}[H]
+    \centering
+    \begin{tabularx}{\linewidth}{@{}p{3.2cm}p{2.5cm}X@{}}
+      \toprule
+      \sffamily\small\bfseries\lblArea & \sffamily\small\bfseries\lblVerdict &
+      \sffamily\small\bfseries\lblWhatWasDone \\
+      \midrule
+      \covrow{Authentication}{covered}{Reviewed sign-in, reset and session handling; tested for guessing and replay.}
+      \covrow{Data storage}{covered}{Reviewed bucket policies and access logs; checked public access.}
+      \covrow{Interface}{partial}{Tested the read endpoints; write endpoints only reviewed in code.}
+      \covrow{Mobile client}{none}{Not part of the agreed scope.}
+      \bottomrule
+    \end{tabularx}
+  \end{table}
+
+  \section{\lblFindings}
+  Each finding has a severity, a likelihood and an impact on a scale of one to
+  five, an effort estimate and a status. Evidence is listed by asset identifier
+  and can be checked against the catalogue in the appendix.
+
+  \begin{finding}[id=F-01,title={Customer exports are publicly readable},
+      severity=critical,likelihood=5,impact=5,effort=small,status=open]
+    \findingpart{\lblDescription}
+    The storage bucket that holds customer exports allows anyone on the
+    internet to list and download its files. The exports contain names, email
+    addresses and order history.
+
+    \findingpart{\lblReproduction}
+    \begin{code}[lang=bash]
+curl -s https://storage.example.org/orbit-exports/ | head -n 5
+    \end{code}
+
+    \findingpart{\lblRootCause}
+    A broad read rule was added during a migration and was never removed.
+
+    \findingpart{\lblImpact}
+    Any person can read personal data for every customer, which breaks the
+    contract and the privacy law.
+
+    \findingpart{\lblRecommendation}
+    Remove the public rule today, rotate any exposed links, and review the
+    access logs for earlier downloads.
+
+    \findingpart{\lblEvidence}
+    \begin{evidence}
+      \evrow{A-0101}{18\,432}{ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb}
+      \evrow{A-0102}{2\,210}{3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d}
+    \end{evidence}
+  \end{finding}
+
+  \begin{finding}[id=F-02,title={Password reset has no rate limit},
+      severity=high,likelihood=4,impact=4,effort=medium,status=open]
+    \findingpart{\lblDescription}
+    The password reset request accepts an unlimited number of attempts from
+    one address, so an attacker can flood users with reset emails or probe
+    which accounts exist.
+
+    \findingpart{\lblRootCause}
+    The reset route was excluded from the shared throttling rules.
+
+    \findingpart{\lblImpact}
+    Account enumeration and a risk of harassment of real users.
+
+    \findingpart{\lblRecommendation}
+    Apply the shared limit to the route and return the same answer whether or
+    not the account exists.
+
+    \findingpart{\lblEvidence}
+    \begin{evidence}
+      \evrow{A-0103}{5\,876}{2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6}
+    \end{evidence}
+  \end{finding}
+
+  \begin{finding}[id=F-03,title={Error pages reveal internal details},
+      severity=medium,likelihood=3,impact=3,effort=small,status=fixed]
+    \findingpart{\lblDescription}
+    A malformed request returned a full stack trace with file paths and a
+    library version.
+
+    \findingpart{\lblRecommendation}
+    Return a short generic message and log the detail on the server. The team
+    fixed this during the audit and we confirmed the change.
+
+    \findingpart{\lblEvidence}
+    \begin{evidence}
+      \evrow{A-0104}{3\,904}{18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4}
+    \end{evidence}
+  \end{finding}
+
+  \begin{finding}[id=F-04,title={Session cookie lacks a same-site setting},
+      severity=low,likelihood=2,impact=2,effort=small,status=open]
+    \findingpart{\lblDescription}
+    The session cookie does not declare a same-site policy, so browsers apply
+    their own default.
+
+    \findingpart{\lblRecommendation}
+    Set the attribute explicitly to the strict or lax value.
+
+    \findingpart{\lblEvidence}
+    \begin{evidence}
+      \evrow{A-0105}{1\,288}{3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea}
+    \end{evidence}
+  \end{finding}
+
+  \section{\lblMatrix}
+  Findings are placed by likelihood and impact. Cells are coloured by the
+  product of the two scores.
+
+  \riskmatrix
+
+  \section{\lblRoadmap}
+  The actions are ordered by risk removed per unit of effort.
+
+  \begin{table}[H]
+    \centering
+    \begin{tabularx}{\linewidth}{@{}cXlll@{}}
+      \toprule
+      \sffamily\small\bfseries\lblOrder & \sffamily\small\bfseries\lblAction &
+      \sffamily\small\bfseries\lblFinding & \sffamily\small\bfseries\lblEffort &
+      \sffamily\small\bfseries\lblTarget \\
+      \midrule
+      \roadrow{1}{Close public access to the export bucket}{F-01}{\lblefsmall}{1 day}
+      \roadrow{2}{Rate limit the password reset route}{F-02}{\lblefmedium}{2 weeks}
+      \roadrow{3}{Set the same-site cookie attribute}{F-04}{\lblefsmall}{Next release}
+      \bottomrule
+    \end{tabularx}
+  \end{table}
+
+  \section{\lblDoneWell}
+  \begin{itemize}
+    \item Sign-in uses hardware keys for every administrator.
+    \item Deployments are automated and every change is reviewed by a second person.
+    \item The team responded to the critical finding within one hour.
+  \end{itemize}
+
+  \section{\lblLimitations}
+  The audit is a point-in-time review. It does not prove the absence of
+  other faults. Write endpoints were reviewed in code only, and the mobile
+  client was not examined.
+
+  \section{\lblGlossary}
+  \begin{description}[style=nextline,leftmargin=1.2em,itemsep=4pt,topsep=2pt,
+      font={\sffamily\bfseries\color{auditaccent}\small}]
+    \item[Likelihood] How easily an attacker could trigger the problem, from one to five.
+    \item[Impact] How much harm the problem would cause if triggered, from one to five.
+    \item[Evidence] A saved file that supports a finding, identified by an asset id and a checksum.
+    \item[SHA-256] A fingerprint of a file; if one byte changes, the fingerprint changes.
+  \end{description}
+
+  \appendix
+  \section{\lblSources}
+  \begin{table}[H]
+    \centering
+    \begin{tabularx}{\linewidth}{@{}p{3.6cm}X@{}}
+      \toprule
+      \sffamily\small\bfseries\lblSource & \sffamily\small\bfseries\lblLink \\
+      \midrule
+      Access policy & \url{https://docs.example.org/policies/access} \\
+      Storage settings & \url{https://console.example.org/storage/orbit-exports} \\
+      Change log & \url{https://git.example.org/orbit/portal/commits/main} \\
+      \bottomrule
+    \end{tabularx}
+  \end{table}
+
+  \section{\lblCatalogue}
+  \begin{table}[H]
+    \centering
+    \setlength{\tabcolsep}{4pt}
+    \begin{tabular}{@{}p{1.5cm}p{3.2cm}r@{\hspace{8pt}}l@{}}
+      \toprule
+      \sffamily\small\bfseries\lblAsset & \sffamily\small\bfseries\lblDescription &
+      \sffamily\small\bfseries\lblBytes & \sffamily\small\bfseries SHA-256 \\
+      \midrule
+      \catrow{A-0101}{Bucket listing response}{18\,432}{ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb}
+      \catrow{A-0102}{Sample export header}{2\,210}{3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d}
+      \catrow{A-0103}{Reset request log}{5\,876}{2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6}
+      \catrow{A-0104}{Stack trace response}{3\,904}{18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4}
+      \catrow{A-0105}{Cookie header capture}{1\,288}{3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea}
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+\end{document}

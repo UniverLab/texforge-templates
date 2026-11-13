@@ -1,0 +1,18 @@
+# Words the spell checker accepts in this template. One word per line.
+flowchart
+lr
+mermaid
+phishing
+sha
+curl
+http
+unauthenticated
+bucket
+buckets
+cookie
+cookies
+samesite
+lblef
+lblfs
+yshift
+emails

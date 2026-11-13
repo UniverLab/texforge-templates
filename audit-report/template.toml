@@ -1,0 +1,100 @@
+id = "audit-report"
+version = "0.1.0"
+display_name = "Security and Usage Audit Report"
+description = "Audit report with a band cover, severity-coded findings, risk matrix, fix roadmap and evidence catalogue"
+
+[files]
+include = ["**/*.tex", "**/*.txt"]
+exclude = []
+
+[[placeholders]]
+name = "title"
+type = "string"
+description = "Report title"
+required = true
+default = "Security and Usage Audit"
+
+[[placeholders]]
+name = "system"
+type = "string"
+description = "Name of the audited system or service"
+required = false
+default = "Orbit Portal"
+
+[[placeholders]]
+name = "client"
+type = "string"
+description = "Client that commissioned the audit"
+required = false
+default = "Example Client"
+
+[[placeholders]]
+name = "auditor"
+type = "string"
+description = "Organisation or team that carried out the audit"
+required = false
+default = "Example Audit Team"
+
+[[placeholders]]
+name = "period"
+type = "string"
+description = "Audit period"
+required = false
+default = "1 to 30 September 2026"
+
+[[placeholders]]
+name = "version"
+type = "string"
+description = "Report version"
+required = false
+default = "1.0"
+
+[[placeholders]]
+name = "status"
+type = "enum"
+description = "Report status; the label is translated"
+required = false
+choices = ["draft", "final"]
+default = "draft"
+
+[[placeholders]]
+name = "classification"
+type = "string"
+description = "Classification label shown on the cover and in every footer"
+required = false
+default = "Confidential"
+
+[[placeholders]]
+name = "date"
+type = "string"
+description = "Report date"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "accent"
+type = "string"
+description = "Accent colour as a six-digit HTML hex value, without the hash"
+required = false
+default = "1F3A5F"
+
+[[placeholders]]
+name = "logo"
+type = "string"
+description = "Path to an optional logo image, shown on the cover band when the file exists"
+required = false
+default = "assets/logo.png"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language for babel; fixed labels are translated for English and Spanish"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "english"
+
+[[post_generate]]
+name = "build"
+description = "Compile the document to PDF"
+command = "texforge build"
+optional = true
