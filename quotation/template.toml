@@ -1,0 +1,274 @@
+id = "quotation"
+version = "0.1.0"
+display_name = "Quotation"
+description = "Service quotation sent to a client before a service order: itemised prices, scope, 50/50 payment terms and how to accept through the signed service order"
+
+[files]
+include = ["**/*.tex", "**/*.txt"]
+exclude = []
+
+[[placeholders]]
+name = "lab_name"
+type = "string"
+description = "Lab or business name shown in the issuer block"
+required = false
+default = "UniverLab"
+
+[[placeholders]]
+name = "owner_name"
+type = "string"
+description = "Owner or responsible person of the lab"
+required = false
+default = "{{user.name}}"
+
+[[placeholders]]
+name = "owner_id"
+type = "string"
+description = "Owner identification or tax number"
+required = false
+default = "000000000-0"
+
+[[placeholders]]
+name = "owner_email"
+type = "string"
+description = "Contact email of the issuer"
+required = false
+default = "{{user.email}}"
+
+[[placeholders]]
+name = "lab_site"
+type = "string"
+description = "Website where the service order is signed"
+required = false
+default = "univerlab.org"
+
+[[placeholders]]
+name = "quote_number"
+type = "string"
+description = "Quote number"
+required = false
+default = "COT-2026-001"
+
+[[placeholders]]
+name = "issue_date"
+type = "string"
+description = "Issue date of the quote"
+required = false
+default = "\\today"
+
+[[placeholders]]
+name = "validity_days"
+type = "string"
+description = "Number of days the quote stays valid from its issue date"
+required = false
+default = "15"
+
+[[placeholders]]
+name = "client_name"
+type = "string"
+description = "Client name"
+required = false
+default = "Cliente de ejemplo S.A.S."
+
+[[placeholders]]
+name = "client_id"
+type = "string"
+description = "Client identification or tax number"
+required = false
+default = "111111111-1"
+
+[[placeholders]]
+name = "client_contact"
+type = "string"
+description = "Client contact (email and phone)"
+required = false
+default = "cliente@example.org"
+
+[[placeholders]]
+name = "service_need"
+type = "string"
+description = "Short description of the client's need that this quote answers"
+required = false
+default = "Describa en una o dos frases la necesidad del cliente que esta cotización atiende."
+
+[[placeholders]]
+name = "scope_in_1"
+type = "string"
+description = "Scope item included in the service (first)"
+required = false
+default = "Análisis de requisitos con el cliente."
+
+[[placeholders]]
+name = "scope_in_2"
+type = "string"
+description = "Scope item included in the service (second)"
+required = false
+default = "Diseño e implementación de la solución acordada."
+
+[[placeholders]]
+name = "scope_in_3"
+type = "string"
+description = "Scope item included in the service (third)"
+required = false
+default = "Entrega final con documentación básica."
+
+[[placeholders]]
+name = "scope_out_1"
+type = "string"
+description = "Item explicitly not included in the service (first)"
+required = false
+default = "Hosting, dominio y licencias de terceros."
+
+[[placeholders]]
+name = "scope_out_2"
+type = "string"
+description = "Item explicitly not included in the service (second)"
+required = false
+default = "Mantenimiento posterior a la entrega."
+
+[[placeholders]]
+name = "item_1_name"
+type = "string"
+description = "Price line 1: item name"
+required = false
+default = "Diseño del servicio"
+
+[[placeholders]]
+name = "item_1_desc"
+type = "string"
+description = "Price line 1: description"
+required = false
+default = "Análisis de requisitos y propuesta de solución."
+
+[[placeholders]]
+name = "item_1_qty"
+type = "string"
+description = "Price line 1: quantity (a number; delete the line if unused)"
+required = false
+default = "1"
+
+[[placeholders]]
+name = "item_1_price"
+type = "string"
+description = "Price line 1: unit price (a number, no separators)"
+required = false
+default = "2500000"
+
+[[placeholders]]
+name = "item_2_name"
+type = "string"
+description = "Price line 2: item name"
+required = false
+default = "Desarrollo"
+
+[[placeholders]]
+name = "item_2_desc"
+type = "string"
+description = "Price line 2: description"
+required = false
+default = "Implementación y pruebas de la solución."
+
+[[placeholders]]
+name = "item_2_qty"
+type = "string"
+description = "Price line 2: quantity (a number; delete the line if unused)"
+required = false
+default = "2"
+
+[[placeholders]]
+name = "item_2_price"
+type = "string"
+description = "Price line 2: unit price (a number, no separators)"
+required = false
+default = "600000"
+
+[[placeholders]]
+name = "item_3_name"
+type = "string"
+description = "Price line 3: item name"
+required = false
+default = "Entrega y capacitación"
+
+[[placeholders]]
+name = "item_3_desc"
+type = "string"
+description = "Price line 3: description"
+required = false
+default = "Puesta en marcha, documentación y sesión de capacitación."
+
+[[placeholders]]
+name = "item_3_qty"
+type = "string"
+description = "Price line 3: quantity (a number; delete the line if unused)"
+required = false
+default = "1"
+
+[[placeholders]]
+name = "item_3_price"
+type = "string"
+description = "Price line 3: unit price (a number, no separators)"
+required = false
+default = "800000"
+
+[[placeholders]]
+name = "currency"
+type = "string"
+description = "Currency code of all amounts (COP or USD)"
+required = false
+default = "COP"
+
+[[placeholders]]
+name = "advance_pct"
+type = "string"
+description = "Percentage paid to start, at signing of the service order; the balance is paid on delivery"
+required = false
+default = "50"
+
+[[placeholders]]
+name = "payment_methods"
+type = "string"
+description = "Payment methods accepted (bank transfer, PayPal, others)"
+required = false
+default = "Transferencia bancaria o PayPal"
+
+[[placeholders]]
+name = "tax_note"
+type = "string"
+description = "Tax note shown under the taxes heading"
+required = false
+default = "No responsable de IVA"
+
+[[placeholders]]
+name = "timeline"
+type = "string"
+description = "Estimated timeline from signing to delivery"
+required = false
+default = "Entrega estimada en 4 semanas a partir de la firma de la orden de servicio."
+
+[[placeholders]]
+name = "closing"
+type = "string"
+description = "Short closing line"
+required = false
+default = "Gracias por confiar en UniverLab."
+
+[[placeholders]]
+name = "accent"
+type = "string"
+description = "Accent colour as a six-digit HTML hex value, without the hash"
+required = false
+default = "87222C"
+
+[[placeholders]]
+name = "language"
+type = "enum"
+description = "Document language for babel; fixed labels are translated for English and Spanish"
+required = true
+choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
+default = "spanish"
+
+[[post_generate]]
+name = "build"
+description = "Compile the quotation to PDF"
+command = "texforge build"
+optional = true
