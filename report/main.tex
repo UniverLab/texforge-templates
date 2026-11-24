@@ -217,17 +217,18 @@
   \input{chapters/conclusions}
 
   % --------------------------------------------------------------- bibliography
-  % The unnumbered bibliography chapter is listed in the table of contents;
-  % \clearpage + \phantomsection put the entry on the bibliography's own page.
+  % The bibliography chapter is listed in the table of contents.
+  % apacite (apa7) manages its own TOC entry; plain needs a manual one.
   \ifx\reportbibstyle\apaseven
   \bibliographystyle{apa7cite}
+  \bibliography{bib/references}
   \else
   \bibliographystyle{plain}
-  \fi
   \clearpage
   \phantomsection
   \addcontentsline{toc}{chapter}{\bibname}
   \bibliography{bib/references}
+  \fi
 
   % ------------------------------------------------------------------ appendix
   \appendix
