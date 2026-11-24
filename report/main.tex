@@ -26,10 +26,85 @@
 \definecolor{reportink}{HTML}{1D1510}
 \definecolor{reportaccent}{HTML}{87222C}
 \definecolor{reportmark}{HTML}{87222C}
-% Fixed labels of the cover, in English and Spanish.
+% Fixed labels of the cover, in English; each \addto\captions<lang> block
+% below renews them for its language.
 \newcommand{\lblAuthor}{Author}
 \newcommand{\lblAdvisor}{Advisor}
-\addto\captionsspanish{\renewcommand{\lblAuthor}{Autor}\renewcommand{\lblAdvisor}{Director}}
+
+% Language-dependent defaults for cover placeholders.
+% Mechanism: \rptpick{<value macro>}{<default macro>} expands to the default
+% when the value macro is empty (\ifx#1\empty#2\else#1\fi).
+% Explicit values (from template.toml) always win; only empty values fall back
+% to the language default defined in \addto\captions<lang>.
+% Using \def (not \newcommand) for value macros: \newcommand creates \long
+% macros while \empty is non-\long, and \ifx distinguishes them — so only
+% \def-defined value macros compare equal to \empty when empty.
+\newcommand{\rptpick}[2]{\ifx#1\empty#2\else#1\fi}
+
+\def\rptsubtitle{{{subtitle}}}
+\def\rptadvisor{{{advisor}}}
+\def\rptfaculty{{{faculty}}}
+\def\rptcity{{{city}}}
+
+% Default language values (English) — overridden by \addto\captions<lang> hooks.
+\newcommand{\rptdefsubtitle}{A Structured Academic Report}
+\newcommand{\rptdefadvisor}{Advisor Name}
+\newcommand{\rptdeffaculty}{Faculty of Engineering}
+\newcommand{\rptdefcity}{City, Country}
+
+% Language defaults via babel's \captions<lang> hooks.
+\addto\captionsenglish{%
+  \renewcommand{\rptdefsubtitle}{A Structured Academic Report}%
+  \renewcommand{\rptdefadvisor}{Advisor Name}%
+  \renewcommand{\rptdeffaculty}{Faculty of Engineering}%
+  \renewcommand{\rptdefcity}{City, Country}%
+  \renewcommand{\lblAuthor}{Author}%
+  \renewcommand{\lblAdvisor}{Advisor}%
+}
+\addto\captionsspanish{%
+  \renewcommand{\rptdefsubtitle}{Un informe académico estructurado}%
+  \renewcommand{\rptdefadvisor}{Nombre del director}%
+  \renewcommand{\rptdeffaculty}{Facultad de Ingeniería}%
+  \renewcommand{\rptdefcity}{Ciudad, País}%
+  \renewcommand{\lblAuthor}{Autor}%
+  \renewcommand{\lblAdvisor}{Director}%
+  % Spanish-specific names for list of tables, table caption, appendix
+  \renewcommand{\listtablename}{Índice de tablas}%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\appendixname}{Anexo}%
+}
+\addto\captionsfrench{%
+  \renewcommand{\rptdefsubtitle}{Un rapport universitaire structuré}%
+  \renewcommand{\rptdefadvisor}{Nom du directeur}%
+  \renewcommand{\rptdeffaculty}{Faculté d'ingénierie}%
+  \renewcommand{\rptdefcity}{Ville, Pays}%
+  \renewcommand{\lblAuthor}{Auteur}%
+  \renewcommand{\lblAdvisor}{Directeur}%
+}
+\addto\captionsgerman{%
+  \renewcommand{\rptdefsubtitle}{Ein strukturierter Studienbericht}%
+  \renewcommand{\rptdefadvisor}{Name der Betreuung}%
+  \renewcommand{\rptdeffaculty}{Fakultät für Ingenieurwissenschaften}%
+  \renewcommand{\rptdefcity}{Stadt, Land}%
+  \renewcommand{\lblAuthor}{Autor}%
+  \renewcommand{\lblAdvisor}{Betreuung}%
+}
+\addto\captionsitalian{%
+  \renewcommand{\rptdefsubtitle}{Una relazione accademica strutturata}%
+  \renewcommand{\rptdefadvisor}{Nome del relatore}%
+  \renewcommand{\rptdeffaculty}{Facoltà di Ingegneria}%
+  \renewcommand{\rptdefcity}{Città, Paese}%
+  \renewcommand{\lblAuthor}{Autore}%
+  \renewcommand{\lblAdvisor}{Relatore}%
+}
+\addto\captionsportuguese{%
+  \renewcommand{\rptdefsubtitle}{Um relatório acadêmico estruturado}%
+  \renewcommand{\rptdefadvisor}{Nome do orientador}%
+  \renewcommand{\rptdeffaculty}{Faculdade de Engenharia}%
+  \renewcommand{\rptdefcity}{Cidade, País}%
+  \renewcommand{\lblAuthor}{Autor}%
+  \renewcommand{\lblAdvisor}{Orientador}%
+}
 \titleformat{\chapter}[display]
 {\normalfont\huge\bfseries\color{reportink}}
 {\color{reportaccent}\chaptertitlename\ \thechapter}{14pt}{\Huge}
@@ -73,20 +148,20 @@
     \vspace*{1.2cm}
     {\scshape\Large {{institution}} \par}
     \vspace{0.35cm}
-    {\large {{faculty}} \par}
+    {\large \rptpick{\rptfaculty}{\rptdeffaculty} \par}
     \vspace{0.8cm}
     {\color{reportmark}\rule{4cm}{2.4pt}\par}
     \vspace{1.8cm}
     {\huge\bfseries {{title}} \par}
     \vspace{0.5cm}
-    {\Large {{subtitle}} \par}
+    {\Large \rptpick{\rptsubtitle}{\rptdefsubtitle} \par}
     \vspace{2.4cm}
     {\large
       \textbf{\lblAuthor:} {{author}}\\[0.35cm]
-      \textbf{\lblAdvisor:} {{advisor}}\par}
+      \textbf{\lblAdvisor:} \rptpick{\rptadvisor}{\rptdefadvisor}\par}
     \vfill
-    % Replace "City, Country" with the city of your institution.
-    {\large City, Country \par}
+    % Replace the city value ({{city}} placeholder) with the city of your institution.
+    {\large \rptpick{\rptcity}{\rptdefcity} \par}
     \vspace{0.25cm}
     {\large {{date}} \par}
     \vspace*{1.0cm}

@@ -1,5 +1,5 @@
 id = "report"
-version = "0.4.0"
+version = "0.5.0"
 display_name = "University Report"
 description = "University report — structured academic report"
 
@@ -18,7 +18,7 @@ name = "subtitle"
 type = "string"
 description = "Subtitle or short description"
 required = false
-default = "A Structured Academic Report"
+default = ""
 
 [[placeholders]]
 name = "author"
@@ -32,7 +32,7 @@ name = "advisor"
 type = "string"
 description = "Advisor name"
 required = false
-default = "Advisor Name"
+default = ""
 
 [[placeholders]]
 name = "institution"
@@ -46,7 +46,14 @@ name = "faculty"
 type = "string"
 description = "Faculty or department"
 required = false
-default = "Faculty of Engineering"
+default = ""
+
+[[placeholders]]
+name = "city"
+type = "string"
+description = "City and country of the institution"
+required = false
+default = ""
 
 [[placeholders]]
 name = "date"
