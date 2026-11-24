@@ -1,6 +1,7 @@
 % University report template for texforge.
 % Text in double braces is a placeholder filled in when the project is created;
 % every % comment says what to replace with your own content.
+% Bibliography style comes from the {{bibstyle}} placeholder (plain|apa7, default plain).
 % Tectonic is XeTeX: the source is always UTF-8, so no input encoding
 % package is loaded here.
 \documentclass[a4paper,12pt]{report}
@@ -21,6 +22,13 @@
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{hyperref}
+
+% Bibliography style switch ({{bibstyle}} placeholder: plain|apa7, default plain).
+\def\reportbibstyle{{{bibstyle}}}
+\def\apaseven{apa7}
+\ifx\reportbibstyle\apaseven
+\usepackage{apacite}
+\fi
 
 % One warm accent for navigation, with near-black text for comfortable reading.
 \definecolor{reportink}{HTML}{1D1510}
@@ -124,6 +132,23 @@
   pdfauthor={{{author}}}
 }
 
+\ifx\reportbibstyle\apaseven
+% A DOI prints as an APA 7 link (copied from apa-general).
+\renewcommand{\doiprefix}{https://doi.org/\ignorespaces}
+\fi
+% Apacite reloads its language strings at document start, overwriting any
+% preamble change, so these APA 7 tweaks run in a hook registered after
+% apacite's own (copied from apa-general): "et al." also in Spanish, and
+% bare URLs with no "Retrieved from".
+\AtBeginDocument{%
+  \ifx\reportbibstyle\apaseven
+  \renewcommand{\BOthers}{et al}%
+  \renewcommand{\BOthersPeriod}{et al.}%
+  \renewcommand{\BRetrievedFrom}{}%
+  \renewcommand{\BRetrieved}[1]{}%
+  \fi
+}
+
 % Running head: chapter mark on the left, page number on the right.
 \pagestyle{fancy}
 \fancyhf{}
@@ -194,7 +219,11 @@
   % --------------------------------------------------------------- bibliography
   % The unnumbered bibliography chapter is listed in the table of contents;
   % \clearpage + \phantomsection put the entry on the bibliography's own page.
+  \ifx\reportbibstyle\apaseven
+  \bibliographystyle{apa7cite}
+  \else
   \bibliographystyle{plain}
+  \fi
   \clearpage
   \phantomsection
   \addcontentsline{toc}{chapter}{\bibname}

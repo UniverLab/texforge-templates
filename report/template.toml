@@ -1,10 +1,10 @@
 id = "report"
-version = "0.5.0"
+version = "0.5.1"
 display_name = "University Report"
 description = "University report — structured academic report"
 
 [files]
-include = ["**/*.tex", "**/*.bib", "**/*.txt"]
+include = ["**/*.tex", "**/*.bib", "**/*.txt", "**/*.bst"]
 exclude = []
 
 [[placeholders]]
@@ -69,6 +69,14 @@ description = "Document language (for babel)"
 required = true
 choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
 default = "english"
+
+[[placeholders]]
+name = "bibstyle"
+type = "enum"
+description = "Bibliography style"
+required = false
+choices = ["plain", "apa7"]
+default = "plain"
 
 [[post_generate]]
 name = "build"
