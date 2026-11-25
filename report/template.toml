@@ -1,10 +1,10 @@
 id = "report"
-version = "0.4.0"
+version = "0.5.1"
 display_name = "University Report"
 description = "University report — structured academic report"
 
 [files]
-include = ["**/*.tex", "**/*.bib", "**/*.txt"]
+include = ["**/*.tex", "**/*.bib", "**/*.txt", "**/*.bst"]
 exclude = []
 
 [[placeholders]]
@@ -18,7 +18,7 @@ name = "subtitle"
 type = "string"
 description = "Subtitle or short description"
 required = false
-default = "A Structured Academic Report"
+default = ""
 
 [[placeholders]]
 name = "author"
@@ -32,7 +32,7 @@ name = "advisor"
 type = "string"
 description = "Advisor name"
 required = false
-default = "Advisor Name"
+default = ""
 
 [[placeholders]]
 name = "institution"
@@ -46,7 +46,14 @@ name = "faculty"
 type = "string"
 description = "Faculty or department"
 required = false
-default = "Faculty of Engineering"
+default = ""
+
+[[placeholders]]
+name = "city"
+type = "string"
+description = "City and country of the institution"
+required = false
+default = ""
 
 [[placeholders]]
 name = "date"
@@ -62,6 +69,14 @@ description = "Document language (for babel)"
 required = true
 choices = ["english", "spanish", "french", "german", "italian", "portuguese"]
 default = "english"
+
+[[placeholders]]
+name = "bibstyle"
+type = "enum"
+description = "Bibliography style"
+required = false
+choices = ["plain", "apa7"]
+default = "plain"
 
 [[post_generate]]
 name = "build"
